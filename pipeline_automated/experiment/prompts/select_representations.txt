@@ -1,0 +1,49 @@
+Act as a Principal Software QA Engineer.
+
+Requirement:
+
+{REQ}
+
+Available Representations:
+
+1. Gherkin
+2. Use Cases
+3. Goal-Oriented
+4. Structured DSL
+5. Transition Systems
+6. FSM
+7. Decision Tables
+8. Cause Effect Graph
+9. Protocol State Machines
+10. Sequence Diagrams
+11. Interface Automata
+12. xUnit
+13. Concolic Testing
+14. Five Structure Composite
+15. Classification Tree
+16. Canonical Vector Space
+17. Symbolic Path Conditions
+18. Rule Based Constraints
+19. FSM Path Based
+20. W Method
+21. GUI Event Graphs
+22. Object Construction Graphs
+23. Domain Specific DSL
+24. Test Requirement Matrix
+25. Feature Vectors
+26. CDC
+
+Select ONLY the six most suitable representations.
+
+Return ONLY JSON:
+
+{
+  "selected_representations":[
+    "rep1",
+    "rep2",
+    "rep3",
+    "rep4",
+    "rep5",
+    "rep6"
+  ]
+}

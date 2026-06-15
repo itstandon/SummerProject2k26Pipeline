@@ -1,0 +1,99 @@
+**Test Case 1: System Privilege Assignment**
+
+* **Preconditions:** User logs in to the system
+* **Step 1:** System prompts user for privilege level (admin, operator, etc.)
+* **Step 2:** User selects privilege level and submits request
+* **Step 3:** System assigns privileges based on user input
+* **Expected Result:** User is granted assigned privileges and can access corresponding resources
+* **Test Data:** Different user inputs for privilege levels (e.g. admin, operator)
+* **Assumptions:**
+	+ System has pre-defined privilege levels
+	+ Privilege assignment is based on user's role
+
+**Test Case 2: Access Mode Allocation**
+
+* **Preconditions:** User requests access to critical resource
+* **Step 1:** System checks if resource is available for allocation
+* **Step 2:** If resource is available, system allocates resource to user and updates allocation table
+* **Expected Result:** User can access allocated resource without deadlocks or errors
+* **Test Data:** Critical resources with varying capacity limits (e.g. instrument slots)
+* **Assumptions:**
+	+ System has a dynamic allocation mechanism for critical resources
+	+ Allocation table is updated in real-time
+
+**Test Case 3: Telescope Start-up and Shutdown**
+
+* **Preconditions:** User requests telescope start-up or shutdown
+* **Step 1:** System checks if current operation allows start-up or shutdown
+* **Step 2:** If allowed, system initiates start-up or shutdown sequence
+* **Expected Result:** Telescope starts up or shuts down successfully without interfering with other operations
+* **Test Data:** Varying operational states (e.g. telescope is running vs. idle)
+* **Assumptions:**
+	+ System has procedures for safe start-up and shutdown
+	+ Operational state is correctly updated
+
+**Test Case 4: Telescope Self-Testing**
+
+* **Preconditions:** User requests telescope self-testing
+* **Step 1:** System checks if current operation allows self-testing
+* **Step 2:** If allowed, system initiates self-testing sequence
+* **Expected Result:** Self-testing completes successfully without interfering with other operations
+* **Test Data:** Varying operational states (e.g. telescope is running vs. idle)
+* **Assumptions:**
+	+ System has procedures for safe self-testing
+	+ Operational state is correctly updated
+
+**Test Case 5: Instrument Start-up and Shutdown**
+
+* **Preconditions:** User requests instrument start-up or shutdown
+* **Step 1:** System checks if current operation allows start-up or shutdown
+* **Step 2:** If allowed, system initiates start-up or shutdown sequence for instrument
+* **Expected Result:** Instrument starts up or shuts down successfully without interfering with other operations
+* **Test Data:** Varying operational states (e.g. instrument is running vs. idle)
+* **Assumptions:**
+	+ System has procedures for safe start-up and shutdown of instruments
+	+ Operational state is correctly updated
+
+**Test Case 6: Instrument Self-Testing**
+
+* **Preconditions:** User requests instrument self-testing
+* **Step 1:** System checks if current operation allows self-testing
+* **Step 2:** If allowed, system initiates self-testing sequence for instrument
+* **Expected Result:** Self-testing completes successfully without interfering with other operations
+* **Test Data:** Varying operational states (e.g. instrument is running vs. idle)
+* **Assumptions:**
+	+ System has procedures for safe self-testing of instruments
+	+ Operational state is correctly updated
+
+**Test Case 7: Configuration and Reconfiguration**
+
+* **Preconditions:** User requests configuration or reconfiguration change
+* **Step 1:** System checks if current operation allows configuration changes
+* **Step 2:** If allowed, system initiates configuration change sequence
+* **Expected Result:** Configuration or reconfiguration completes successfully without errors
+* **Test Data:** Varying operational states (e.g. telescope is running vs. idle)
+* **Assumptions:**
+	+ System has procedures for safe configuration changes
+	+ Operational state is correctly updated
+
+**Test Case 8: Dynamic Reconfiguration of Observing Configuration**
+
+* **Preconditions:** User requests dynamic reconfiguration change during observing session
+* **Step 1:** System checks if current operation allows dynamic reconfiguration
+* **Step 2:** If allowed, system initiates dynamic reconfiguration sequence
+* **Expected Result:** Dynamic reconfiguration completes successfully without interfering with other operations or causing deadlocks
+* **Test Data:** Varying operational states (e.g. telescope is running vs. idle)
+* **Assumptions:**
+	+ System has procedures for safe dynamic reconfiguration of observing configuration
+	+ Operational state is correctly updated
+
+**Test Case 9: Control Software Subsystem Status**
+
+* **Preconditions:** User requests status update of control software subsystems
+* **Step 1:** System checks if current operation allows status updates
+* **Step 2:** If allowed, system retrieves and displays status information for all installed subsystems
+* **Expected Result:** Status update is successful without errors or deadlocks
+* **Test Data:** Varying operational states (e.g. telescope is running vs. idle)
+* **Assumptions:**
+	+ System has procedures for safe retrieval of subsystem status
+	+ Operational state is correctly updated

@@ -1,0 +1,50 @@
+test_case,representation,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13
+OP-001,UC,1,1,1,0,0,0,0,0,0,0,0,0,0
+OP-002,UC,0,0,1,1,1,0,0,0,0,0,0,0,0
+OP-003,UC,0,0,0,0,0,1,1,0,0,0,0,0,0
+OP-004,UC,0,0,0,0,0,0,0,0,1,1,0,0,0
+OP-005,UC,0,0,0,0,0,0,0,0,0,0,1,1,0
+OP-006,UC,0,0,0,0,0,0,0,0,0,0,0,0,1
+OPAP-001,Goal-Oriented,1,1,0,0,0,0,0,0,0,0,0,0,0
+OPAP-002,Goal-Oriented,0,0,1,0,1,0,0,0,0,0,0,0,0
+OPAP-003,Goal-Oriented,0,0,1,1,0,0,0,0,0,0,0,0,0
+OPAP-004,Goal-Oriented,0,0,0,0,0,1,1,0,0,0,0,0,0
+OPAP-005,Goal-Oriented,0,0,0,0,0,0,0,0,1,0,0,0,0
+OPAP-006,Goal-Oriented,0,0,0,0,0,0,0,0,0,0,1,0,0
+OPAP-007,Goal-Oriented,0,0,0,0,0,0,0,0,0,0,0,1,0
+OPAP-008,Goal-Oriented,0,0,0,0,0,0,0,0,0,0,0,0,1
+TC1,Structured DSL,1,1,0,0,0,0,0,0,0,0,0,0,0
+TC2,Structured DSL,1,1,0,0,0,0,0,0,0,0,0,0,0
+TC3,Structured DSL,0,0,1,1,0,0,0,0,0,0,0,0,0
+TC4,Structured DSL,0,0,1,0,1,0,0,0,0,0,0,0,0
+TC5,Structured DSL,0,0,0,0,0,1,0,0,0,0,0,0,0
+TC6,Structured DSL,0,0,0,0,0,0,1,0,0,0,0,0,0
+TC7,Structured DSL,0,0,0,0,0,0,0,0,1,0,0,0,0
+TC8,Structured DSL,0,0,0,0,0,0,0,0,1,0,0,0,0
+TC9,Structured DSL,0,0,0,0,0,0,0,0,0,0,1,0,0
+TC10,Structured DSL,0,0,0,0,0,0,0,0,0,0,1,1,0
+TC11,Structured DSL,0,0,0,0,0,0,0,0,0,0,0,0,1
+TC12,Structured DSL,0,0,0,0,0,0,0,0,0,0,0,0,1
+FSM_TC1,FSM Path Based,1,1,0,0,0,0,0,0,0,0,0,0,0
+FSM_TC2,FSM Path Based,0,0,1,1,1,0,0,0,0,0,0,0,0
+FSM_TC3,FSM Path Based,0,0,0,0,0,1,1,0,0,0,0,0,0
+FSM_TC4,FSM Path Based,0,0,0,0,0,0,0,0,1,0,0,0,0
+FSM_TC5,FSM Path Based,0,0,0,0,0,0,0,0,0,0,0,1,0
+FSM_TC6,FSM Path Based,0,0,0,0,0,0,0,0,0,0,1,0,0
+FSM_TC7,FSM Path Based,0,0,0,0,0,0,0,0,0,0,0,0,1
+DT_TC1,Decision Tables,1,1,0,0,0,0,0,0,0,0,0,0,0
+DT_TC2,Decision Tables,0,0,1,1,1,0,0,0,0,0,0,0,0
+DT_TC3,Decision Tables,0,0,0,0,0,1,1,0,0,0,0,0,0
+DT_TC4,Decision Tables,0,0,0,0,0,0,0,0,1,0,0,0,0
+DT_TC5,Decision Tables,0,0,0,0,0,0,0,0,0,1,0,0,0
+DT_TC6,Decision Tables,0,0,0,0,0,0,0,0,0,0,1,1,0
+DT_TC7,Decision Tables,0,0,0,0,0,0,0,0,0,0,0,0,1
+TC1,Sequence Diagrams,1,1,0,0,0,0,0,0,0,0,0,0,0
+TC2,Sequence Diagrams,0,0,1,1,1,0,0,0,0,0,0,0,0
+TC3,Sequence Diagrams,0,0,0,0,0,1,1,0,0,0,0,0,0
+TC4,Sequence Diagrams,0,0,0,0,0,0,0,1,0,0,0,0,0
+TC5,Sequence Diagrams,0,0,0,0,0,0,0,0,1,0,0,0,0
+TC6,Sequence Diagrams,0,0,0,0,0,0,0,0,0,1,0,0,0
+TC7,Sequence Diagrams,0,0,0,0,0,0,0,0,0,0,1,0,0
+TC8,Sequence Diagrams,0,0,0,0,0,0,0,0,0,0,1,1,0
+TC9,Sequence Diagrams,0,0,0,0,0,0,0,0,0,0,0,0,1

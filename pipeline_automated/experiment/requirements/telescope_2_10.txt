@@ -1,0 +1,21 @@
+2.10 Operation Privileges, Protections, and Procedures
+
+To preserve the integrity of the system, there must be a system of privileges established at each operating level of the system.
+
+These privileges should be determined in a simple manner during logging into the system.
+
+Protection against accidental interference is to be implemented using an Access Mode Allocation system that dynamically identifies and assigns resources as needed.
+
+Critical resources (those that can support only a restricted number of simultaneous uses) are assigned solely through this allocation system.
+
+The allocation system must ensure that the system cannot remain deadlocked with respect to this resource allocation.
+
+Finally, procedures must be implemented for convenience and system integrity, to simplify and codify common tasks. The tasks that require such procedures include:
+
+• Telescope start-up and shutdown.
+• Telescope system self-testing.
+• Instrument start-up and shut-down. This is not permitted to interfere with telescope operation.
+• Instrument self-testing and self-diagnosis. This is not permitted to interfere with telescope operation.
+• Configuration and reconfiguration.
+• Dynamic reconfiguration of observing configuration (beam switching without restarting instruments and telescope).
+• The control software should know what subsystems are installed and their status at all times.

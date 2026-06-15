@@ -1,0 +1,13 @@
+Act as a Principal QA Engineer.
+
+Requirement:
+
+{REQ}
+
+Representation:
+
+{REP}
+
+Generate detailed test cases using ONLY this representation.
+
+Return plain text.

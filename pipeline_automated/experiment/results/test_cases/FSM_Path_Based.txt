@@ -1,0 +1,77 @@
+**Test Case Document: Operation Privileges, Protections, and Procedures**
+
+**Introduction**
+-----------------
+
+As a Principal QA Engineer, we will create detailed test cases to ensure the proper functioning of the system's operation privileges, protections, and procedures based on the given requirements. The representation used for this document is Finite State Machine (FSM) Path Based.
+
+**Test Case 1: Login Privilege Assignment**
+
+* **Precondition:** User is attempting to log in to the system.
+* **Step 1:** User enters valid login credentials.
+* **Expected Result:** System assigns privileges based on user's role and department.
+* **Test Steps:**
+	1. Log in as a user with different roles (e.g., admin, operator, guest).
+	2. Verify that each role has assigned privileges (e.g., access to different resources, functions).
+	3. Test privilege assignment for invalid login credentials.
+	4. Verify that the system does not assign privileges for invalid login attempts.
+
+**Test Case 2: Access Mode Allocation System**
+
+* **Precondition:** User has logged in with assigned privileges.
+* **Step 1:** User requests access to a critical resource.
+* **Expected Result:** System dynamically assigns resources based on user's privilege level and availability.
+* **Test Steps:**
+	1. Test access to a critical resource by users with different privilege levels (e.g., admin, operator).
+	2. Verify that the system assigns resources correctly based on privilege level and availability.
+	3. Simulate multiple requests for the same resource; verify that the system ensures no deadlocks.
+
+**Test Case 3: Telescope Start-up and Shutdown**
+
+* **Precondition:** User has access to telescope operations with assigned privileges.
+* **Step 1:** User initiates start-up or shutdown of the telescope.
+* **Expected Result:** System performs the operation safely, without interfering with other processes.
+* **Test Steps:**
+	1. Test start-up and shutdown by users with different privilege levels (e.g., admin, operator).
+	2. Verify that the system performs the operation correctly and safely.
+	3. Simulate simultaneous start-up and shutdown requests; verify that the system handles them correctly.
+
+**Test Case 4: Instrument Start-up and Shutdown**
+
+* **Precondition:** User has access to instrument operations with assigned privileges.
+* **Step 1:** User initiates start-up or shutdown of an instrument.
+* **Expected Result:** System performs the operation safely, without interfering with telescope operation.
+* **Test Steps:**
+	1. Test start-up and shutdown by users with different privilege levels (e.g., admin, operator).
+	2. Verify that the system performs the operation correctly and safely, without affecting telescope operations.
+
+**Test Case 5: Dynamic Reconfiguration**
+
+* **Precondition:** User has access to reconfigure observing configuration with assigned privileges.
+* **Step 1:** User initiates dynamic reconfiguration (e.g., beam switching).
+* **Expected Result:** System performs reconfiguration dynamically, without requiring restart of instruments or telescope.
+* **Test Steps:**
+	1. Test dynamic reconfiguration by users with different privilege levels (e.g., admin, operator).
+	2. Verify that the system performs reconfiguration correctly and safely.
+
+**Test Case 6: Configuration and Reconfiguration**
+
+* **Precondition:** User has access to configure or reconfigure system settings with assigned privileges.
+* **Step 1:** User initiates configuration or reconfiguration of system settings.
+* **Expected Result:** System updates settings correctly, without affecting other operations.
+* **Test Steps:**
+	1. Test configuration and reconfiguration by users with different privilege levels (e.g., admin, operator).
+	2. Verify that the system updates settings correctly.
+
+**Test Case 7: System Status and Subsystem Awareness**
+
+* **Precondition:** User has access to view system status and subsystem information with assigned privileges.
+* **Step 1:** User queries system status or checks subsystem status.
+* **Expected Result:** System provides accurate and up-to-date information about subsystems installed and their status.
+* **Test Steps:**
+	1. Test system status query by users with different privilege levels (e.g., admin, operator).
+	2. Verify that the system provides correct and current information.
+
+**Conclusion**
+
+The above test cases cover all aspects of operation privileges, protections, and procedures as required by the specification. These tests will ensure that the system functions correctly and safely, providing a robust environment for users with different privilege levels.

@@ -1,0 +1,15 @@
+| ID  | Requirement Fragment                                        |
+| --- | ----------------------------------------------------------- |
+| R1  | Privileges established at each operating level              |
+| R2  | Privileges determined during login                          |
+| R3  | Access Mode Allocation system                               |
+| R4  | Critical resources allocated only through allocation system |
+| R5  | Deadlock avoidance                                          |
+| R6  | Telescope startup                                           |
+| R7  | Telescope shutdown                                          |
+| R8  | Telescope self-testing                                      |
+| R9  | Instrument startup/shutdown does not interfere              |
+| R10 | Instrument self-test does not interfere                     |
+| R11 | Configuration/reconfiguration                               |
+| R12 | Dynamic reconfiguration                                     |
+| R13 | Subsystem status awareness                                  |
