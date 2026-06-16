@@ -68,7 +68,8 @@ section_pattern = re.compile(
 
 requirements = {}
 
-current_req = None
+current_section_number = None
+current_section_title = None
 
 for _, row in df.iterrows():
 
@@ -95,47 +96,40 @@ for _, row in df.iterrows():
         continue
 
     ####################################################
-    # Find heading in any cell
+    # Determine current section + content
     ####################################################
 
-    heading_found = False
+    content = ""
 
     for text in text_values:
 
         match = section_pattern.match(text)
 
         if match:
-
-            req_num = match.group(1)
-            title = match.group(2)
-
-            requirements[req_num] = {
-                "_id": req_id if req_id else req_num,
-                "req_id": req_id,
-                "number": req_num,
-                "title": title,
-                "content": "",
-                "parent": None,
-                "ancestors": [],
-                "children": []
-            }
-
-            current_req = req_num
-            heading_found = True
-            break
+            current_section_number = match.group(1)
+            current_section_title = match.group(2)
+        else:
+            if content:
+                content += "\n"
+            content += text
 
     ####################################################
-    # Content row
+    # Create one document per REQ_ID
     ####################################################
 
-    if not heading_found and current_req:
+    if req_id:
 
-        content = " ".join(text_values)
-
-        if requirements[current_req]["content"]:
-            requirements[current_req]["content"] += "\n"
-
-        requirements[current_req]["content"] += content
+        requirements[req_id] = {
+            "_id": req_id,
+            "req_id": req_id,
+            "number": current_section_number,
+            "title": current_section_title,
+            "content": content,
+            "depth": len(current_section_number.split(".")) if current_section_number else 0,
+            "parent": None,
+            "ancestors": [],
+            "children": []
+        }
 
 ########################################
 # LOOKUP TABLE
@@ -150,11 +144,12 @@ number_to_reqid = {
 # BUILD HIERARCHY
 ########################################
 
-for req_num, req in requirements.items():
+for req in requirements.values():
 
+    req_num = req["number"]
     parent_num = get_parent(req_num)
 
-    if parent_num and parent_num in requirements:
+    if parent_num and parent_num in number_to_reqid:
 
         req["parent"] = {
             "number": parent_num,
@@ -169,7 +164,7 @@ for req_num, req in requirements.items():
 
     for ancestor_num in get_ancestors(req_num):
 
-        if ancestor_num in requirements:
+        if ancestor_num in number_to_reqid:
 
             req["ancestors"].append({
                 "number": ancestor_num,
@@ -180,15 +175,15 @@ for req_num, req in requirements.items():
 # BUILD CHILDREN
 ########################################
 
-for req_num, req in requirements.items():
+for req in requirements.values():
 
     if req["parent"] is None:
         continue
 
-    parent_num = req["parent"]["number"]
+    parent_num = req["parent"]["req_id"]
 
     requirements[parent_num]["children"].append({
-        "number": req_num,
+        "number": req["number"],
         "req_id": req["req_id"]
     })
 
@@ -230,11 +225,22 @@ db = client[DB_NAME]
 collection = db[COLLECTION_NAME]
 
 ########################################
+# DROP OLD INDEX (only needed once)
+########################################
+
+try:
+    collection.drop_index("number_1")
+    print("Dropped old unique index on 'number'.")
+except Exception:
+    pass
+
+########################################
 # INDEXES
 ########################################
 
-collection.create_index("number", unique=True)
-collection.create_index("req_id")
+collection.create_index("number")
+collection.create_index("depth")
+
 collection.create_index("parent.number")
 collection.create_index("parent.req_id")
 
