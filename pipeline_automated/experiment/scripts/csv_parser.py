@@ -115,9 +115,9 @@ for _, row in df.iterrows():
                 "number": req_num,
                 "title": title,
                 "content": "",
-                "parent_number": None,
-                "ancestor_numbers": [],
-                "child_numbers": []
+                "parent": None,
+                "ancestors": [],
+                "children": []
             }
 
             current_req = req_num
@@ -138,14 +138,43 @@ for _, row in df.iterrows():
         requirements[current_req]["content"] += content
 
 ########################################
+# LOOKUP TABLE
+########################################
+
+number_to_reqid = {
+    req["number"]: req["req_id"]
+    for req in requirements.values()
+}
+
+########################################
 # BUILD HIERARCHY
 ########################################
 
 for req_num, req in requirements.items():
 
-    req["parent_number"] = get_parent(req_num)
+    parent_num = get_parent(req_num)
 
-    req["ancestor_numbers"] = get_ancestors(req_num)
+    if parent_num and parent_num in requirements:
+
+        req["parent"] = {
+            "number": parent_num,
+            "req_id": number_to_reqid[parent_num]
+        }
+
+    else:
+
+        req["parent"] = None
+
+    req["ancestors"] = []
+
+    for ancestor_num in get_ancestors(req_num):
+
+        if ancestor_num in requirements:
+
+            req["ancestors"].append({
+                "number": ancestor_num,
+                "req_id": number_to_reqid[ancestor_num]
+            })
 
 ########################################
 # BUILD CHILDREN
@@ -153,10 +182,15 @@ for req_num, req in requirements.items():
 
 for req_num, req in requirements.items():
 
-    parent = req["parent_number"]
+    if req["parent"] is None:
+        continue
 
-    if parent and parent in requirements:
-        requirements[parent]["child_numbers"].append(req_num)
+    parent_num = req["parent"]["number"]
+
+    requirements[parent_num]["children"].append({
+        "number": req_num,
+        "req_id": req["req_id"]
+    })
 
 ########################################
 # DEBUG PARSER
@@ -201,8 +235,14 @@ collection = db[COLLECTION_NAME]
 
 collection.create_index("number", unique=True)
 collection.create_index("req_id")
-collection.create_index("parent_number")
-collection.create_index("ancestor_numbers")
+collection.create_index("parent.number")
+collection.create_index("parent.req_id")
+
+collection.create_index("ancestors.number")
+collection.create_index("ancestors.req_id")
+
+collection.create_index("children.number")
+collection.create_index("children.req_id")
 
 ########################################
 # REPLACE EXISTING DATA
