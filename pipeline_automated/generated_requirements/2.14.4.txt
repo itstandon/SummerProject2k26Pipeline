@@ -1,0 +1,41 @@
+SECTION 2.14.4
+================================================================================
+
+REQ_ID : REQ_0096
+Section: 2.14.4
+Title  : Design constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0097
+Section: 2.14.4
+Title  : Design constraints
+
+A.There are different requirements for software running on different layers. For example, strict real-time control is restricted to the IOC layer.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0098
+Section: 2.14.4
+Title  : Design constraints
+
+B.Also, the use of a virtual-telescope model in the Gemini system means that the integrated system can be tested and developed independently of the target hardware. This is useful not only in the use of the telescope simulator during science planning, but in maintenance and testing as well. Therefore all hardware subsystems must provide a software simulation module (as stated earlier) that responds in reasonable fashion to commands directed at that hardware. This simulation may require a standard environment, such as VxWorks, EPICS, and VME crate/cpu, but it cannot require any hardware specific to the application.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0099
+Section: 2.14.4
+Title  : Design constraints
+
+C.Gemini subsystem should be as self-contained and autonomous as possible, thereby decreasing the functional width of the interface to the rest of the Gemini system.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0100
+Section: 2.14.4
+Title  : Design constraints
+
+D.No subsystem package should make any assumptions about the surrounding environment beyond that provided in the interface specifications.
+
+--------------------------------------------------------------------------------
+

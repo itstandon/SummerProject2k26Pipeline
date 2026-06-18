@@ -1,0 +1,145 @@
+SECTION 4.2.3
+================================================================================
+
+REQ_ID : REQ_0532
+Section: 4.2.3
+Title  : Data Specification
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0533
+Section: 4.2.3
+Title  : Data Specification
+
+The various types of data were presented earlier. This section examines the input, output, and interrelationships of the various data types.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0534
+Section: 4.2.3.1
+Title  : Data Framework
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0535
+Section: 4.2.3.1
+Title  : Data Framework
+
+Final storage locations for the data types is presented here, along with a description of the different databases that are available.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0536
+Section: 4.2.3.1
+Title  : Data Framework
+
+A.The on-line data store holds astronomical data for the current observation.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0537
+Section: 4.2.3.1
+Title  : Data Framework
+
+B.Astronomical data are automatically stored onto the Archive medium (external software).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0538
+Section: 4.2.3.1
+Title  : Data Framework
+
+C.Star catalogs are available in Astronomical object catalogs (external software).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0539
+Section: 4.2.3.1
+Title  : Data Framework
+
+D.Telescope and instrument parameters are distributed in databases across the IOCs for those systems. There is also a central repository maintained by the OCS that holds these databases for down-loading to the IOCs. (developed software)
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0540
+Section: 4.2.3.1
+Title  : Data Framework
+
+E.All additional data that is not required on line (configuration information, detailed documentation, operation logs, etc.) are stored in a relational DBMS. (supported software).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0541
+Section: 4.2.3.2
+Title  : Data inputs
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0542
+Section: 4.2.3.2
+Title  : Data inputs
+
+Input data are all data that are predefined at operation start. This includes catalogs, calibrations and flat fields available in archives, etc.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0543
+Section: 4.2.3.2
+Title  : Data inputs
+
+Observing commands (whether entered interactively or via the Sequencer) are input data that provide information on the course of operation and trigger events.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0544
+Section: 4.2.3.3
+Title  : Data Output
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0545
+Section: 4.2.3.3
+Title  : Data Output
+
+Replies to commands, including status information, updates to parameters, video and astronomical information are considered data outputs.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0546
+Section: 4.2.3.3
+Title  : Data Output
+
+These data end up in the different databases.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0547
+Section: 4.2.3.3
+Title  : Data Output
+
+Operational information, such as logging messages, alarms, and errors are special forms of output data, since they are made available for later inspection and debugging.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0548
+Section: 4.2.3.4
+Title  : Inter-function data definitions
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0549
+Section: 4.2.3.4
+Title  : Inter-function data definitions
+
+One criteria is that sufficient information be recorded during an observation to recreate the sequence of events that occurred during the observation. This requires that all input and output data be logged appropriately.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0550
+Section: 4.2.3.4
+Title  : Inter-function data definitions
+
+Given an initial set of configuration parameters, the Gemini system operates via a sequence of commands. This operation is complemented by using previously stored data, calibrations, and star catalogs
+
+--------------------------------------------------------------------------------
+

@@ -1,0 +1,25 @@
+SECTION 3.5.10
+================================================================================
+
+REQ_ID : REQ_0467
+Section: 3.5.10
+Title  : Contingencies
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0468
+Section: 3.5.10
+Title  : Contingencies
+
+A. Fault tolerance. The security and safety of the system should be guaranteed even in the event of failure of any component, including the higher-level software.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0469
+Section: 3.5.10
+Title  : Contingencies
+
+B. Redundancy. Hardware redundancy is a not requirement of the Gemini systems. However, the ability to reconfigure the software if one actuator fails is desirable. Data redundancy is also a requirement, to prevent a single failure from causing the loss of collected data. The goal is to minimize the effects of single-point errors throughout the system.
+
+--------------------------------------------------------------------------------
+

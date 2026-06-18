@@ -1,0 +1,25 @@
+SECTION 3.1.3
+================================================================================
+
+REQ_ID : REQ_0122
+Section: 3.1.3
+Title  : Other Information Flow
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0123
+Section: 3.1.3
+Title  : Other Information Flow
+
+TV data concerning site monitoring and voice need to be capable of being available at all operations facilities. It will be a question of interfacing and bandwidth costs whether such information is actually available at a specific location. It is not a requirement that point to point video be available between Gemini 8m Telescopes operations facilities. It is a requirement that voice connectivity, perhaps point to point, be available on a permanent connection.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0124
+Section: 3.1.3
+Title  : Other Information Flow
+
+Other astronomical information such as that coming from sky field monitors, autoguider cameras and sky monitoring devices such as cloud and seeing monitors shall also be capable of being available.
+
+--------------------------------------------------------------------------------
+

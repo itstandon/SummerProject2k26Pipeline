@@ -1,0 +1,25 @@
+SECTION 4.3
+================================================================================
+
+REQ_ID : REQ_0704
+Section: 4.3
+Title  : User Requirements for EPICS developers
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0705
+Section: 4.3
+Title  : User Requirements for EPICS developers
+
+The Experimental Physics and Industrial Control System (EPICS) toolkit is the foundation of the Gemini control system. EPICS was originally developed at the Los Alamos and Argonne National Laboratories for use in large accelerator control and diagnostics systems. It is now an established standard within the international High Energy Physics community and is gaining acceptance amongst astronomical sites.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0706
+Section: 4.3
+Title  : User Requirements for EPICS developers
+
+Within the EPICS community there is understood to be an informal distinction between two classes of developers, labeled ‘Internals’ and ‘Applications’. Although these definitions are nowhere written down, this understanding serves as the basis for many discussions with the community and for the nature of training classes.
+
+--------------------------------------------------------------------------------
+

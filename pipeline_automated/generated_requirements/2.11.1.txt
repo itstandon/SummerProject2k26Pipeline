@@ -1,0 +1,17 @@
+SECTION 2.11.1
+================================================================================
+
+REQ_ID : REQ_0048
+Section: 2.11.1
+Title  : Capacity
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0049
+Section: 2.11.1
+Title  : Capacity
+
+The Gemini software should have no hard restrictions on the number of simultaneous users, but should allow for policy decisions that do restrict the amount of simultaneous access.
+
+--------------------------------------------------------------------------------
+

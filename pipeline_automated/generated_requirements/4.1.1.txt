@@ -1,0 +1,25 @@
+SECTION 4.1.1
+================================================================================
+
+REQ_ID : REQ_0506
+Section: 4.1.1
+Title  : Maintenance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0507
+Section: 4.1.1
+Title  : Maintenance
+
+The Gemini system maintenance philosophy is described in the Software Management Plan (SMP).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0508
+Section: 4.1.1
+Title  : Maintenance
+
+Preventative maintenance is scheduled as specified in the Gemini Design Requirements Specification.
+
+--------------------------------------------------------------------------------
+

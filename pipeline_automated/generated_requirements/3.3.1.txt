@@ -1,0 +1,33 @@
+SECTION 3.3.1
+================================================================================
+
+REQ_ID : REQ_0162
+Section: 3.3.1
+Title  : User Interfaces (UIF)
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0163
+Section: 3.3.1
+Title  : User Interfaces (UIF)
+
+The user interface defines the way users see the Gemini 8m Telescopes system. Given the large number of instruments, there can be many different stations which are active at the same time. It is essential for operational and maintenance reasons that, in spite of the obvious differences of the setups and commands available, the same philosophy is applied throughout. This calls for a homogeneous user interface, which can be achieved only by applying the same user interface tools to the whole project, providing the Gemini 8m Telescopes user interface's ‘look and feel’.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0164
+Section: 3.3.1
+Title  : User Interfaces (UIF)
+
+The user interface should not be seen as a package linked to a specific computer. Given the requirement to be able to access the Gemini 8m Telescopes from several points, the user interface should rather be seen as a package to be callable from a large number of stations, depending on where a user is. It should also be network transparent so that it does not matter where it is being run.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0165
+Section: 3.3.1
+Title  : User Interfaces (UIF)
+
+The user interface tools shall be based on standards, defined in Section 4.2.5 on page 4- 7, which will be portable across different computer hardware platforms (Portable User Interface Toolkit). The intent of a portability requirement is to facilitate migrating existing and future Gemini systems to different hardware as the need arises. It is the current intent to limit the selection of computer hardware platforms to as few as is practical.
+
+--------------------------------------------------------------------------------
+

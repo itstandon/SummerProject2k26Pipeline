@@ -1,0 +1,325 @@
+SECTION 3.5.6
+================================================================================
+
+REQ_ID : REQ_0396
+Section: 3.5.6
+Title  : Security and safety
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0397
+Section: 3.5.6
+Title  : Security and safety
+
+The Gemini Control System development effort will obey and abide by both the letter and the spirit of all applicable engineering practices, laws, regulations, and policies. All necessary safety approvals will be obtained before devices will be accepted. The safety precedents and requirements are detailed below.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0398
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0399
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+MIL-STD-822B, System Safety Program Requirements, defines safety and risk as:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0400
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+Safety: Freedom from those conditions that can cause death, injury, occupational illness, or damage to or loss of equipment or property
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0401
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+Risk: An expression of the possibility of a mishap in terms of hazard severity and hazard probability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0402
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+In addition the Gemini project defines a hazard as:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0403
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+Hazard: Something that could cause death, injury, illness, or damage/loss.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0404
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0405
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The Gemini system must be self-monitoring to invoke safety monitoring to prevent risk to people or damage to equipment. The software should be able to quickly bring the Gemini system to a safe state upon notification of such danger. Subsystems must be able to detect such danger and report it appropriately. In the event that the risk persists, subsystems must be able to move themselves into safe states to protect people and equipment (i.e. if there is a failure in the higher-level systems).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0406
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+Safety protection must be applied whenever there is the risk that the actions of the control software could endanger people or cause damage to any Gemini 8m Telescopes subsystem, for example, by driving beyond limits or by overexposing detectors. This protection, where implemented, must be independent of the software. In general this will require mechanical hard stops, electrical interlocks, electrical hard limit switches, soft limit switches, software limits, and watch dogs,.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0407
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The order in which these systems will work is as follows:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0408
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+1. software limits - the software will not allow unsafe actions; the command will be rejected
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0409
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+2. soft limit switches - the software will detect unsafe areas and halt; the software will allow movement off of soft limits
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0410
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+3. software watch dogs - the software will halt if its watch dog has not been reset
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0411
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+4. hardware watch dogs - the system will halt if its watch dog has not been reset
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0412
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+5. hard limit switches - these switches will remove power from actuator when beyond soft limits; the software/electrical systems will allow movement off of hard limits
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0413
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+6. hardware interlocks - these will prevent both software and hardware from action - there will be no bypass of these systems
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0414
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+7. hard stops - the mechanism cannot move beyond this point due to mechanical limit(s). In general hard stops will use dampers to avoid damage to equiment.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0415
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The Gemini 8m Telescopes software shall be able to bring the Gemini 8m Telescopes system quickly to a safe state upon detection of danger. Safety aspects shall be analyzed during the functional specification phase of the software.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0416
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+Security must be provided in order to both prevent accidental mix-up of commands from different users on different parts of the system and to prevent intrusion from the wide area network into the Gemini 8m Telescopes. In particular, the astronomical database must be protected from intrusion, whether the purpose is to access private data or to be destructive. It is acceptable, and may well prove to be the best solution, to provide intrusion security by a well designed network gateway acting as a firewall.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0417
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+A system that is operating in Engineering/Maintenance mode must ignore directives from other systems, though status information should still be provided for use by other systems.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0418
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+There should be security preventing the intrusion into the system by unauthorized users, or users at unauthorized access levels.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0419
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+All systems are appropriately interlocked. This interlock must not depend on any software for reliable operation. Details of the interlock system are found in the Mount Control System Work Package Definition.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0420
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The interlock philosophy is as follows:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0421
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+•All hazards capable of causing death and/or loss of irreplacable equipment shall be passively interlocked.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0422
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+•All hazards capable of causing injury and/or severe damage to equipment shall be actively interlocked (severe damage implies that repairs are not repairable at the depot level.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0423
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+•All other hazards may be interlocked via software.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0424
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The precedence for conforming to safety requirements will be:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0425
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+1. design for minimum risk
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0426
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+2. incorporate safety devices
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0427
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+3. provide warning devices
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0428
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+4. develop procedures and training
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0429
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The general safety requirements are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0430
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+A.eliminate hazards through design, including material selection
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0431
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+B.isolate hazardous substances from people
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0432
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+C.minimize hazard to people during operation and maintenance from high voltage, electromagnetic radiation, sharp edges, hot surfaces, chemicals, etc.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0433
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+D.minimize risks due to environmental conditions, such as temperature, noise, vibration, etc.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0434
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+E.minimize risks created by human error
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0435
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+F.use interlocks and other protective devices when hazards cannot be eliminated
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0436
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+G.provide distinctive markings and warnings to protect people
+
+--------------------------------------------------------------------------------
+

@@ -15,7 +15,7 @@ load_dotenv()
 # CONFIG
 ########################################
 
-EXCEL_FILE = "GeminiReqs.xlsx"
+EXCEL_FILE = "requirements/GeminiReqs.xlsx"
 
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("DB_NAME")

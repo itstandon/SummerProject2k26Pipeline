@@ -1,0 +1,17 @@
+SECTION 3.5.8
+================================================================================
+
+REQ_ID : REQ_0458
+Section: 3.5.8
+Title  : Expandability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0459
+Section: 3.5.8
+Title  : Expandability
+
+Since the Gemini software will be developed in stages over a period of years, and since computer technology is expected to evolve rapidly over this same period, the software is to be designed to be easily extended and upgraded with modifications to non-changing components. The software itself, its installation process, and its documentation must be developed with this expandability in mind, using general industry standards.
+
+--------------------------------------------------------------------------------
+

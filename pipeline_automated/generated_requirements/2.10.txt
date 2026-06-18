@@ -1,0 +1,89 @@
+SECTION 2.10
+================================================================================
+
+REQ_ID : REQ_0036
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0037
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+To preserve the integrity of the system, there must be a system of privileges established at each operating level of the system. These privileges should be determined in a simple manner during logging into the system.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0038
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+Protection against accidental interference is to be implemented using an Access Mode Allocation system that dynamically identifies and assigns resources as needed. Critical resources (those that can support only a restricted number of simultaneous uses) are assigned solely through this allocation system. The allocation system must ensure that the system cannot remain deadlocked with respect to this resource allocation.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0039
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+Finally, procedures must be implemented for convenience and system integrity, to simplify and codify common tasks. The tasks that require such procedures include:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0040
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+•Telescope start-up and shutdown.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0041
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+•Telescope system self-testing.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0042
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+•Instrument start-up and shut-down. This is not permitted to interfere with telescope operation.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0043
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+•Instrument self-testing and self-diagnosis This is not permitted to interfere with telescope operation.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0044
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+•Configuration and reconfiguration.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0045
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+•Dynamic reconfiguration of observing configuration (beam switching without restarting instruments and telescope).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0046
+Section: 2.10
+Title  : Operation Privileges, Protections, and Procedures
+
+•The control software should know what subsystems are installed and their status at all times.
+
+--------------------------------------------------------------------------------
+

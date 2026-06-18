@@ -1,0 +1,17 @@
+SECTION 4.2.6
+================================================================================
+
+REQ_ID : REQ_0702
+Section: 4.2.6
+Title  : Life cycle constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0703
+Section: 4.2.6
+Title  : Life cycle constraints
+
+Life cycle constraints are discussed in the Gemini Software Management Plan.
+
+--------------------------------------------------------------------------------
+

@@ -1,0 +1,203 @@
+SECTION 3.5.2
+================================================================================
+
+REQ_ID : REQ_0284
+Section: 3.5.2
+Title  : Supportability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0285
+Section: 3.5.2
+Title  : Supportability
+
+A supportability plan will be part of the Gemini Control System. The goals and issues to be addressed by this plan and the elements of the plan are detailed below. The plan is TBD.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0286
+Section: 3.5.2.1
+Title  : Goals
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0287
+Section: 3.5.2.1
+Title  : Goals
+
+• have supportability influence design
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0288
+Section: 3.5.2.1
+Title  : Goals
+
+• translate availability and readiness requirements into supportability requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0289
+Section: 3.5.2.1
+Title  : Goals
+
+• identify and plan for necessary support
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0290
+Section: 3.5.2.1
+Title  : Goals
+
+• provide support at minimum cost
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0291
+Section: 3.5.2.2
+Title  : Issues
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0292
+Section: 3.5.2.2
+Title  : Issues
+
+• maintenance personnel availability and work hour constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0293
+Section: 3.5.2.2
+Title  : Issues
+
+• personnel skill level constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0294
+Section: 3.5.2.2
+Title  : Issues
+
+• operating and support cost constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0295
+Section: 3.5.2.2
+Title  : Issues
+
+• target failures correctable at each maintenance level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0296
+Section: 3.5.2.2
+Title  : Issues
+
+• allowable downtime at site
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0297
+Section: 3.5.2.2
+Title  : Issues
+
+• turnaround time to fix and maintain system
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0298
+Section: 3.5.2.2
+Title  : Issues
+
+• standardization requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0299
+Section: 3.5.2.3
+Title  : Elements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0300
+Section: 3.5.2.3
+Title  : Elements
+
+• maintenance planning
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0301
+Section: 3.5.2.3
+Title  : Elements
+
+• manpower and personnel
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0302
+Section: 3.5.2.3
+Title  : Elements
+
+• supply support
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0303
+Section: 3.5.2.3
+Title  : Elements
+
+• support equipment
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0304
+Section: 3.5.2.3
+Title  : Elements
+
+• technical data
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0305
+Section: 3.5.2.3
+Title  : Elements
+
+• training and training support
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0306
+Section: 3.5.2.3
+Title  : Elements
+
+• computer resources support
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0307
+Section: 3.5.2.3
+Title  : Elements
+
+• facilities
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0308
+Section: 3.5.2.3
+Title  : Elements
+
+• packaging, handling, storage and transportation
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0309
+Section: 3.5.2.3
+Title  : Elements
+
+• design interface
+
+--------------------------------------------------------------------------------
+

@@ -1,0 +1,65 @@
+SECTION 3.1.1
+================================================================================
+
+REQ_ID : REQ_0105
+Section: 3.1.1
+Title  : Control information flow
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0106
+Section: 3.1.1
+Title  : Control information flow
+
+Control information must be transferred, typically in the form of commands and replies from users, to telescope and instruments. Replies might contain status information and, in general, data concerning instruments and telescopes, to be stored together with the astronomical data.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0107
+Section: 3.1.1
+Title  : Control information flow
+
+Control information on all controlled variables must be provided by all subsystems on request. No request for information shall produce a delay of control activities or locking, even if the corresponding equipment is not available or faulty.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0108
+Section: 3.1.1
+Title  : Control information flow
+
+Delay times for the exchange of control information must stay within precise time limits to be defined in “General Description” in Chapter 2. One can afford to retransmit commands in case of transmission error or collision, but the protocol has to be predictable in that commands cannot get lost and replies have to come back reliably.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0109
+Section: 3.1.1
+Title  : Control information flow
+
+In a number of cases, synchronization with the Time Reference System at the Gemini 8m Telescopes site is also necessary.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0110
+Section: 3.1.1
+Title  : Control information flow
+
+Access to control parameters, telescope and instrument information for monitoring or other use makes a significant contribution to the control flow, and may be logged at quite high rates for short periods (i.e. up to 200 Hz for some information).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0111
+Section: 3.1.1
+Title  : Control information flow
+
+It is explicitly required that all such information is available to the Gemini 8m Telescopes software and is capable of being available to all users of the Gemini 8m Telescopes, subject only to restrictions with respect to updating. It must also be possible to restrict user access to such information.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0112
+Section: 3.1.1
+Title  : Control information flow
+
+In particular also, the meteorological information coming from a weather station should be available centrally.
+
+--------------------------------------------------------------------------------
+

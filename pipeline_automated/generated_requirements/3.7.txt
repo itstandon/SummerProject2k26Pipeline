@@ -1,0 +1,65 @@
+SECTION 3.7
+================================================================================
+
+REQ_ID : REQ_0488
+Section: 3.7
+Title  : Development Environment
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0489
+Section: 3.7
+Title  : Development Environment
+
+The development environment for the Gemini 8m Telescopes software consists of the computer hardware and system software (operating system, languages and tools) chosen optimally to support the development model presented in the previous section on life-cycle aspects.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0490
+Section: 3.7
+Title  : Development Environment
+
+The choice of such an environment has to be defined, together with the choice of all the Gemini 8m Telescopes standards, but excluding the target computer hardware, in Section 4.2.5 on page 4- 7.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0491
+Section: 3.7
+Title  : Development Environment
+
+The following criteria for later selection shall be kept in mind:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0492
+Section: 3.7
+Title  : Development Environment
+
+•Emphasis on development and productivity requirements, including cross support tools
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0493
+Section: 3.7
+Title  : Development Environment
+
+•Portability of software (target hardware independence)
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0494
+Section: 3.7
+Title  : Development Environment
+
+•Hardware and vendor independence
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0495
+Section: 3.7
+Title  : Development Environment
+
+•Use of industrial and defacto standards.
+
+--------------------------------------------------------------------------------
+

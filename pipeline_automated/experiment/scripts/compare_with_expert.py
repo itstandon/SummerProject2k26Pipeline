@@ -8,7 +8,7 @@ import re
 
 expert = set(
     pd.read_csv(
-        "expert_ground_truth.csv"
+        "results/representation_selection/expert_ground_truth.csv"
     )["representation"]
 )
 

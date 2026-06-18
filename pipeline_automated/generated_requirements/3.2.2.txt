@@ -1,0 +1,45 @@
+SECTION 3.2.2
+================================================================================
+
+REQ_ID : REQ_0138
+Section: 3.2.2
+Title  : Privilege and protection levels
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0139
+Section: 3.2.2
+Title  : Privilege and protection levels
+
+Privileges and protections are also important parameters to define user operations.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0140
+Section: 3.2.2.1
+Title  : Privileges
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0141
+Section: 3.2.2.1
+Title  : Privileges
+
+A further subdivision within the levels can be achieved by implementing privileges associated with categories of users or with the location of the user station (local or remote). For example some users might only be allowed monitoring, as a subsystem is in use by someone else.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0142
+Section: 3.2.2.2
+Title  : Protections
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0143
+Section: 3.2.2.2
+Title  : Protections
+
+Protections must also be enforced (see also Security in Section 3.5.6 on page 3- 20) among users and the operational software should indicate clearly to users the current operation level and check the compatibility between subsystems in different modes.
+
+--------------------------------------------------------------------------------
+

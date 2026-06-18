@@ -1,0 +1,33 @@
+SECTION 2.9.3
+================================================================================
+
+REQ_ID : REQ_0032
+Section: 2.9.3
+Title  : Video Information Flow
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0033
+Section: 2.9.3
+Title  : Video Information Flow
+
+Video information originates from target acquisition, guiding, and site monitoring cameras. The requirements for transferring video data are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0034
+Section: 2.9.3
+Title  : Video Information Flow
+
+A.The system must allow for fast transmission of rough images every 0.5 sec. This may be assisted through the use of data-loss compression techniques (e.g. JPEG, MPEG, etc).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0035
+Section: 2.9.3
+Title  : Video Information Flow
+
+B.In addition, there is the need for transmission of images matching the original resolution.This high-quality transmission must require less than 20 sec, and can only be assisted with loss-less compression.
+
+--------------------------------------------------------------------------------
+

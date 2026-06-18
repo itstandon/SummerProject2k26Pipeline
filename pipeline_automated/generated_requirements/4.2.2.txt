@@ -1,0 +1,39 @@
+SECTION 4.2.2
+================================================================================
+
+REQ_ID : REQ_0527
+Section: 4.2.2
+Title  : Communication subsystems
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0528
+Section: 4.2.2.1
+Title  : Remote Operations
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0529
+Section: 4.2.2.1
+Title  : Remote Operations
+
+A fundamental criteria of Gemini telescope operation is that it support a full implementation of remote operations. This includes remote observing, remote control of telescope, enclosure, and instruments, multipoint monitoring, remote monitoring, remote access for testing, development, diagnostics, and maintenance,
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0530
+Section: 4.2.2.1
+Title  : Remote Operations
+
+It is expected that all operational capability found in on site operations is extended to remote operations, with some degradation in performance resulting from WAN bandwidth considerations. This means the video data signals must be encoded digitally and transferred via the WAN to remote sites.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0531
+Section: 4.2.2.1
+Title  : Remote Operations
+
+There must be some form of security to control access to system features, possibly restricting some operations to specific remote sites (e.g. Hale Pohaku or Hilo in Hawaii, Cerro Tololo in Chile, etc.)
+
+--------------------------------------------------------------------------------
+

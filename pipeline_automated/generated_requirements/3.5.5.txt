@@ -1,0 +1,73 @@
+SECTION 3.5.5
+================================================================================
+
+REQ_ID : REQ_0387
+Section: 3.5.5
+Title  : Human Engineering
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0388
+Section: 3.5.5
+Title  : Human Engineering
+
+All Gemini Software must be designed with human engineering requirements under consideration. The human engineering requirements for Gemini Software include:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0389
+Section: 3.5.5
+Title  : Human Engineering
+
+A.provisions for minimizing stress effects and fatigue
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0390
+Section: 3.5.5
+Title  : Human Engineering
+
+B.feedback on operation on specific tasks
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0391
+Section: 3.5.5
+Title  : Human Engineering
+
+C.people and machine interfaces
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0392
+Section: 3.5.5
+Title  : Human Engineering
+
+D.procedures
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0393
+Section: 3.5.5
+Title  : Human Engineering
+
+E.training and experience
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0394
+Section: 3.5.5
+Title  : Human Engineering
+
+F.interaction with team members
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0395
+Section: 3.5.5
+Title  : Human Engineering
+
+G.management and organizational behavior
+
+--------------------------------------------------------------------------------
+

@@ -1,0 +1,151 @@
+SECTION 3.3.4
+================================================================================
+
+REQ_ID : REQ_0208
+Section: 3.3.4
+Title  : Communication interfaces
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0209
+Section: 3.3.4
+Title  : Communication interfaces
+
+Being in itself a distributed telescope system and having a large number of instruments, the Gemini 8m Telescopes system has internal communication needs.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0210
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0211
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+The LAN shall support the majority of the Gemini 8m Telescopes system internal communication needs. This LAN must be capable of dealing both with the data bandwidths required (at peak and on average) and with the required response times and synchronization needs. This LAN shall be supplemented with a Local Time Bus, for distribution of absolute and relative time signals, and both a digital reflective memory bus and an analog event-based bus, for distribution of signals with requirements not satisfied by a LAN.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0212
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+Independently of the physical layout of such a network, its functional requirements can be split into several categories:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0213
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+•Local coordination and synchronization needs within a subsystem (for example, coordination of active support system for primary mirror, bi-directional traffic of commands/replies). This layer could be considered as internal to a given subsystem or instrument, but as more than one subsystem might need it, one should aim for a unique solution at the hardware and software level.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0214
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+•Global synchronization needs, such as the universal time synchronization requirement. The required accuracy will be defined in Section 2.9 on page 2- 19.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0215
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+•Exchange of control information, in the form of commands and status information. (Bi-directional traffic) (see also Section 3.1.1 on page 3- 1).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0216
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+•Collection and transfer (for archiving or remote access) of raw astronomical data. The capacity will be defined in Section 2.9 on page 2- 19(see also Section 3.1.2 on page 3- 2).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0217
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+•Access from Wide Area Network (WAN) for remote diagnostics and monitoring from operations facilities (Bi-directional traffic).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0218
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+No distinction is made here between WAN and point to point links as there shall be no difference in the software between the two cases. However the system architecture will be designed so as to minimize the communication load placed on peer and higher level networks.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0219
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+Control data and astronomical data have already been defined in the Data specifications (see Section 3.1 on page 3- 1). The reason for repeating them here is to have a complete view of the required network functionality.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0220
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+To eliminate conceptual access problems, while coping with different bandwidths, LAN and WAN interfaces shall be homogeneous and shall be based on standards which allow migration on different media, should they become required during the Gemini 8m Telescopes project life.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0221
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+For maintenance reasons and hardware independence, a clear hierarchical model must be implemented, supporting separation of logical and physical layers, e.g. ISO/OSI model. It is recognized that this hierarchy may need to be violated for (in general) performance reasons. This results in point-to-point connections between peer systems or direct connections bypassing the hierarchy.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0222
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+Network redundancy should also be considered in the design phase as a way to increase reliability and security, in particular for control information.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0223
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+Due to the uncertain future of the Internet, only non-essential tasks may employ it. All essential tasks, not including remote observing, must take place on resources controlled by the project (such as leased lines).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0224
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+Violation of the hierarchical nature of the system can lead to testing and maintenance problems. The use of these features must be limited and constrained by the following guidelines:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0225
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+A.Peer-to-peer connectivity should only be used to overcome a demonstrated performance problem.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0226
+Section: 3.3.4.1
+Title  : Local Area Network(LAN)
+
+B.Bypassing the hierarchy (connected between grandmother and granddaughter with no path through the mother) should only be used for transmission of status information or bulk data, not control flow.
+
+--------------------------------------------------------------------------------
+
