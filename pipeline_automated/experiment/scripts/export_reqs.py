@@ -47,7 +47,11 @@ def get_group(number, level):
 
 def export_reqs(level):
 
-    client = MongoClient(MONGO_URI)
+    client = MongoClient(
+        MONGO_URI,
+        serverSelectionTimeoutMS=10000,  # wait up to 10s
+        connectTimeoutMS=10000,
+    )
 
     db = client[DB_NAME]
 

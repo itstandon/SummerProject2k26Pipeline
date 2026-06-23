@@ -1,70 +1,58 @@
-**Test Case Generation for 2.10 Operation Privileges, Protections, and Procedures**
+Here are the detailed test cases for the relevant requirements using a decision table format:
 
-**Test Case 1: System Login Privilege Determination**
+| Test Case ID | Requirement ID           | Data Source         | Destination        | Expected Format   |
+|--------------|----------------------------|----------------------|--------------------|--------------------|
+| TC_01        | REQ_0032                     | Gemini                | Home Institutes     | FITS               |
+| TC_02        | REQ_0034                     | Target Acquisition  | Guiding            | High Quality Format|
+| TC_03        | REQ_0035                     | Site Monitoring      | Observing          | High Quality Format|
+| TC_04        | REQ_0030                     | Gemini                | Home Institutes     | FITS               |
 
-* **Input**: User attempts to log in to the system
-* **Expected Outcome**: The system determines privileges based on simple criteria (e.g., user role)
-* **Test Steps**:
-	1. Log in as a test user with different roles (e.g., admin, operator, guest)
-	2. Verify that privileges are assigned correctly for each role
-	3. Attempt to access restricted resources; verify that access is denied
-* **Assumptions**: The system has pre-defined privilege levels and corresponding resource permissions
+### Test Case 1: TC_01
+**Test Description:** Verify that data is formatted in the FITS format when transmitted from Gemini to home institutes.
 
-**Test Case 2: Access Mode Allocation System**
+**Test Inputs:**
+- Source: Gemini
+- Destination: Home Institutes
 
-* **Input**: User requests access to critical resources (e.g., telescope control)
-* **Expected Outcome**: The system dynamically assigns resources through the allocation system, preventing deadlocks
-* **Test Steps**:
-	1. Simulate multiple users requesting access to critical resources concurrently
-	2. Verify that resources are assigned correctly and efficiently, without deadlocks
-	3. Attempt to intentionally create a deadlock scenario; verify that the system detects and resolves it
+**Expected Outputs:**
+- Format of Data: FITS
 
-**Test Case 3: Telescope Start-up and Shutdown Procedures**
+**Result Expected:** Pass (Data should be formatted as FITS)
 
-* **Input**: User initiates telescope start-up or shutdown procedure
-* **Expected Outcome**: The system completes the procedure safely and efficiently, without interfering with instrument operation
-* **Test Steps**:
-	1. Simulate a normal telescope start-up sequence
-	2. Verify that all necessary systems are online and functioning correctly
-	3. Attempt to simulate an abnormal shutdown scenario (e.g., power failure)
-	4. Verify that the system recovers safely and efficiently
+### Test Case 2: TC_02
+**Test Description:** Verify that data is transmitted at high quality format when sent from target acquisition to guiding.
 
-**Test Case 4: Instrument Start-up and Shutdown Procedures**
+**Test Inputs:**
+- Source: Target Acquisition
+- Destination: Guiding
 
-* **Input**: User initiates instrument start-up or shutdown procedure
-* **Expected Outcome**: The system completes the procedure safely and efficiently, without interfering with telescope operation
-* **Test Steps**:
-	1. Simulate a normal instrument start-up sequence
-	2. Verify that all necessary systems are online and functioning correctly
-	3. Attempt to simulate an abnormal shutdown scenario (e.g., faulty instrument)
-	4. Verify that the system recovers safely and efficiently
+**Expected Outputs:**
+- Format of Data: High Quality Format
 
-**Test Case 5: Instrument Self-Testing and Self-Diagnosis Procedures**
+**Result Expected:** Pass (Data should be formatted as High Quality Format)
 
-* **Input**: User initiates instrument self-testing or self-diagnosis procedure
-* **Expected Outcome**: The system completes the procedure safely and efficiently, without interfering with telescope operation
-* **Test Steps**:
-	1. Simulate an instrument self-test sequence
-	2. Verify that all necessary systems are functioning correctly
-	3. Attempt to simulate a faulty instrument scenario
-	4. Verify that the system detects and reports the issue correctly
+### Test Case 3: TC_03
+**Test Description:** Verify that data is transmitted at high quality format when sent from site monitoring to observing.
 
-**Test Case 6: Dynamic Reconfiguration of Observing Configuration**
+**Test Inputs:**
+- Source: Site Monitoring
+- Destination: Observing
 
-* **Input**: User attempts to dynamically reconfigure observing configuration (e.g., beam switching)
-* **Expected Outcome**: The system completes the reconfiguration safely and efficiently, without disrupting telescope or instrument operation
-* **Test Steps**:
-	1. Simulate a normal dynamic reconfiguration sequence
-	2. Verify that all necessary systems are updated correctly
-	3. Attempt to simulate an abnormal reconfiguration scenario (e.g., incorrect configuration)
-	4. Verify that the system detects and reports the issue correctly
+**Expected Outputs:**
+- Format of Data: High Quality Format
 
-**Test Case 7: Control Software Awareness of Installed Subsystems**
+**Result Expected:** Pass (Data should be formatted as High Quality Format)
 
-* **Input**: System checks installed subsystems and their status
-* **Expected Outcome**: The control software accurately reflects installed subsystems and their status at all times
-* **Test Steps**:
-	1. Simulate a normal system startup sequence
-	2. Verify that the control software displays accurate information about installed subsystems
-	3. Attempt to simulate an abnormal scenario (e.g., missing or faulty subsystem)
-	4. Verify that the system detects and reports the issue correctly
+### Test Case 4: TC_04
+**Test Description:** Verify that data is transmitted in FITS format when sent from Gemini to home institutes.
+
+**Test Inputs:**
+- Source: Gemini
+- Destination: Home Institutes
+
+**Expected Outputs:**
+- Format of Data: FITS
+
+**Result Expected:** Pass (Data should be formatted as FITS)
+
+These test cases cover the various requirements and ensure that data is transmitted in the correct format based on its source and destination.

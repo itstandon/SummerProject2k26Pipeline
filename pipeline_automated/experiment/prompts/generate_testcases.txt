@@ -8,6 +8,6 @@ Representation:
 
 {REP}
 
-Generate detailed test cases using ONLY this representation.
+Generate detailed test cases for requirements which use this representation. 
 
 Return plain text.

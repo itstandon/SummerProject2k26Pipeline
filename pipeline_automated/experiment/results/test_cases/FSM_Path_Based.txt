@@ -1,77 +1,34 @@
-**Test Case Document: Operation Privileges, Protections, and Procedures**
+### Test Cases Representation (FSM Path Based) - Control Information Flow
 
-**Introduction**
------------------
+#### 1. Command Syntax Consistency Across Systems
+- **Test Case:** Verify the syntax of control flow commands is consistent across workstation and IOC software systems.
+  - **Preparation:** Ensure all command syntaxes in both workstation and IOC subsystems are identical, as per Section 3.2.5 on page 3-6.
+  - **Procedure:** Send a sample control command to both workstation and IOC systems and verify the responses match exactly.
+  - **Result:** The commands should be syntactically consistent across systems without any discrepancies.
 
-As a Principal QA Engineer, we will create detailed test cases to ensure the proper functioning of the system's operation privileges, protections, and procedures based on the given requirements. The representation used for this document is Finite State Machine (FSM) Path Based.
+#### 2. Response to Common Commands for Operational Status
+- **Test Case:** Test all common set of commands required by all subsystems, including operational status inquiries and version information checks, etc., as specified in Section 5.3 on page 5-2.
+  - **Preparation:** Prepare a series of command requests that align with the common IOC commands outlined.
+  - **Procedure:** Send these commands to both workstation and IOC systems to test their responses.
+  - **Result:** Both subsystems should respond correctly without any failure in communication.
 
-**Test Case 1: Login Privilege Assignment**
+#### 3. Reliability of Command Communication Support
+- **Test Case:** Ensure the support structure for communicating control flow commands is reliable, with a uniform ACK/NAK protocol across all systems as described in Section 2.9.1, including timeout handling.
+  - **Preparation:** Configure a setup where both workstation and IOC subsystems are tested under conditions of command transmission failure with expected timeouts (approximately 500 msec).
+  - **Procedure:** Simulate command failures by sending commands outside the protocol window or interrupting communication between systems at specified intervals, observe if they respond according to timeout behavior.
+  - **Result:** Systems should adhere to the protocol and demonstrate correct response upon detected time-outs without failure.
 
-* **Precondition:** User is attempting to log in to the system.
-* **Step 1:** User enters valid login credentials.
-* **Expected Result:** System assigns privileges based on user's role and department.
-* **Test Steps:**
-	1. Log in as a user with different roles (e.g., admin, operator, guest).
-	2. Verify that each role has assigned privileges (e.g., access to different resources, functions).
-	3. Test privilege assignment for invalid login credentials.
-	4. Verify that the system does not assign privileges for invalid login attempts.
+#### 4. Transmission of Video Data (0.5 Sec Intervals)
+- **Test Case:** Verify the system can handle fast transmission of rough images every 0.5 seconds as per Requirement 2.9.3.1.
+  - **Preparation:** Use data loss compression techniques such as JPEG to simulate real-time image transmission and ensure it meets the timing constraints for rough images (0.5 sec intervals).
+  - **Procedure:** Send images through the system, ensuring that each sent image is within the expected window of time.
+  - **Result:** Images should be transmitted consistently every 0.5 seconds without exceeding or falling behind this interval.
 
-**Test Case 2: Access Mode Allocation System**
+#### 5. Transmission of High-Quality Images with Less Than 20 Sec
+- **Test Case:** Validate high-quality transmission requirements for images, ensuring it meets the less than 20 second latency requirement as per Requirement 2.9.3.2.
+  - **Preparation:** Utilize loss-less compression to test the system's capability to handle and transmit images matching original resolution within 20 seconds or less.
+  - **Procedure:** Send a high-resolution image through the system, monitor its transmission speed and ensure it adheres strictly to the specified time limit.
+  - **Result:** The image should be transmitted with quality preservation while remaining within the 20-second window.
 
-* **Precondition:** User has logged in with assigned privileges.
-* **Step 1:** User requests access to a critical resource.
-* **Expected Result:** System dynamically assigns resources based on user's privilege level and availability.
-* **Test Steps:**
-	1. Test access to a critical resource by users with different privilege levels (e.g., admin, operator).
-	2. Verify that the system assigns resources correctly based on privilege level and availability.
-	3. Simulate multiple requests for the same resource; verify that the system ensures no deadlocks.
-
-**Test Case 3: Telescope Start-up and Shutdown**
-
-* **Precondition:** User has access to telescope operations with assigned privileges.
-* **Step 1:** User initiates start-up or shutdown of the telescope.
-* **Expected Result:** System performs the operation safely, without interfering with other processes.
-* **Test Steps:**
-	1. Test start-up and shutdown by users with different privilege levels (e.g., admin, operator).
-	2. Verify that the system performs the operation correctly and safely.
-	3. Simulate simultaneous start-up and shutdown requests; verify that the system handles them correctly.
-
-**Test Case 4: Instrument Start-up and Shutdown**
-
-* **Precondition:** User has access to instrument operations with assigned privileges.
-* **Step 1:** User initiates start-up or shutdown of an instrument.
-* **Expected Result:** System performs the operation safely, without interfering with telescope operation.
-* **Test Steps:**
-	1. Test start-up and shutdown by users with different privilege levels (e.g., admin, operator).
-	2. Verify that the system performs the operation correctly and safely, without affecting telescope operations.
-
-**Test Case 5: Dynamic Reconfiguration**
-
-* **Precondition:** User has access to reconfigure observing configuration with assigned privileges.
-* **Step 1:** User initiates dynamic reconfiguration (e.g., beam switching).
-* **Expected Result:** System performs reconfiguration dynamically, without requiring restart of instruments or telescope.
-* **Test Steps:**
-	1. Test dynamic reconfiguration by users with different privilege levels (e.g., admin, operator).
-	2. Verify that the system performs reconfiguration correctly and safely.
-
-**Test Case 6: Configuration and Reconfiguration**
-
-* **Precondition:** User has access to configure or reconfigure system settings with assigned privileges.
-* **Step 1:** User initiates configuration or reconfiguration of system settings.
-* **Expected Result:** System updates settings correctly, without affecting other operations.
-* **Test Steps:**
-	1. Test configuration and reconfiguration by users with different privilege levels (e.g., admin, operator).
-	2. Verify that the system updates settings correctly.
-
-**Test Case 7: System Status and Subsystem Awareness**
-
-* **Precondition:** User has access to view system status and subsystem information with assigned privileges.
-* **Step 1:** User queries system status or checks subsystem status.
-* **Expected Result:** System provides accurate and up-to-date information about subsystems installed and their status.
-* **Test Steps:**
-	1. Test system status query by users with different privilege levels (e.g., admin, operator).
-	2. Verify that the system provides correct and current information.
-
-**Conclusion**
-
-The above test cases cover all aspects of operation privileges, protections, and procedures as required by the specification. These tests will ensure that the system functions correctly and safely, providing a robust environment for users with different privilege levels.
+### Summary
+The detailed test cases above address various aspects of command communication reliability and video data flow efficiency as per the FSM Path-Based representation. Each case specifically targets critical requirements, ensuring that the system can reliably handle different types of data transmissions under specified conditions.

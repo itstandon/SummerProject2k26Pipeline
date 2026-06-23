@@ -1,11 +1,9 @@
 Act as a Principal Software QA Engineer.
 
 Requirement:
-
 {REQ}
 
 Available Representations:
-
 1. Gherkin
 2. Use Cases
 3. Goal-Oriented
@@ -33,17 +31,21 @@ Available Representations:
 25. Feature Vectors
 26. CDC
 
-Select ONLY the six most suitable representations.
+Select ONLY the six most suitable representations for the given requirement.
+For each selected representation, quote the specific part of the requirement it best covers and explain why it fits.
 
 Return ONLY JSON:
-
 {
-  "selected_representations":[
-    "rep1",
-    "rep2",
-    "rep3",
-    "rep4",
-    "rep5",
-    "rep6"
+  "selected_representations": [
+    {
+      "representation": "rep1",
+      "requirement_excerpt": "the specific part of the requirement this covers",
+      "reason": "why this representation fits"
+    },
+    {
+      "representation": "rep2",
+      "requirement_excerpt": "...",
+      "reason": "..."
+    }
   ]
 }
