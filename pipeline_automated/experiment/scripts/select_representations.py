@@ -1,36 +1,29 @@
-import requests
 import json
+import os
+from call_llm import call_llm, MODELS
 
-def run_select_representations(req_text, prompt_path="prompts/select_representations.txt", output_path="results/representation_selection/llm_output.json"):
+def run_select_representations(req_text, req_filename,
+                                prompt_path="prompts/select_representations.txt",
+                                output_dir="results/representation_selection"):
     with open(prompt_path) as f:
         prompt = f.read()
-
     prompt = prompt.replace("{REQ}", req_text)
 
-    response = requests.post(
-        "http://localhost:11434/api/generate",
-        json={
-            "model":"qwen2.5:3b",
-            "prompt":prompt,
-            "stream":False
-        },
-        timeout=1800
-    )
+    os.makedirs(output_dir, exist_ok=True)
 
-    result = response.json()["response"]
+    for model in MODELS:
+        print(f"  Selecting representations with {model}...")
+        result = call_llm(prompt, model)
 
-    try:
-        parsed = json.loads(result)
-        result = json.dumps(parsed, indent=2)
-    except json.JSONDecodeError:
-        pass  # save raw if model didn't return clean JSON
+        try:
+            parsed = json.loads(result)
+            result = json.dumps(parsed, indent=2)
+        except json.JSONDecodeError:
+            pass
 
-    with open(output_path, "w") as f:
-        f.write(result)
-
-    print(f"Representation selection complete. Output saved to {output_path}")
-
-if __name__ == "__main__":
-    with open("requirements/telescope_2_10.txt") as f:
-        req = f.read()
-    run_select_representations(req)
+        model_name = model.replace(":", "_").replace("/", "_")
+        req_name = os.path.splitext(req_filename)[0]
+        out_path = os.path.join(output_dir, f"{model_name}_{req_name}.json")
+        with open(out_path, "w") as f:
+            f.write(result)
+        print(f"  Saved to {out_path}")

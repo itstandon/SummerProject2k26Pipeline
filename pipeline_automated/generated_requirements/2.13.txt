@@ -1,0 +1,91 @@
+SECTION 2.13
+================================================================================
+
+REQ_ID : REQ_0064
+Section: 2.13
+Title  : Contingencies
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0066
+Section: 2.13.1
+Title  : fault notification
+
+Subsystems must notify the user when faults occur. This notification must be specific as to origin and problem. The notification must also be capable of being electronically logged. It may also prove useful to have multiple levels of fault notification such as detailed, verbose, short, etc. to aid in tracking down problems.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0065
+Section: 2.13.1
+Title  : fault notification
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0068
+Section: 2.13.2
+Title  : fault tolerance
+
+Should a subsystem fail (e.g. one detector, one instrument) predefined procedures must exist to redefine the environment in such a way that operation can restart with the remaining equipment.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0067
+Section: 2.13.2
+Title  : fault tolerance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0070
+Section: 2.13.2
+Title  : fault tolerance
+
+In the case of IOC failure, no transfer of control to another IOC will be possible, due to the local connections and interfaces to the control electronics. In this case there shall be a procedure to replace faulty cards and/or assemblies. If it is possible to observe with that particular IOC in a failed state (in general, this is limited to IOCs that are associated with individual scientific instruments) then it must be possible to reconfigure the system to do so.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0069
+Section: 2.13.2
+Title  : fault tolerance
+
+In case of computer hardware failure concerning the user station equipment, it shall be possible to transfer control from one user station to another via a simple software reconfiguration procedure.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0072
+Section: 2.13.3
+Title  : Redundancy
+
+Full redundancy is not a requirement of the Gemini 8m Telescopes and it will be acceptable to have to replace units in case of failure.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0075
+Section: 2.13.3
+Title  : Redundancy
+
+Certain network concepts may be preferable as they offer intrinsic redundancy (e.g. double loops) and re-routing possibilities in case of node failures (single point failure protection).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0071
+Section: 2.13.3
+Title  : Redundancy
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0074
+Section: 2.13.3
+Title  : Redundancy
+
+All communication shall be based on the use of standard communication protocols, where retry procedures are applied (a form of software redundancy) as part of the protocol.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0073
+Section: 2.13.3
+Title  : Redundancy
+
+There are subsystems which are relatively inexpensive to support as redundant systems, such as telescope control computers. For each area where redundancy is decided to be cost effective, procedures for switching to the backup system will be established. There is no requirement for automatic switching to the backup system.
+
+--------------------------------------------------------------------------------
+

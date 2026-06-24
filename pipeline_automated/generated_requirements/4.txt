@@ -1,0 +1,25 @@
+SECTION 4
+================================================================================
+
+REQ_ID : REQ_0501
+Section: 4
+Title  : Specific Requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0503
+Section: 4
+Title  : Specific Requirements
+
+Only the high-level requirements for Gemini software are presented here. Detailed specifications for the subsystems are found in the individual chapters of the Software Design Description.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0502
+Section: 4
+Title  : Specific Requirements
+
+This section presents the specific attributes and requirements for Gemini software.
+
+--------------------------------------------------------------------------------
+

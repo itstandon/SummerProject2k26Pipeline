@@ -1,0 +1,173 @@
+SECTION 3.1
+================================================================================
+
+REQ_ID : REQ_0103
+Section: 3.1
+Title  : Data specifications
+
+The final purpose of the Gemini 8m Telescopes software is the acquisition of astronomical data in digital form in the most efficient way.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0102
+Section: 3.1
+Title  : Data specifications
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0104
+Section: 3.1
+Title  : Data specifications
+
+To achieve this, many other data concerning the telescope and instruments (parameters) and control commands will have to be exchanged between different processing units in order to setup and control telescope and instruments. Additionally, video and voice data are also necessary (for example, field monitors).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0107
+Section: 3.1.1
+Title  : Control information flow
+
+Control information on all controlled variables must be provided by all subsystems on request. No request for information shall produce a delay of control activities or locking, even if the corresponding equipment is not available or faulty.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0111
+Section: 3.1.1
+Title  : Control information flow
+
+It is explicitly required that all such information is available to the Gemini 8m Telescopes software and is capable of being available to all users of the Gemini 8m Telescopes, subject only to restrictions with respect to updating. It must also be possible to restrict user access to such information.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0110
+Section: 3.1.1
+Title  : Control information flow
+
+Access to control parameters, telescope and instrument information for monitoring or other use makes a significant contribution to the control flow, and may be logged at quite high rates for short periods (i.e. up to 200 Hz for some information).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0106
+Section: 3.1.1
+Title  : Control information flow
+
+Control information must be transferred, typically in the form of commands and replies from users, to telescope and instruments. Replies might contain status information and, in general, data concerning instruments and telescopes, to be stored together with the astronomical data.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0105
+Section: 3.1.1
+Title  : Control information flow
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0108
+Section: 3.1.1
+Title  : Control information flow
+
+Delay times for the exchange of control information must stay within precise time limits to be defined in “General Description” in Chapter 2. One can afford to retransmit commands in case of transmission error or collision, but the protocol has to be predictable in that commands cannot get lost and replies have to come back reliably.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0109
+Section: 3.1.1
+Title  : Control information flow
+
+In a number of cases, synchronization with the Time Reference System at the Gemini 8m Telescopes site is also necessary.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0112
+Section: 3.1.1
+Title  : Control information flow
+
+In particular also, the meteorological information coming from a weather station should be available centrally.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0113
+Section: 3.1.2
+Title  : Astronamical data flow
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0114
+Section: 3.1.2.1
+Title  : Data flow
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0115
+Section: 3.1.2.1
+Title  : Data flow
+
+Detector data must be acquired and stored in the most effective way technology will allow; effectiveness should be evaluated in terms of cost, space requirements, longevity, and speed. This shall lead to the definition of a Gemini 8m Telescopes standard, used on all instruments. In general, operational overheads must be kept as low as possible, to maximize actual observing times.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0116
+Section: 3.1.2.1
+Title  : Data flow
+
+Intermediate storage of raw data in memory on different nodes and in different formats should be kept to a minimum. However, there must be at least two copies - one to secure data as acquired and one to do assessment of data quality on-line (this last copy preferably on removable media).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0117
+Section: 3.1.2.1
+Title  : Data flow
+
+The link chosen to transfer data should represent as small a bottleneck as possible for data acquisition.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0119
+Section: 3.1.2.2
+Title  : Format of data acquisition
+
+Normally, raw data will be acquired and stored as such for quick look evaluations. There might, however, be cases (for example, infrared detectors) where fast preprocessing is needed and where, therefore, raw data will not be stored as such, but in a preprocessed format.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0118
+Section: 3.1.2.2
+Title  : Format of data acquisition
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0120
+Section: 3.1.2.3
+Title  : Transport Data Format
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0121
+Section: 3.1.2.3
+Title  : Transport Data Format
+
+Astronomical data will have to be transported between GEMINI and the home institutes of visiting astronomers in FITS format (as defined by NOST 100-1.0, “Definition of the Flexible Image Transport System (FITS)”, NASA Science Office of Standards and Technology).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0122
+Section: 3.1.3
+Title  : Other Information Flow
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0124
+Section: 3.1.3
+Title  : Other Information Flow
+
+Other astronomical information such as that coming from sky field monitors, autoguider cameras and sky monitoring devices such as cloud and seeing monitors shall also be capable of being available.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0123
+Section: 3.1.3
+Title  : Other Information Flow
+
+TV data concerning site monitoring and voice need to be capable of being available at all operations facilities. It will be a question of interfacing and bandwidth costs whether such information is actually available at a specific location. It is not a requirement that point to point video be available between Gemini 8m Telescopes operations facilities. It is a requirement that voice connectivity, perhaps point to point, be available on a permanent connection.
+
+--------------------------------------------------------------------------------
+

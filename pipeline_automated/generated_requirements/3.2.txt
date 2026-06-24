@@ -1,0 +1,269 @@
+SECTION 3.2
+================================================================================
+
+REQ_ID : REQ_0125
+Section: 3.2
+Title  : Operation
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0127
+Section: 3.2.1
+Title  : Operation Levels
+
+Operation of telescope, instruments and subsystems can be carried out at three different levels. There will be parameters associated with each level of operation which define the status of the system and / or control the system. The specific access by different types of users to particular parameters of the different levels are given in Section 2.5.8 on page 2- 5.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0126
+Section: 3.2.1
+Title  : Operation Levels
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0130
+Section: 3.2.1.1
+Title  : Observing level
+
+It is anticipated that all user categories have access to this level.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0128
+Section: 3.2.1.1
+Title  : Observing level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0129
+Section: 3.2.1.1
+Title  : Observing level
+
+This is the normal operational mode. It allows a certain number of embedded tests, normally at a fairly high level. Monitoring is also done at this level.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0132
+Section: 3.2.1.2
+Title  : Maintenance level
+
+This allows maintenance tables (for example, with instrument parameters) to be updated.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0131
+Section: 3.2.1.2
+Title  : Maintenance level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0133
+Section: 3.2.1.2
+Title  : Maintenance level
+
+It is anticipated that the majority of parameters at this level will be accessed by operations and development staff.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0136
+Section: 3.2.1.3
+Title  : Test level
+
+It shall be possible to update all non-protected parameter values, i.e. those not used by operations at observing level.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0137
+Section: 3.2.1.3
+Title  : Test level
+
+Access to this level will be extremely limited.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0134
+Section: 3.2.1.3
+Title  : Test level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0135
+Section: 3.2.1.3
+Title  : Test level
+
+This allows the installation and testing of new packages or new releases. Any low level test can be performed in this mode.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0139
+Section: 3.2.2
+Title  : Privilege and protection levels
+
+Privileges and protections are also important parameters to define user operations.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0138
+Section: 3.2.2
+Title  : Privilege and protection levels
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0141
+Section: 3.2.2.1
+Title  : Privileges
+
+A further subdivision within the levels can be achieved by implementing privileges associated with categories of users or with the location of the user station (local or remote). For example some users might only be allowed monitoring, as a subsystem is in use by someone else.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0140
+Section: 3.2.2.1
+Title  : Privileges
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0142
+Section: 3.2.2.2
+Title  : Protections
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0143
+Section: 3.2.2.2
+Title  : Protections
+
+Protections must also be enforced (see also Security in Section 3.5.6 on page 3- 20) among users and the operational software should indicate clearly to users the current operation level and check the compatibility between subsystems in different modes.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0149
+Section: 3.2.3
+Title  : Capacity
+
+In addition, the system must support off-site observing modes. The system will provide for a single off-site data acquisition and instrument control node - to be located at either the Gemini 8m Telescopes Site Support or Base Facility.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0151
+Section: 3.2.3
+Title  : Capacity
+
+As a conclusion, the Gemini 8m Telescopes control software shall allow simultaneous operation of up to six active control nodes and up to two more monitoring nodes (one local and one remote) without appreciable degradation of performance.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0146
+Section: 3.2.3
+Title  : Capacity
+
+Each node will have the capability to run at all operation levels.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0144
+Section: 3.2.3
+Title  : Capacity
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0147
+Section: 3.2.3
+Title  : Capacity
+
+When the Gemini 8m Telescopes telescope is used in its normal observing mode, there will be a single operator node for the telescope and two data acquisition and instrument control nodes.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0148
+Section: 3.2.3
+Title  : Capacity
+
+Some tests might be run in parallel on instruments that do not have the light beam at that moment, so in principle additional nodes might be working at the same time. The system will provide for one auxiliary data acquisition and instrument control nodes.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0150
+Section: 3.2.3
+Title  : Capacity
+
+One supervisor will monitor the system, and other users might need to monitor the running of observing programs, locally or remotely. The system will provide for a single local monitoring node and a single remote monitoring node.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0145
+Section: 3.2.3
+Title  : Capacity
+
+The capacity of the system can be expressed in terms of nodes, which is defined as the number of workstations, or in terms of users, which is defined as the sum total of users at all the nodes. The capacity requirements will be expressed in terms of nodes.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0152
+Section: 3.2.3
+Title  : Capacity
+
+In practice the operation and facilities foreseen so far for the Gemini 8m Telescopes will limit this number to a maximum in the order of three active nodes, but the Gemini 8m Telescopes computers and software shall be capable of coping with the load of 10 active nodes, should the case arise.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0153
+Section: 3.2.4
+Title  : Performance criteria
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0154
+Section: 3.2.4
+Title  : Performance criteria
+
+This section is intentionally kept at the level of performance criteria rather than response times (found in Section 2.11.2 on page 2- 22). Every command must be acknowledged in a positive or negative way before the occurrence of the corresponding action within given response times.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0157
+Section: 3.2.5
+Title  : Procedures
+
+Reconfiguration procedures must exist, to change the observing environment.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0159
+Section: 3.2.5
+Title  : Procedures
+
+Operations staff have privileges to change the environment, meaning selecting a suitable combination of instruments.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0158
+Section: 3.2.5
+Title  : Procedures
+
+The definition of the observing environments must be dynamic, i.e. feasible during operations without the need to restart everything. The same applies to the related light path.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0155
+Section: 3.2.5
+Title  : Procedures
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0156
+Section: 3.2.5
+Title  : Procedures
+
+There must be automatic procedures to implement startup and shutdown of the telescope and instruments. These must allow startup and shutdown of instruments independently of the telescope and without affecting the telescope operation.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0160
+Section: 3.2.5
+Title  : Procedures
+
+The operational software should know which subsystems are installed and operational at any given time.
+
+--------------------------------------------------------------------------------
+

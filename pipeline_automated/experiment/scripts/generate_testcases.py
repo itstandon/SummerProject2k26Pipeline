@@ -1,59 +1,73 @@
-import requests
 import json
 import os
 import re
+from call_llm import call_llm, MODELS
 
-def run_generate_testcases(req_text, llm_output_path="results/representation_selection/llm_output.json",
+def run_generate_testcases(req_text, req_filename,
+                            rep_output_dir="results/representation_selection",
                             prompt_path="prompts/generate_testcases.txt",
                             output_dir="results/test_cases"):
-
-    with open(llm_output_path) as f:
-        text = f.read()
-
-    match = re.search(r'\{[\s\S]*\}', text)
-    if not match:
-        raise Exception("No JSON found in llm_output.json")
-
-    data = json.loads(match.group(0))
-    representations = data["selected_representations"]
-
     with open(prompt_path) as f:
         template = f.read()
 
-    os.makedirs(output_dir, exist_ok=True)
+    req_name = os.path.splitext(req_filename)[0]
 
-    for rep in representations:
-        # Handle both old format (string) and new format (object with mapping)
-        if isinstance(rep, dict):
-            rep_name = rep["representation"]
-            excerpt = rep.get("requirement_excerpt", req_text)
-            reason = rep.get("reason", "")
-            rep_context = f"{rep_name}\nRelevant requirement: {excerpt}\nReason: {reason}"
-        else:
-            rep_name = rep
-            rep_context = rep
+    for model in MODELS:
+        model_name = model.replace(":", "_").replace("/", "_")
+        llm_output_path = os.path.join(rep_output_dir, f"{model_name}_{req_name}.json")
 
-        prompt = template
-        prompt = prompt.replace("{REQ}", req_text)
-        prompt = prompt.replace("{REP}", rep_context)
+        if not os.path.exists(llm_output_path):
+            print(f"  Skipping {model} — no representation output found.")
+            continue
 
-        print(f"  Generating test cases for: {rep_name}...")
-        response = requests.post(
-            "http://localhost:11434/api/generate",
-            json={
-                "model": "qwen2.5:3b",
-                "prompt": prompt,
-                "stream": False,
-                "options": {
-                    "num_ctx": 2048,
-                    "num_predict": 1024,
-                }
-            },
-            timeout=1800
-        )
+        with open(llm_output_path) as f:
+            text = f.read()
 
-        result = response.json()["response"]
-        filename = rep_name.replace(" ", "_")
-        with open(f"{output_dir}/{filename}.txt", "w") as out:
-            out.write(result)
-        print(f"  {rep_name} done.")
+        match = re.search(r'\{[\s\S]*\}', text)
+        if not match:
+            print(f"  Skipping {model} — no valid JSON in output.")
+            continue
+
+        # Try to fix common LLM JSON issues before parsing
+        raw = match.group(0)
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            # Remove trailing commas before ] or }
+            raw = re.sub(r',\s*([}\]])', r'\1', raw)
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                print(f"  JSON malformed for {model}, extracting representation names only...")
+                rep_names = re.findall(r'"representation"\s*:\s*"([^"]+)"', raw)
+                if not rep_names:
+                    print(f"  Skipping {model} — couldn't extract anything.")
+                    continue
+                data = {"selected_representations": [{"representation": name} for name in rep_names]}
+        representations = data["selected_representations"]
+
+        model_out_dir = os.path.join(output_dir, f"{model_name}_{req_name}")
+        os.makedirs(model_out_dir, exist_ok=True)
+
+        print(f"\n  Generating test cases with {model}...")
+        for rep in representations:
+            if isinstance(rep, dict):
+                rep_name = rep["representation"]
+                excerpt = rep.get("requirement_excerpt", req_text)
+                reason = rep.get("reason", "")
+                rep_context = f"{rep_name}\nRelevant requirement: {excerpt}\nReason: {reason}"
+            else:
+                rep_name = rep
+                rep_context = rep
+
+            prompt = template
+            prompt = prompt.replace("{REQ}", req_text)
+            prompt = prompt.replace("{REP}", rep_context)
+
+            print(f"    {rep_name}...")
+            result = call_llm(prompt, model)
+
+            filename = rep_name.replace(" ", "_")
+            with open(os.path.join(model_out_dir, f"{filename}.txt"), "w") as out:
+                out.write(result)
+            print(f"    {rep_name} done.")

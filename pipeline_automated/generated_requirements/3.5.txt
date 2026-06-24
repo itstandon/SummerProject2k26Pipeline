@@ -1,0 +1,1567 @@
+SECTION 3.5
+================================================================================
+
+REQ_ID : REQ_0275
+Section: 3.5
+Title  : Attributes
+
+• Human Engineering
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0278
+Section: 3.5
+Title  : Attributes
+
+• Testability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0274
+Section: 3.5
+Title  : Attributes
+
+• Maintainability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0271
+Section: 3.5
+Title  : Attributes
+
+• Simplicity
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0273
+Section: 3.5
+Title  : Attributes
+
+• Reliability and Availability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0281
+Section: 3.5
+Title  : Attributes
+
+• Concurrency
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0280
+Section: 3.5
+Title  : Attributes
+
+• Modularity
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0270
+Section: 3.5
+Title  : Attributes
+
+Regardless of application, the software and control systems produced as part of the Gemini Project Work Packages exhibit numerous common attributes. The specific attributes described in this document are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0269
+Section: 3.5
+Title  : Attributes
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0276
+Section: 3.5
+Title  : Attributes
+
+• Security and Safety
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0279
+Section: 3.5
+Title  : Attributes
+
+• Expandability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0277
+Section: 3.5
+Title  : Attributes
+
+• Environmental Compatibility
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0272
+Section: 3.5
+Title  : Attributes
+
+• Supportability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0282
+Section: 3.5.1
+Title  : Simplicity
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0283
+Section: 3.5.1
+Title  : Simplicity
+
+Achieve as simple as system as we can which meets the requirements.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0285
+Section: 3.5.2
+Title  : Supportability
+
+A supportability plan will be part of the Gemini Control System. The goals and issues to be addressed by this plan and the elements of the plan are detailed below. The plan is TBD.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0284
+Section: 3.5.2
+Title  : Supportability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0288
+Section: 3.5.2.1
+Title  : Goals
+
+• translate availability and readiness requirements into supportability requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0289
+Section: 3.5.2.1
+Title  : Goals
+
+• identify and plan for necessary support
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0290
+Section: 3.5.2.1
+Title  : Goals
+
+• provide support at minimum cost
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0287
+Section: 3.5.2.1
+Title  : Goals
+
+• have supportability influence design
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0286
+Section: 3.5.2.1
+Title  : Goals
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0295
+Section: 3.5.2.2
+Title  : Issues
+
+• target failures correctable at each maintenance level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0292
+Section: 3.5.2.2
+Title  : Issues
+
+• maintenance personnel availability and work hour constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0293
+Section: 3.5.2.2
+Title  : Issues
+
+• personnel skill level constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0297
+Section: 3.5.2.2
+Title  : Issues
+
+• turnaround time to fix and maintain system
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0291
+Section: 3.5.2.2
+Title  : Issues
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0298
+Section: 3.5.2.2
+Title  : Issues
+
+• standardization requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0294
+Section: 3.5.2.2
+Title  : Issues
+
+• operating and support cost constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0296
+Section: 3.5.2.2
+Title  : Issues
+
+• allowable downtime at site
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0304
+Section: 3.5.2.3
+Title  : Elements
+
+• technical data
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0306
+Section: 3.5.2.3
+Title  : Elements
+
+• computer resources support
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0307
+Section: 3.5.2.3
+Title  : Elements
+
+• facilities
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0301
+Section: 3.5.2.3
+Title  : Elements
+
+• manpower and personnel
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0309
+Section: 3.5.2.3
+Title  : Elements
+
+• design interface
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0305
+Section: 3.5.2.3
+Title  : Elements
+
+• training and training support
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0308
+Section: 3.5.2.3
+Title  : Elements
+
+• packaging, handling, storage and transportation
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0303
+Section: 3.5.2.3
+Title  : Elements
+
+• support equipment
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0300
+Section: 3.5.2.3
+Title  : Elements
+
+• maintenance planning
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0302
+Section: 3.5.2.3
+Title  : Elements
+
+• supply support
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0299
+Section: 3.5.2.3
+Title  : Elements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0310
+Section: 3.5.3
+Title  : Reliability adn Availability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0311
+Section: 3.5.3
+Title  : Reliability adn Availability
+
+A reliability program is part of the Gemini Control System. The requirements for this program and some measures of reliability are detailed below. The plan is as provided by Glen Heriot of the Canadian Gemini Project Office.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0322
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+The goal for recover and/or reconfiguration is 5 minutes from onset of the error condition to observing again.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0314
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+To guarantee maximum availability of the control system, retry procedures must be embodied in the software in case of error or failure (e.g. time-out, hardware failure) to achieve recovery on-line whenever possible.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0316
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+To avoid unnecessary downtime, it must be possible for the system to reconfigure itself in order to continue observing, in a different mode if required, given the failure of a single non-critical subsystem.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0320
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+There are to be recovery procedures to restart after error failure.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0325
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+B.performance criteria for the system
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0319
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+A measure of fault rates should be done during commissioning to establish baseline rates for system reliability monitoring.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0321
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+The system should be constantly monitoring active subsystems to be sure they are operating correctly before sending command to each subsystem. This monitoring should continue on inactive subsystems.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0323
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+Specific requirements are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0318
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+On-line pre-checking of the operational status of equipment should be done prior to sending critical or time consuming commands. It must be possible to apply continuous monitoring to all subsystems on request, both when in operation and when idle, to check their operational status.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0328
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+E.means of verification
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0327
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+D.conditions of use and environments
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0312
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0326
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+C.definition of failure
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0329
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+F.period of time during system life
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0313
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+Reliability is defined as “The duration or probability of failure-free performance under state conditions” or “The probability that an item can perform its intended function for a specified interval under stated conditions”. The [GSR] sets as a requirement 2% and a goal 1% for total system (mechanical, electrical, and software) downtime due to failures - this translates to a maximum of 15 minutes per night or 1 night per month of downtime. This in turn sets quite stringent requirements on both MTBF and MTTR for the software and controls.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0324
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+A.measurable, realistic reliability needs
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0315
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+Should recovery also fail, the error or failure has to be reported in a clear form (to identify the cause of the problem) and the system shall put itself into a safe state, whenever a safety aspect might be involved.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0317
+Section: 3.5.3.1
+Title  : reliability and availability requirements
+
+To increase software robustness, range checking and validity checking shall be supported before execution of any input command. This must be possible ahead of time, preparing observing sequences for automatic observations and simulating observations to estimate results.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0334
+Section: 3.5.4
+Title  : maintainability
+
+These issues will be addressed in the context of the mountain environment where the system will be operating. The plan will be delivered with the control system.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0331
+Section: 3.5.4
+Title  : maintainability
+
+A detailed plan for maintaining and periodically upgrading the Control System over its lifetime will be part of the Gemini Control System. The plan will consider:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0330
+Section: 3.5.4
+Title  : maintainability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0332
+Section: 3.5.4
+Title  : maintainability
+
+A.Maintenance requirements including an estimate of required resources.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0333
+Section: 3.5.4
+Title  : maintainability
+
+B.The method of upgrading the system to add capabilities and performance. Areas where upgrades are anticipated should be identified with an estimate of the required effort and resources.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0339
+Section: 3.5.4.1
+Title  : maintenance requirements
+
+The following self-check levels are to be supplied with sub-system software:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0340
+Section: 3.5.4.1
+Title  : maintenance requirements
+
+A.Monitor level. Each subsystem should have a background task running whenever that subsystem is operational, performing such tasks as checking power supply levels, temperatures, performance, correct responses to commands. The OCS is to be notified of any detected problems.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0341
+Section: 3.5.4.1
+Title  : maintenance requirements
+
+B.Self-test level. Each subsystem should provide a module for fully exercising all subsystem components, both hardware and software. This module is executed automatically during start-up and on demand through the defined interface. Problems are to be automatically reported to the OCS via the defined interface.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0342
+Section: 3.5.4.1
+Title  : maintenance requirements
+
+C.System level. There are also software modules for testing the subsystem as an integrated portion of the entire system. This software would be executed on demand during maintenance operation level.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0335
+Section: 3.5.4.1
+Title  : maintenance requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0338
+Section: 3.5.4.1
+Title  : maintenance requirements
+
+All subsystem software is to include modules to aid in the maintenance and testing of the subsystem. For example, each subsystem is to include a simulator that provides a reference behavior for that subsystem. Simple mechanisms should exist for replacing a subsystem with its simulation.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0337
+Section: 3.5.4.1
+Title  : maintenance requirements
+
+Community software support (EPICS) is available nominally free-of-charge through the normal release and bug-fix procedures used in the community.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0336
+Section: 3.5.4.1
+Title  : maintenance requirements
+
+Maintenance of commercial software (Solaris, VxWorks) used by this work package is the responsibility of the WPR and the maintenance costs are not covered by the work package budget.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0343
+Section: 3.5.4.2
+Title  : levels of maintenance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0344
+Section: 3.5.4.2
+Title  : levels of maintenance
+
+The levels at which maintenance may be performed are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0348
+Section: 3.5.4.2.1
+Title  : Organizational level
+
+• repair units by module replacement (e.g. replace a VME card in an IOC)
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0346
+Section: 3.5.4.2.1
+Title  : Organizational level
+
+These should be done in situ during an observing session.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0345
+Section: 3.5.4.2.1
+Title  : Organizational level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0347
+Section: 3.5.4.2.1
+Title  : Organizational level
+
+• repair by unit replacement (for instance, an extra computer system)
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0349
+Section: 3.5.4.2.2
+Title  : Intermediate level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0350
+Section: 3.5.4.2.2
+Title  : Intermediate level
+
+This could be done at an Gemini 8m Telescopes base facility during the day.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0351
+Section: 3.5.4.2.2
+Title  : Intermediate level
+
+• repair by module replacement
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0353
+Section: 3.5.4.2.3
+Title  : Depot level
+
+This could be done at an Gemini 8m Telescopes base facility during the day.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0354
+Section: 3.5.4.2.3
+Title  : Depot level
+
+• module repair
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0352
+Section: 3.5.4.2.3
+Title  : Depot level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0356
+Section: 3.5.4.2.4
+Title  : Contractor
+
+Done at the contractor/vendor’s site.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0355
+Section: 3.5.4.2.4
+Title  : Contractor
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0357
+Section: 3.5.4.2.4
+Title  : Contractor
+
+• repair or replace
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0363
+Section: 3.5.4.3
+Title  : Maintenance goals
+
+D.efforts to perform maintenance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0361
+Section: 3.5.4.3
+Title  : Maintenance goals
+
+B.cost of maintenance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0360
+Section: 3.5.4.3
+Title  : Maintenance goals
+
+A.downtime due to maintenance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0365
+Section: 3.5.4.3
+Title  : Maintenance goals
+
+F.failures induced in maintenance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0364
+Section: 3.5.4.3
+Title  : Maintenance goals
+
+E.errors in maintaining systems
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0359
+Section: 3.5.4.3
+Title  : Maintenance goals
+
+The prime objectives are to minimize:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0362
+Section: 3.5.4.3
+Title  : Maintenance goals
+
+C.numbers and skill levels of personnel
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0358
+Section: 3.5.4.3
+Title  : Maintenance goals
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0367
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+A.maintenance worker constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0372
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+F.planned support equipment
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0369
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+C.sparing plans
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0373
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+G.turnaround time
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0368
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+B.levels of maintenance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0371
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+E.scheduled or preventative maintenance
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0366
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0370
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+D.periodic testing
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0374
+Section: 3.5.4.4
+Title  : Mantenance Issues
+
+H.repair versus discard
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0375
+Section: 3.5.4.5
+Title  : Maintenance constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0378
+Section: 3.5.4.5
+Title  : Maintenance constraints
+
+C.attended / unattended operation
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0376
+Section: 3.5.4.5
+Title  : Maintenance constraints
+
+A.operating hours
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0377
+Section: 3.5.4.5
+Title  : Maintenance constraints
+
+B.downtime or availability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0379
+Section: 3.5.4.5
+Title  : Maintenance constraints
+
+D.environment
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0381
+Section: 3.5.4.6
+Title  : quantitative Maintenance requirements
+
+Quantitative maintenance requirements will be allocated to the system, subsystems, and each component. The requirements must be achievable and stated in such a way that verification is permitted. The requirements will be expressed as:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0382
+Section: 3.5.4.6
+Title  : quantitative Maintenance requirements
+
+A.Mean Time to Repair for each maintenance level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0383
+Section: 3.5.4.6
+Title  : quantitative Maintenance requirements
+
+B.Maximum Time to Repair for each maintenance level
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0380
+Section: 3.5.4.6
+Title  : quantitative Maintenance requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0384
+Section: 3.5.4.6
+Title  : quantitative Maintenance requirements
+
+C.Preventative Maintenance hours per year
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0385
+Section: 3.5.4.6.1
+Title  : maintenance interval
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0386
+Section: 3.5.4.6.1
+Title  : maintenance interval
+
+All equipment shall support a programmed adjustment and maintenance interval of 30 days or longer.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0391
+Section: 3.5.5
+Title  : Human Engineering
+
+C.people and machine interfaces
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0395
+Section: 3.5.5
+Title  : Human Engineering
+
+G.management and organizational behavior
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0393
+Section: 3.5.5
+Title  : Human Engineering
+
+E.training and experience
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0392
+Section: 3.5.5
+Title  : Human Engineering
+
+D.procedures
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0389
+Section: 3.5.5
+Title  : Human Engineering
+
+A.provisions for minimizing stress effects and fatigue
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0394
+Section: 3.5.5
+Title  : Human Engineering
+
+F.interaction with team members
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0388
+Section: 3.5.5
+Title  : Human Engineering
+
+All Gemini Software must be designed with human engineering requirements under consideration. The human engineering requirements for Gemini Software include:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0390
+Section: 3.5.5
+Title  : Human Engineering
+
+B.feedback on operation on specific tasks
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0387
+Section: 3.5.5
+Title  : Human Engineering
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0397
+Section: 3.5.6
+Title  : Security and safety
+
+The Gemini Control System development effort will obey and abide by both the letter and the spirit of all applicable engineering practices, laws, regulations, and policies. All necessary safety approvals will be obtained before devices will be accepted. The safety precedents and requirements are detailed below.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0396
+Section: 3.5.6
+Title  : Security and safety
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0399
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+MIL-STD-822B, System Safety Program Requirements, defines safety and risk as:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0402
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+In addition the Gemini project defines a hazard as:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0400
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+Safety: Freedom from those conditions that can cause death, injury, occupational illness, or damage to or loss of equipment or property
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0398
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0403
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+Hazard: Something that could cause death, injury, illness, or damage/loss.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0401
+Section: 3.5.6.1
+Title  : Definition of safety and risk
+
+Risk: An expression of the possibility of a mishap in terms of hazard severity and hazard probability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0423
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+•All other hazards may be interlocked via software.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0419
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+All systems are appropriately interlocked. This interlock must not depend on any software for reliable operation. Details of the interlock system are found in the Mount Control System Work Package Definition.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0417
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+A system that is operating in Engineering/Maintenance mode must ignore directives from other systems, though status information should still be provided for use by other systems.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0420
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The interlock philosophy is as follows:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0422
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+•All hazards capable of causing injury and/or severe damage to equipment shall be actively interlocked (severe damage implies that repairs are not repairable at the depot level.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0406
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+Safety protection must be applied whenever there is the risk that the actions of the control software could endanger people or cause damage to any Gemini 8m Telescopes subsystem, for example, by driving beyond limits or by overexposing detectors. This protection, where implemented, must be independent of the software. In general this will require mechanical hard stops, electrical interlocks, electrical hard limit switches, soft limit switches, software limits, and watch dogs,.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0412
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+5. hard limit switches - these switches will remove power from actuator when beyond soft limits; the software/electrical systems will allow movement off of hard limits
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0426
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+2. incorporate safety devices
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0435
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+F.use interlocks and other protective devices when hazards cannot be eliminated
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0408
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+1. software limits - the software will not allow unsafe actions; the command will be rejected
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0436
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+G.provide distinctive markings and warnings to protect people
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0409
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+2. soft limit switches - the software will detect unsafe areas and halt; the software will allow movement off of soft limits
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0413
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+6. hardware interlocks - these will prevent both software and hardware from action - there will be no bypass of these systems
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0434
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+E.minimize risks created by human error
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0415
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The Gemini 8m Telescopes software shall be able to bring the Gemini 8m Telescopes system quickly to a safe state upon detection of danger. Safety aspects shall be analyzed during the functional specification phase of the software.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0427
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+3. provide warning devices
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0414
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+7. hard stops - the mechanism cannot move beyond this point due to mechanical limit(s). In general hard stops will use dampers to avoid damage to equiment.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0432
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+C.minimize hazard to people during operation and maintenance from high voltage, electromagnetic radiation, sharp edges, hot surfaces, chemicals, etc.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0407
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The order in which these systems will work is as follows:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0428
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+4. develop procedures and training
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0405
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The Gemini system must be self-monitoring to invoke safety monitoring to prevent risk to people or damage to equipment. The software should be able to quickly bring the Gemini system to a safe state upon notification of such danger. Subsystems must be able to detect such danger and report it appropriately. In the event that the risk persists, subsystems must be able to move themselves into safe states to protect people and equipment (i.e. if there is a failure in the higher-level systems).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0421
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+•All hazards capable of causing death and/or loss of irreplacable equipment shall be passively interlocked.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0433
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+D.minimize risks due to environmental conditions, such as temperature, noise, vibration, etc.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0410
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+3. software watch dogs - the software will halt if its watch dog has not been reset
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0416
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+Security must be provided in order to both prevent accidental mix-up of commands from different users on different parts of the system and to prevent intrusion from the wide area network into the Gemini 8m Telescopes. In particular, the astronomical database must be protected from intrusion, whether the purpose is to access private data or to be destructive. It is acceptable, and may well prove to be the best solution, to provide intrusion security by a well designed network gateway acting as a firewall.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0424
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The precedence for conforming to safety requirements will be:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0429
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+The general safety requirements are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0430
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+A.eliminate hazards through design, including material selection
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0418
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+There should be security preventing the intrusion into the system by unauthorized users, or users at unauthorized access levels.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0425
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+1. design for minimum risk
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0404
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0411
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+4. hardware watch dogs - the system will halt if its watch dog has not been reset
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0431
+Section: 3.5.6.2
+Title  : Security and safety requirements
+
+B.isolate hazardous substances from people
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0441
+Section: 3.5.7
+Title  : Testability
+
+Built-in-test: An integral capability of the mission equipment which provides an onboard, automated test capability to detect, diagnose, or isolate system failures. The fault detection and, possibly, isolation capability is used for periodic or continuous monitoring of a system’s operational health, and for observation and, possibly, diagnosis as a prelude to maintenance action.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0437
+Section: 3.5.7
+Title  : Testability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0439
+Section: 3.5.7
+Title  : Testability
+
+MIL-STD-1309C, Definitions of terms for Test, Measurement and Diagnostic Equipment, has these definitions:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0438
+Section: 3.5.7
+Title  : Testability
+
+A Controls Test Plan is part of the Gemini Control System. This plan will address all areas of testing from design, acceptance, commissioning through to hand-over. The objectives and requirements of this plan are detailed below.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0440
+Section: 3.5.7
+Title  : Testability
+
+Testability: A design characteristic which allows the status of a unit to be confidently determined in a timely fashion.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0443
+Section: 3.5.7.1
+Title  : Testability objectives
+
+The major objectives are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0449
+Section: 3.5.7.1
+Title  : Testability objectives
+
+TABLE 1. Goals for Testability Values
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0455
+Section: 3.5.7.1
+Title  : Testability objectives
+
+Three or less modules |90 |90 |90
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0448
+Section: 3.5.7.1
+Title  : Testability objectives
+
+• testability requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0444
+Section: 3.5.7.1
+Title  : Testability objectives
+
+• test effectively with minimum effort and cost
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0447
+Section: 3.5.7.1
+Title  : Testability objectives
+
+• reduce cost of documentation
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0453
+Section: 3.5.7.1
+Title  : Testability objectives
+
+Fault Isolation|||
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0454
+Section: 3.5.7.1
+Title  : Testability objectives
+
+Eight or less modules|95 |95 |95
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0456
+Section: 3.5.7.1
+Title  : Testability objectives
+
+One module |80 |80 |80
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0450
+Section: 3.5.7.1
+Title  : Testability objectives
+
+Item | Organizational % Capacity | Intermediate % Capability | Depot % Capability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0446
+Section: 3.5.7.1
+Title  : Testability objectives
+
+• reduce the cost of test equipment and programming
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0457
+Section: 3.5.7.1
+Title  : Testability objectives
+
+The interpretation of this table is that we should discover the failure of a subsystem 90% of the time before the failure impacts observing.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0442
+Section: 3.5.7.1
+Title  : Testability objectives
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0451
+Section: 3.5.7.1
+Title  : Testability objectives
+
+Fault Detection (all means) |90 |100 |100
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0452
+Section: 3.5.7.1
+Title  : Testability objectives
+
+Fault Detection (BIT) |90 |95 |95
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0445
+Section: 3.5.7.1
+Title  : Testability objectives
+
+• reduce maintenance induced problems
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0458
+Section: 3.5.8
+Title  : Expandability
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0459
+Section: 3.5.8
+Title  : Expandability
+
+Since the Gemini software will be developed in stages over a period of years, and since computer technology is expected to evolve rapidly over this same period, the software is to be designed to be easily extended and upgraded with modifications to non-changing components. The software itself, its installation process, and its documentation must be developed with this expandability in mind, using general industry standards.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0460
+Section: 3.5.9
+Title  : Modularity
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0462
+Section: 3.5.9
+Title  : Modularity
+
+The on-line databases can be considered part of this interface, but are only accessible through their defined interfaces.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0466
+Section: 3.5.9
+Title  : Modularity
+
+It also important that there are no undesired interactions between subsystems. This may be enforced either at the client/server interface or at the message system level.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0463
+Section: 3.5.9
+Title  : Modularity
+
+The software must be strictly modular, i.e. the functionality of a subsystem should correspond to that which belongs to that subsystem and only to that, so that software for different subsystems can be installed and maintained independently of all the rest.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0461
+Section: 3.5.9
+Title  : Modularity
+
+All software is to be developed using typical modularization and standardization techniques. In particular, each module’s environment is strictly defined by its interface to other components. No module can rely upon information outside of this interface. Module selection should be done in logical fashion to minimize the size of the interfaces between modules.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0464
+Section: 3.5.9
+Title  : Modularity
+
+This is needed in particular for multi-instrument operation, for example, as instruments share the same subsystems on the telescope.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0465
+Section: 3.5.9
+Title  : Modularity
+
+At the same time, the possibility must exist to acquire information about other parts of the system (for example, telescope coordinates) (as mentioned in the control flow requirements in Section 3.1.1).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0467
+Section: 3.5.10
+Title  : Contingencies
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0468
+Section: 3.5.10
+Title  : Contingencies
+
+A. Fault tolerance. The security and safety of the system should be guaranteed even in the event of failure of any component, including the higher-level software.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0469
+Section: 3.5.10
+Title  : Contingencies
+
+B. Redundancy. Hardware redundancy is a not requirement of the Gemini systems. However, the ability to reconfigure the software if one actuator fails is desirable. Data redundancy is also a requirement, to prevent a single failure from causing the loss of collected data. The goal is to minimize the effects of single-point errors throughout the system.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0470
+Section: 3.5.11
+Title  : Concurrency
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0471
+Section: 3.5.11
+Title  : Concurrency
+
+As much as possible, the system is to take advantage of parallel operation to improve efficiency. The Telescope Control System should be capable of detecting and invoking parallel operation as it is responsible for control of all of the telescope and enclosure subsystems.
+
+--------------------------------------------------------------------------------
+

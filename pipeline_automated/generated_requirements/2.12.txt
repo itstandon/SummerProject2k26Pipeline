@@ -1,0 +1,41 @@
+SECTION 2.12
+================================================================================
+
+REQ_ID : REQ_0063
+Section: 2.12
+Title  : Test and checkout requirements
+
+Regression tests should be a part of every Gemini 8m Telescopes software package.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0062
+Section: 2.12
+Title  : Test and checkout requirements
+
+The Gemini 8m Telescopes control software shall also provide for execution of self-test sequences of the Gemini 8m Telescopes system and subsystems. These shall automatically exercise all subsystems present in a given operational configuration.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0059
+Section: 2.12
+Title  : Test and checkout requirements
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0060
+Section: 2.12
+Title  : Test and checkout requirements
+
+The telescope and instrument software shall contain built-in test (BIT) facilities to verify Gemini 8m Telescopes system and Gemini 8m Telescopes software performances.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0061
+Section: 2.12
+Title  : Test and checkout requirements
+
+Every Gemini 8m Telescopes software module shall have corresponding test specifications to check normal operation of releases, to be used both for acceptance tests and as an on-line test procedure.
+
+--------------------------------------------------------------------------------
+

@@ -74,6 +74,8 @@ htmlcov/
 # ==========================
 pipeline_automated/experiment/results/
 
+pipeline_automated/experiment/generated_requirements/
+
 # ==========================
 # Temporary Files
 # ==========================

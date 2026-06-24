@@ -1,0 +1,331 @@
+SECTION 3.4
+================================================================================
+
+REQ_ID : REQ_0227
+Section: 3.4
+Title  : General Constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0231
+Section: 3.4.1
+Title  : User constraints
+
+Finally, in the case of remote operations, other users (e.g. support staff) might be on Cerro Tololo or in Hilo.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0230
+Section: 3.4.1
+Title  : User constraints
+
+However, even at the Gemini 8m Telescopes site there will be users (e.g. software development and maintenance staff) installing or enhancing other parts of the system, possibly working directly at the telescope.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0232
+Section: 3.4.1
+Title  : User constraints
+
+To allow coordination both locally at the Gemini 8m Telescopes site between the various users and with remote users, the software shall support access to the system from any user station. It will then be an operational decision, implying privileges and priorities for the various categories of users, and definition of what a given user can actually do.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0228
+Section: 3.4.1
+Title  : User constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0229
+Section: 3.4.1
+Title  : User constraints
+
+It is envisaged that observing astronomers who have travelled to the Gemini 8m Telescopes site will make use of the Gemini 8m Telescopes control room facilities. This will allow centralized support and coordination of their operations, providing both operations support for individual instruments and supervision for all of them.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0233
+Section: 3.4.1
+Title  : User constraints
+
+Access from any user station will make user stations in principle identical and software configurable as the user station of this or that subsystem. This should greatly simplify the coordination problem posed by the large number of simultaneous users (as already described in the Capacity requirements, Section 3.2.2).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0242
+Section: 3.4.2
+Title  : Hardware constraints
+
+C.Common development and implementation tools must be both available and supported
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0243
+Section: 3.4.2
+Title  : Hardware constraints
+
+D.Identical network access must be supported
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0244
+Section: 3.4.2
+Title  : Hardware constraints
+
+E.Local processing power must be such that telescope and instrument control does not represent a significant overhead in the whole process of executing an observing program (the overhead, if any, should be limited by the time it takes for physical devices to act)
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0234
+Section: 3.4.2
+Title  : Hardware constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0235
+Section: 3.4.2
+Title  : Hardware constraints
+
+There are a number of constraints for the Gemini 8m Telescopes computer hardware. Although some of these constraints may appear redundant the project recognizes that:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0237
+Section: 3.4.2
+Title  : Hardware constraints
+
+•the hardware chosen as the standard at this point of time may be no longer available at some point in the future
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0241
+Section: 3.4.2
+Title  : Hardware constraints
+
+B.Computer hardware must be able to run the Gemini 8m Telescopes software environment (operating systems, Gemini 8m Telescopes software) and provide compatibility in data format (identical internal data representation).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0240
+Section: 3.4.2
+Title  : Hardware constraints
+
+A.Computers used at the Gemini 8m Telescopes site, particularly in the test phase when they are outside the control room and near the subsystem under test, shall be checked against altitude and humidity specifications for the Gemini 8m Telescopes site (see also [EDS] in Section 1.3).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0245
+Section: 3.4.2
+Title  : Hardware constraints
+
+F.The choice of a scalable hardware architecture with computers at various performance levels should solve the problem of adequate on-line data assessment, as the amount of this activity is very variable and dependent upon the kind of detector and method used.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0247
+Section: 3.4.2
+Title  : Hardware constraints
+
+Depending on funding, it is probably reasonable here to make a minimum and a desirable specification. The minimum situation could also coincide with what is needed in the test period before coming to full remote operation.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0248
+Section: 3.4.2
+Title  : Hardware constraints
+
+In any case, remote operation must include remote monitoring from the Gemini 8m Telescopes base facilities, together with access tools for diagnostic and test use. It should be a goal to support remote observing from the Gemini 8m Telescopes base facilities.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0236
+Section: 3.4.2
+Title  : Hardware constraints
+
+•during the next 5 to 10 years new hardware will be available with features and costs that could benefit the project
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0239
+Section: 3.4.2
+Title  : Hardware constraints
+
+These constraints recognize that the majority of the expense in changing hardware standards is the cost of the software. Particular constraints are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0238
+Section: 3.4.2
+Title  : Hardware constraints
+
+•the cost of maintaining an existing hardware standard, even if available, may exceed the costs of adopting a new hardware standard
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0246
+Section: 3.4.2
+Title  : Hardware constraints
+
+G.Due to the limited bandwidths which may be available remotely, there will be constraints on the functionality of remote operations and access.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0252
+Section: 3.4.3
+Title  : software constraints
+
+A.Individual instruments must be able to run fully independently.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0254
+Section: 3.4.3
+Title  : software constraints
+
+C.Additions of new instruments should aim, as a goal, at introducing no modification to already operational parts. Modifications should be confined to the operational procedures and should not affect the bulk of the existing software.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0251
+Section: 3.4.3
+Title  : software constraints
+
+These are:
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0250
+Section: 3.4.3
+Title  : software constraints
+
+Some of the general requirements which have a direct effect on the software are here explicitly transformed into software constraints.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0259
+Section: 3.4.3
+Title  : software constraints
+
+H.Existing software packages should be reused wherever possible.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0257
+Section: 3.4.3
+Title  : software constraints
+
+F.The number of main packages of software must be kept to a minimum to facilitate maintenance, but compatibly with the need to have the right degree of modularity.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0264
+Section: 3.4.3
+Title  : software constraints
+
+M.At boot time, the Gemini 8m Telescopes software shall check the consistency of versions of all the various software components.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0260
+Section: 3.4.3
+Title  : software constraints
+
+I.Existing software expertise should be consulted whenever possible.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0249
+Section: 3.4.3
+Title  : software constraints
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0266
+Section: 3.4.3
+Title  : software constraints
+
+Whether the software is table driven, message driven, or a combination of both is a function of the individual work packages and defined in the appropriate work package description.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0268
+Section: 3.4.3
+Title  : software constraints
+
+Strict checking should be applied on this to preserve maintainability and reconfiguration of the system.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0262
+Section: 3.4.3
+Title  : software constraints
+
+K.To allow for expansion and maintenance, Gemini 8m Telescopes standards must be defined for the on-line software and the development environment.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0265
+Section: 3.4.3
+Title  : software constraints
+
+N.Table-driven software should be used whenever possible, to avoid unnecessary compilations.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0253
+Section: 3.4.3
+Title  : software constraints
+
+B.Telescope software at the two telescopes must be maintained to be identical in the upper layers (even if hardware should differ).
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0261
+Section: 3.4.3
+Title  : software constraints
+
+J.All software which does not directly control specific hardware must be written as machine independent, portable code. Even for microprocessor software, the software should be hardware independent, to allow a later choice of the target microprocessors.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0263
+Section: 3.4.3
+Title  : software constraints
+
+L.On-line version control must be implemented. That is, the version control system must be available to recover/restore versions at all times.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0255
+Section: 3.4.3
+Title  : software constraints
+
+D.Switching to different configurations must be possible at any time with appropriate procedures.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0256
+Section: 3.4.3
+Title  : software constraints
+
+E.There must be easy procedures to reconfigure the system when subsystems are modified or removed.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0267
+Section: 3.4.3
+Title  : software constraints
+
+Changing system constants, such as arcseconds/bit for an encoder, shall not require recompiling but will be updated as part of system startup, and, for some constants, will be modifiable during operation. System status parameters will be maintained to an extent that will allow restarting the system and regaining the previous state. The extent of duplication of the previous state will be dictated by safety and practical considerations.
+
+--------------------------------------------------------------------------------
+
+REQ_ID : REQ_0258
+Section: 3.4.3
+Title  : software constraints
+
+G.Commercial and public domain packages should be used whenever possible.
+
+--------------------------------------------------------------------------------
+
