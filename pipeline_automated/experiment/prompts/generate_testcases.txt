@@ -8,6 +8,9 @@ Representation:
 
 {REP}
 
+Dependency context (how this requirement relates to others):
+{DEPS}
+
 Generate detailed test cases for requirements which use this representation. 
 
 Return plain text.

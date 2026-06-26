@@ -60,9 +60,16 @@ def run_generate_testcases(req_text, req_filename,
                 rep_name = rep
                 rep_context = rep
 
-            prompt = template
+            dep_path = os.path.join("results/dependencies", f"{model_name}_{req_name}.json")
+            dep_context = ""
+            if os.path.exists(dep_path):
+                with open(dep_path) as f:
+                    dep_context = f.read()
+
+            prompt = template.replace("{REQ}", req_text).replace("{REP}", rep_context).replace("{DEPS}", dep_context)
             prompt = prompt.replace("{REQ}", req_text)
             prompt = prompt.replace("{REP}", rep_context)
+            prompt = prompt.replace("{DEPS}", dep_context) 
 
             print(f"    {rep_name}...")
             result = call_llm(prompt, model)

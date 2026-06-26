@@ -1,7 +1,35 @@
 import os
 from export_reqs import export_reqs
 from select_representations import run_select_representations
+from find_dependencies import run_find_dependencies
 from generate_testcases import run_generate_testcases
+from compare_with_expert import run_compare_with_expert
+from coverage_analysis import run_coverage_analysis
+
+
+
+def post_generation_menu():
+    while True:
+        print("\n" + "=" * 50)
+        print("What would you like to do next?")
+        print("=" * 50)
+        print("1 -> Back and forth")
+        print("2 -> Compare representations with expert")
+        print("3 -> Coverage analysis")
+        print("q -> Quit menu")
+
+        choice = input("\nChoice: ").strip().lower()
+
+        if choice == "1":
+            print("\n(Not implemented yet.)")
+        elif choice == "2":
+            run_compare_with_expert()
+        elif choice == "3":
+            run_coverage_analysis()
+        elif choice == "q":
+            break
+        else:
+            print("Please enter 1, 2, 3, or q.")
 
 
 def main():
@@ -72,10 +100,15 @@ def main():
         run_select_representations(req_text, selected_file)
         print("Representation selection complete.")
 
+        print("\nFinding dependencies between requirements...")
+        run_find_dependencies(req_text, selected_file)
+        print("Dependency analysis complete.")
+
         # Step 2: generate test cases using the mappings
         print("\nGenerating test cases for selected representations...")
         run_generate_testcases(req_text, selected_file)
         print("\nAll test cases generated in results/test_cases/")
+        post_generation_menu()
 
 
 if __name__ == "__main__":
