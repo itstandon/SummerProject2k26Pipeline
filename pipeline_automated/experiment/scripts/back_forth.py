@@ -34,28 +34,33 @@ def call_llm2(conversation_history, system_prompt):
     Calls the SOTA Evaluator (LLM2) using the OpenAI client.
     Falls back to mock responses if API key is not configured.
     """
+    history_len = len(conversation_history)
+    
+    # Prompt definitions
+    p2 = "Record the reasoning tokens for generating these testcases and representations."
+    p3 = ("Provide justification as to why you choose the 6 representations, further give reasoning as to "
+          "why you created these particular testcases and why you think these testcases follow the metrics "
+          "provided and do the most to satisfy them.")
+    p4 = ("Based on your architecture, hypothesize which kinds of attention heads, MLP layers, or features "
+          "may have contributed to the answer. Distinguish speculation from measured evidence.")
+
     if not LLM2_API_KEY or LLM2_API_KEY.startswith("your_") or "api_key" in LLM2_API_KEY.lower():
-        # Mock mode fallback for LLM2 evaluation and prompt formulation
-        last_user_msg = conversation_history[-1]["content"] if conversation_history else ""
-        
-        # Simple rule-based mock responses for demo/testing without API key
-        if "reasoning tokens" in last_user_msg.lower():
-            return ("[Mock LLM2 Evaluator]: I have reviewed your test cases and selected representations. "
-                    "They cover the system's privileges and state transitions fairly well. Now, please address the next prompt: "
-                    "Record the reasoning tokens for generating these testcases and representations.")
-        elif "metrics" in last_user_msg.lower() or "justification" in last_user_msg.lower():
-            return ("[Mock LLM2 Evaluator]: Thank you for explaining your reasoning process. Your justification on the selected representations "
-                    "is noted. Now, please address the next prompt: "
-                    "Provide justification as to why you choose the 6 representations, further give reasoning as to why you created these "
-                    "particular testcases and why you think these testcases follow the metrics provided and do the most to satisfy them.")
-        elif "architecture" in last_user_msg.lower() or "attention" in last_user_msg.lower():
-            return ("[Mock LLM2 Evaluator]: Your justification matches the coverage goals. Now, let's explore your internal mechanics. "
-                    "Please address the next prompt: "
-                    "Based on your architecture, hypothesize which kinds of attention heads, MLP layers, or features may have contributed to the answer. "
-                    "Distinguish speculation from measured evidence.")
+        # Mock mode fallback (deterministic routing based on turn index / history length)
+        if history_len == 1:
+            # Turn 2 Prompt (Asking for reasoning tokens)
+            return (f"[Mock LLM2 Evaluator]: I have reviewed your test cases and selected representations. "
+                    f"Now, please address the next prompt:\n{p2}")
+        elif history_len == 3:
+            # Turn 3 Prompt (Asking for metrics justification)
+            return (f"[Mock LLM2 Evaluator]: Thank you for explaining your reasoning process. "
+                    f"Now, please address the next prompt:\n{p3}")
+        elif history_len == 5:
+            # Turn 4 Prompt (Asking for architecture hypothesis)
+            return (f"[Mock LLM2 Evaluator]: Your justification matches the coverage goals. "
+                    f"Now, please address the next prompt:\n{p4}")
         else:
-            return ("[Mock LLM2 Evaluator]: Let's start the evaluation. Here is the initial task: Please analyze the requirement, select the top 6 "
-                    "representations, justify them, and generate concrete test cases.")
+            return ("[Mock LLM2 Evaluator]: Let's start the evaluation. Please analyze the requirement, "
+                    "select the top 6 representations, justify them, and generate concrete test cases.")
             
     try:
         import openai
@@ -70,14 +75,13 @@ def call_llm2(conversation_history, system_prompt):
         return response.choices[0].message.content
     except Exception as e:
         print(f"Error calling LLM2 API: {e}. Falling back to basic prompt driver.")
-        # Return basic prompt driving text as fallback
-        last_msg = conversation_history[-1]["content"] if conversation_history else ""
-        if "reasoning" in last_msg.lower():
-            return "Record the reasoning tokens for generating these testcases and representations"
-        elif "metrics" in last_msg.lower():
-            return "Provide justification as to why you choose the 6 representations, further give reasoning as to why you created these particular testcases and why you think these testcases follow the metrics provided and do the most to satisfy them"
+        # Exception fallback (deterministic routing based on history length)
+        if history_len == 1:
+            return p2
+        elif history_len == 3:
+            return p3
         else:
-            return "Based on your architecture, hypothesize which kinds of attention heads, MLP layers, or features may have contributed to the answer. Distinguish speculation from measured evidence."
+            return p4
 
 def run_back_forth(req_text, req_filename):
     print("\n" + "=" * 60)
