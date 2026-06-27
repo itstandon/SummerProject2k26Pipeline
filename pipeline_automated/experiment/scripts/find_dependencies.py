@@ -19,11 +19,17 @@ def run_find_dependencies(req_text, req_filename,
         print(f"  Finding dependencies with {model}...")
         result = call_llm(prompt, model)
 
+        # Clean and extract JSON from markdown code block if present
+        json_str = result.strip()
+        match = re.search(r'```(?:json)?\s*(.*?)\s*```', json_str, re.DOTALL)
+        if match:
+            json_str = match.group(1).strip()
+
         try:
-            parsed = json.loads(result)
+            parsed = json.loads(json_str)
             result = json.dumps(parsed, indent=2)
         except json.JSONDecodeError:
-            raw = re.sub(r',\s*([}\]])', r'\1', result)
+            raw = re.sub(r',\s*([}\]])', r'\1', json_str)
             try:
                 result = json.dumps(json.loads(raw), indent=2)
             except:

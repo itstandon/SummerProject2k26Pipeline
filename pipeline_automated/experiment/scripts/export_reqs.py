@@ -43,23 +43,77 @@ def get_group(number, level):
     return ".".join(parts[:keep])
 
 
-############################################################
+def parse_excel_fallback():
+    import pandas as pd
+    import re
+    
+    excel_file = "requirements/GeminiReqs.xlsx"
+    if not os.path.exists(excel_file):
+        excel_file = "../requirements/GeminiReqs.xlsx"
+        
+    print(f"  [INFO] MongoDB offline. Parsing local Excel file: {excel_file}")
+    df = pd.read_excel(excel_file, header=None)
+    
+    req_id_pattern = re.compile(r"REQ_\d+")
+    section_pattern = re.compile(r"^(\d+(?:\.\d+)*)\s+(.*)$")
+    
+    requirements = {}
+    current_section_number = None
+    current_section_title = None
+    
+    for _, row in df.iterrows():
+        values = [str(v).strip() for v in row if pd.notna(v) and str(v).strip()]
+        if not values:
+            continue
+        req_id = None
+        text_values = []
+        for value in values:
+            if req_id_pattern.fullmatch(value):
+                req_id = value
+            else:
+                text_values.append(value)
+        if not text_values:
+            continue
+            
+        content = ""
+        for text in text_values:
+            match = section_pattern.match(text)
+            if match:
+                current_section_number = match.group(1)
+                current_section_title = match.group(2)
+            else:
+                if content:
+                    content += "\n"
+                content += text
+                
+        if req_id:
+            requirements[req_id] = {
+                "req_id": req_id,
+                "number": current_section_number,
+                "title": current_section_title,
+                "content": content
+            }
+    return list(requirements.values())
+
 
 def export_reqs(level):
-
-    client = MongoClient(
-        MONGO_URI,
-        serverSelectionTimeoutMS=10000,  # wait up to 10s
-        connectTimeoutMS=10000,
-    )
-
-    db = client[DB_NAME]
-
-    collection = db[COLLECTION_NAME]
-
-    requirements = list(
-        collection.find({}, {"_id": 0})
-    )
+    requirements = []
+    try:
+        client = MongoClient(
+            MONGO_URI,
+            serverSelectionTimeoutMS=4000,  # wait up to 4s
+            connectTimeoutMS=4000,
+        )
+        db = client[DB_NAME]
+        collection = db[COLLECTION_NAME]
+        requirements = list(
+            collection.find({}, {"_id": 0})
+        )
+        if not requirements:
+            raise Exception("Collection is empty")
+    except Exception as e:
+        print(f"  [WARNING] MongoDB connection failed: {e}. Falling back to Excel parser...")
+        requirements = parse_excel_fallback()
 
     requirements.sort(
         key=lambda r: section_key(r["number"])

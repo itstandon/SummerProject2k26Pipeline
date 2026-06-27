@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from call_llm import call_llm, MODELS
 
 def run_select_representations(req_text, req_filename,
@@ -15,8 +16,14 @@ def run_select_representations(req_text, req_filename,
         print(f"  Selecting representations with {model}...")
         result = call_llm(prompt, model)
 
+        # Clean and extract JSON from markdown code block if present
+        json_str = result.strip()
+        match = re.search(r'```(?:json)?\s*(.*?)\s*```', json_str, re.DOTALL)
+        if match:
+            json_str = match.group(1).strip()
+
         try:
-            parsed = json.loads(result)
+            parsed = json.loads(json_str)
             result = json.dumps(parsed, indent=2)
         except json.JSONDecodeError:
             pass
