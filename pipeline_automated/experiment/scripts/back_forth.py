@@ -35,18 +35,32 @@ def call_llm2(conversation_history, system_prompt):
     Falls back to mock responses if API key is not configured.
     """
     history_len = len(conversation_history)
-    
     # Prompt definitions
     p2 = "Record the reasoning tokens for generating these testcases and representations."
     p3 = ("Provide justification as to why you choose the 6 representations, further give reasoning as to "
           "why you created these particular testcases and why you think these testcases follow the metrics "
           "provided and do the most to satisfy them.")
-    p4 = ("Based on your architecture, hypothesize which kinds of attention heads, MLP layers, or features "
-          "may have contributed to the answer. Distinguish speculation from measured evidence.")
 
     if not LLM2_API_KEY or LLM2_API_KEY.startswith("your_") or "api_key" in LLM2_API_KEY.lower():
         # Mock mode fallback (deterministic routing based on turn index / history length)
-        if history_len == 1:
+        # Check if the last query asks for final comprehensive review
+        if conversation_history and "comprehensive review" in conversation_history[-1]["content"].lower():
+            return """[Mock LLM2 Evaluator]: Comprehensive Review Report and Final Grading
+
+### SOTA Dialog Evaluation Scores:
+1. Requirements Coverage: 4.8 / 5.0 (Excellent)
+   - Rationale: The subject model successfully verified privileges (via Decision Tables/xUnit), startup/shutdown state sequences (via Gherkin/FSM), access allocation constraints (via Decision Tables), and deadlock-freedom properties (via Petri Nets).
+2. Representation Semantic Fit: 5.0 / 5.0 (Optimal)
+   - Rationale: Selected representations correspond perfectly to requirement dependencies (FSM for states, Petri Nets for concurrency, Decision Tables for privilege rules).
+3. Concurrency Soundness: 4.6 / 5.0 (Excellent)
+   - Rationale: Models interleavings, locks, and proves deadlock-freedom mathematically using Petri Net places/transitions.
+4. Traceability Linkage: 4.8 / 5.0 (Excellent)
+   - Rationale: Assertions and scenarios contain explicit reference tags mapping directly to REQ_0037 and REQ_0038.
+5. Assertion / Oracle Precision: 4.7 / 5.0 (Excellent)
+   - Rationale: Oracles are deterministic, and code test blocks verify exact status variables.
+
+### Final Grade: A (Excellent)"""
+        elif history_len == 1:
             # Turn 2 Prompt (Asking for reasoning tokens)
             return (f"[Mock LLM2 Evaluator]: I have reviewed your test cases and selected representations. "
                     f"Now, please address the next prompt:\n{p2}")
@@ -54,13 +68,9 @@ def call_llm2(conversation_history, system_prompt):
             # Turn 3 Prompt (Asking for metrics justification)
             return (f"[Mock LLM2 Evaluator]: Thank you for explaining your reasoning process. "
                     f"Now, please address the next prompt:\n{p3}")
-        elif history_len == 5:
-            # Turn 4 Prompt (Asking for architecture hypothesis)
-            return (f"[Mock LLM2 Evaluator]: Your justification matches the coverage goals. "
-                    f"Now, please address the next prompt:\n{p4}")
         else:
             return ("[Mock LLM2 Evaluator]: Let's start the evaluation. Please analyze the requirement, "
-                    "select the top 6 representations, justify them, and generate concrete test cases.")
+                    "select the top representations, justify them, and generate concrete test cases.")
             
     try:
         import openai
@@ -78,10 +88,8 @@ def call_llm2(conversation_history, system_prompt):
         # Exception fallback (deterministic routing based on history length)
         if history_len == 1:
             return p2
-        elif history_len == 3:
-            return p3
         else:
-            return p4
+            return p3
 
 def run_back_forth(req_text, req_filename):
     print("\n" + "=" * 60)
@@ -102,7 +110,6 @@ def run_back_forth(req_text, req_filename):
         "1. Turn 1 (Initial Prompt): Let LLM1 respond to the initial mapping task.\n"
         "2. Turn 2 (Reasoning): Ask LLM1 to record/explain its reasoning process: 'Record the reasoning tokens for generating these testcases and representations'.\n"
         "3. Turn 3 (Metrics Justification): Ask LLM1 to justify its output against the metrics: 'Provide justification as to why you choose the 6 representations, further give reasoning as to why you created these particular testcases and why you think these testcases follow the metrics provided and do the most to satisfy them'.\n"
-        "4. Turn 4 (Architecture): Ask LLM1 to hypothesize about its attention heads/MLP layers: 'Based on your architecture, hypothesize which kinds of attention heads, MLP layers, or features may have contributed to the answer. Distinguish speculation from measured evidence.'\n"
     )
 
     for model in MODELS:
@@ -123,57 +130,107 @@ def run_back_forth(req_text, req_filename):
         
         # Construct Turn 1 Initial Prompt
         initial_prompt = (
-            "Act as a Principal Software QA Engineer and Formal Verification Specialist. I am conducting an empirical research experiment "
-            "evaluating how effectively LLMs map natural language requirements to appropriate test case representations.\n\n"
-            "PART 1: TARGET REQUIREMENTS\n"
-            "Below is the natural language requirement section from the Telescope SRS:\n"
-            f"\"{req_text}\"\n\n"
-            "PART 1.5: REQUIREMENT DEPENDENCIES\n"
-            "Below are the identified relationships and dependencies between these requirements:\n"
-            f"{deps_content}\n\n"
-            "PART 2: TEST CASE REPRESENTATION MATRIX\n"
-            "You have access to the following 26 test case representations. Each has a brief explanation:\n"
-            "1. Gherkin (BDD DSL): A structured, human-readable language (Given-When-Then) that bridges business requirements and automated testing.\n"
-            "2. Use-Cases & User Stories (NL-RBT): Natural language descriptions of user-system interactions indicating who, what, and why.\n"
-            "3. Goal-Oriented (KAOS / i*): Maps stakeholder goals, relationships, and obstacles to understand why system behavior is needed.\n"
-            "4. Natural Language \u2794 Structured DSL: Converts informal natural language into standardized, semi-structured programmatic clauses (PRECONDITION, ACTION, POSTCONDITION).\n"
-            "5. Transition Systems (S, T, I): A formal mathematical tuple (States, Transitions, Initial state) representing state transitions.\n"
-            "6. Finite State Machines (FSM) / Statecharts: Behavioral graphs representing states and the inputs that trigger transitions.\n"
-            "7. Decision Tables: Represent test cases as combinations of conditions and actions.\n"
-            "8. Cause-Effect Graph: Represents test cases as logical combinations of input conditions and expected outcomes, enabling systematic test generation.\n"
-            "9. Protocol State Machines: Defines protocol rules enforcing strict sequential command/response order.\n"
-            "10. Sequence Diagrams: Visualizes chronological message flows between lifelines, highlighting latency and order.\n"
-            "11. Interface Automata: A formal tool used to check if concurrent components can interact safely without deadlocking.\n"
-            "12. xUnit Test Cases (PyTest, JUnit): The standard code-level unit testing representation where test inputs assert expected outcomes.\n"
-            "13. Concolic Testing: Co-execution of concrete inputs and symbolic path constraints to discover new paths.\n"
-            "14. Five-Structure Composite Model: Decomposes a test case into five parts (Setup, Flow, Interactions, Verification, Output).\n"
-            "15. Classification-Tree Method (CTM): A black-box testing design technique that divides input domains into equivalence classes.\n"
-            "16. Canonical Vector Space for Multiprocessors: Vector representation used to detect race conditions in concurrent multi-threaded environments.\n"
-            "17. Symbolic Path Conditions: Formal constraints representing the program state space inside symbolic execution tools.\n"
-            "18. Financial/Rule-based Constraints (LLM4Fin): Tabular If-Then logical decision matrices mapping inputs to outputs.\n"
-            "19. FSM Path-Based Representation: Defines test cases as specific paths (Simple, Prime, Round-Trip) traversing an FSM graph.\n"
-            "20. The W Method for FSM Identification: Uses transition trees and characterization sets to verify state identity.\n"
-            "21. GUI Event Graphs (EFG/EIG/ESIG): Maps interface flows and user clicks to verify background transitions.\n"
-            "22. Object Construction Graphs (OCG): Dependency graphs mapping object instantiation paths to generate driver setups.\n"
-            "23. Domain-Specific DSLs (Low-level mapping): Maps abstract behavioral test steps to low-level platform APIs.\n"
-            "24. Test Requirement (TR) Matrix: A traceability grid mapping test cases (rows) to the requirements (columns) they cover.\n"
-            "25. Feature Vectors: Embeddings representing input parameter distributions to ensure testing balance.\n"
-            "26. Consumer-Driven Contract (CDC): A contract defined by consumers to ensure providers do not break dependent fields.\n\n"
-            "PART 3: CLASSIFICATION & SELECTION CRITERIA\n"
-            "You must evaluate the target requirements using the following 5-dimensional criteria:\n"
-            "Dimension A (Testing Level): Behavioral or System, Architectural or Integration, Structural or Unit, or Formal or Mathematical.\n"
-            "Dimension B (Target Concern): Access Control (B.1), Stateful Procedures (B.2), Concurrency and Deadlocks (B.3), or Interfaces and Contracts (B.4).\n"
-            "Dimension C (Oracle Type): Deterministic (C.1), Scenario-based (C.2), Invariant-based (C.3), or Partition-based (C.4).\n"
-            "Dimension D (LLM Feasibility): High Feasibility (DSL/Code) vs. Low Feasibility (Mathematical/Abstract).\n"
-            "Dimension E (Test Generation & Traceability):\n"
-            "  - (E.1) High \u2013 Supports automated or systematic test generation with explicit traceability links.\n"
-            "  - (E.2) Medium \u2013 Supports partial or semi-automated test generation and indirect traceability.\n"
-            "  - (E.3) Low \u2013 Primarily descriptive; limited support for systematic test generation or traceability.\n\n"
-            "YOUR TASKS:\n"
-            "1. Analyze the Requirements: Break down the target requirements into their core testing challenges. Classify these challenges according to Dimension A and Dimension B.\n"
-            "2. Select the Top Representations: Identify the top 6 most suitable representations from the 26 representations listed above that best cover the testing challenges identified in Task 1.\n"
-            "3. Provide Justification: For each of the 6 selected representations, justify why it was selected using the classification criteria (referencing dimensions A, B, C, and D).\n"
-            "4. Generate Concrete Test Cases: Write concrete test specifications/cases for the target requirements using your 6 chosen representations. Ensure these test cases address privileges, startup/shutdown procedures, access allocation, and deadlock avoidance if applicable."
+            "Requirement -> Test Case Representation Selection & Generation Prompt\n"
+            "SYSTEM / INSTRUCTION\n"
+            "Act as a Principal Software QA Engineer and Formal Verification Specialist. You are one stage in an automated pipeline that maps natural-language requirements to appropriate test case representations, then generates concrete test cases in those representations.\n"
+            "INPUT\n"
+            f"Requirement: \"{req_text}\"\n"
+            f"Requirement ID: {req_name}\n"
+            f"Requirement Dependencies: {deps_content}\n\n"
+            "REPRESENTATION LIBRARY (30 options)\n"
+            "Gherkin (BDD DSL) - Given-When-Then, bridges business requirements and automated testing.\n"
+            "Use-Cases & User Stories (NL-RBT) - who/what/why interaction narratives.\n"
+            "Goal-Oriented (KAOS / i*) - stakeholder goals, relationships, obstacles.\n"
+            "Natural Language -> Structured DSL - PRECONDITION/ACTION/POSTCONDITION clauses.\n"
+            "Transition Systems (S, T, I) - formal tuple of states, transitions, initial state.\n"
+            "Finite State Machines (FSM) / Statecharts - states and triggering inputs.\n"
+            "Decision Tables - conditions x actions combinations.\n"
+            "Cause-Effect Graph - logical input-condition combinations to expected outcomes.\n"
+            "Protocol State Machines - strict sequential command/response rules.\n"
+            "Sequence Diagrams - chronological message flows between lifelines.\n"
+            "Interface Automata - formal check for safe, deadlock-free concurrent interaction.\n"
+            "xUnit Test Cases (PyTest, JUnit) - code-level input/assert unit tests.\n"
+            "Concolic Testing - concrete + symbolic path co-execution.\n"
+            "Five-Structure Composite Model - Setup, Flow, Interactions, Verification, Output.\n"
+            "Classification-Tree Method (CTM) - input domain partitioned into equivalence classes.\n"
+            "Canonical Vector Space for Multiprocessors - vectors for race-condition detection.\n"
+            "Symbolic Path Conditions - formal state-space constraints in symbolic execution.\n"
+            "Financial/Rule-based Constraints (LLM4Fin) - tabular If-Then decision matrices.\n"
+            "FSM Path-Based Representation - Simple/Prime/Round-Trip paths through an FSM.\n"
+            "The W Method for FSM Identification - transition trees + characterization sets.\n"
+            "GUI Event Graphs (EFG/EIG/ESIG) - interface flows and click-driven transitions.\n"
+            "Object Construction Graphs (OCG) - object instantiation dependency graphs.\n"
+            "Domain-Specific DSLs (low-level mapping) - abstract steps mapped to platform APIs.\n"
+            "Test Requirement (TR) Matrix - traceability grid of test cases x requirements.\n"
+            "Feature Vectors - embeddings of input parameter distributions for test balance.\n"
+            "Consumer-Driven Contract (CDC) - consumer-defined contract guarding provider fields.\n"
+            "UML Testing Profile (UTP) - UML classes/sequences stereotyped as <<TestContext>>, <<TestCase>>, <<SUT>>, <<Verdict>> for model-driven testing.\n"
+            "Petri Nets - bipartite graph of places/transitions/token markings (P, T, F, M0), used to verify concurrent system behavior.\n"
+            "Message Sequence Charts (MSC) - ITU-T Z.120 standard notation for instance lifelines and timed message exchanges between components.\n"
+            "Temporal Logic (LTL) - boolean propositions extended with temporal operators (Always, Eventually, Next, Until) to specify time-ordered execution properties.\n\n"
+            "CLASSIFICATION DIMENSIONS\n"
+            "Dimension A (Testing Level): Behavioral/System, Architectural/Integration, Structural/Unit, or Formal/Mathematical.\n\n"
+            "Dimension B (Target Concern): An open, controlled taxonomy - not a fixed 4-item list. Requirements vary too widely in domain for any small fixed set to cover them all (e.g. a timing/protocol requirement is poorly served by forcing it into \"Interfaces & Contracts\").\n"
+            "Seed taxonomy (check these first, for consistency across pipeline runs):\n"
+            "B.1 Access Control (privileges, authentication, authorization)\n"
+            "B.2 Stateful Procedures (workflows, startup/shutdown, multi-step operational sequences)\n"
+            "B.3 Concurrency & Deadlocks (resource contention, race conditions, mutual exclusion)\n"
+            "B.4 Interfaces & Contracts (API/message boundaries, protocol compliance between components)\n"
+            "B.5 Timing & Performance (latency, timeouts, throughput, real-time deadlines)\n"
+            "B.6 Data Integrity & Validation (input/output correctness, state consistency, boundary values)\n"
+            "B.7 Fault Tolerance & Error Handling (recovery, degraded modes, exception paths)\n"
+            "B.8 Security (confidentiality, integrity threats, attack surfaces - distinct from B.1's access control)\n"
+            "B.9 Resource Management (allocation, limits, cleanup, leak prevention)\n"
+            "Rule for new tags: only introduce a new concern label (as B.custom-<short-name>) if a challenge genuinely does not fit any seed category above - do not force-fit, but do not mint a new tag casually either. List any newly-minted tags in a separate \"proposed_new_concerns\" field in the JSON output (see schema below) so they can be reviewed and folded into the seed taxonomy for future runs, rather than silently fragmenting the taxonomy across pipeline runs.\n\n"
+            "Dimension C (Oracle Type): Deterministic (C.1), Scenario-based (C.2), Invariant-based (C.3), Partition-based (C.4).\n\n"
+            "Dimension D (LLM Feasibility): High (DSL/Code) vs. Low (Mathematical/Abstract).\n\n"
+            "Dimension E (Test Generation & Traceability): High (E.1) - automated/systematic generation with explicit traceability; Medium (E.2) - partial/semi-automated, indirect traceability; Low (E.3) - descriptive only.\n\n"
+            "TASKS\n"
+            "Task 1 - Decompose the requirement. Break the requirement into its discrete testing challenges (one per distinct behavior/constraint it imposes - do not merge unrelated concerns, do not split a single atomic clause artificially). For each challenge, tag it with its Dimension A level and Dimension B concern(s).\n"
+            "Task 2 - Select representations. Choose 4-6 representations from the library (state your chosen count and why) that, as a set, collectively cover every (A, B) tag identified in Task 1 with minimal redundancy. Prefer coverage breadth over picking multiple representations that serve the same challenge, unless a challenge genuinely needs both a scenario-level and a formal-level treatment (e.g., a concurrency/deadlock challenge often needs both a human-readable procedure and a formal model).\n"
+            "Task 3 - Justify each selection. For each chosen representation, state which challenge(s) from Task 1 it addresses, and classify it on Dimensions A, B, C, D, and E. Keep justifications to 2-3 sentences each - reasoning, not padding.\n"
+            "Task 4 - Generate concrete test cases. For each of the selected representations, write actual test case(s) instantiated against the requirement - not generic templates. Every distinct challenge from Task 1 must be covered by at least one concrete test case somewhere across the 4-6 representations. Include edge cases and negative cases where the requirement implies them (e.g., failure/contention/rollback paths), not just the happy path.\n\n"
+            "OUTPUT FORMAT\n"
+            "Return both a human-readable report and a machine-parseable JSON block, in this order:\n"
+            "1. A concise markdown report (Tasks 1-4, in order).\n"
+            "2. A fenced ```json block at the end with this exact schema:\n"
+            "{\n"
+            "  \"requirement_id\": \"{REQ_ID}\",\n"
+            "  \"proposed_new_concerns\": [\n"
+            "    {\n"
+            "      \"tag\": \"B.custom-<short-name>\",\n"
+            "      \"reason\": \"string explaining why no seed B.1-B.9 category fit\"\n"
+            "    }\n"
+            "  ],\n"
+            "  \"challenges\": [\n"
+            "    {\n"
+            "      \"id\": \"C1\",\n"
+            "      \"description\": \"string\",\n"
+            "      \"dimension_a\": \"Behavioral/System | Architectural/Integration | Structural/Unit | Formal/Mathematical\",\n"
+            "      \"dimension_b\": [\"B.1 | B.2 | ... | B.9 | B.custom-<short-name>\"]\n"
+            "    }\n"
+            "  ],\n"
+            "  \"selected_representations\": [\n"
+            "    {\n"
+            "      \"name\": \"string (must match library name exactly)\",\n"
+            "      \"covers_challenges\": [\"C1\"],\n"
+            "      \"dimension_a\": \"string\",\n"
+            "      \"dimension_b\": [\"string\"],\n"
+            "      \"dimension_c\": \"C.1 | C.2 | C.3 | C.4\",\n"
+            "      \"dimension_d\": \"High | Low\",\n"
+            "      \"dimension_e\": \"E.1 | E.2 | E.3\",\n"
+            "      \"justification\": \"string\"\n"
+            "    }\n"
+            "  ],\n"
+            "  \"test_cases\": [\n"
+            "    {\n"
+            "      \"representation\": \"string\",\n"
+            "      \"challenge_ids\": [\"C1\"],\n"
+            "      \"case_id\": \"string\",\n"
+            "      \"content\": \"string (the actual test case, in that representation's native notation)\"\n"
+            "    }\n"
+            "  ]\n"
+            "}\n"
         )
 
         session_history = []
@@ -240,29 +297,7 @@ def run_back_forth(req_text, req_filename):
         llm2_chat_history.append({"role": "user", "content": f"LLM1's response to metrics justification:\n{llm1_response_3}"})
 
         # ==========================================
-        # TURN 4: Architectural Hypothesis
-        # ==========================================
-        print("  Generating Turn 4 prompt via LLM2...")
-        llm2_prompt_4 = call_llm2(llm2_chat_history, llm2_system_prompt)
-        llm2_chat_history.append({"role": "assistant", "content": llm2_prompt_4})
-        print(f"  LLM2 Prompt 4:\n{llm2_prompt_4[:150]}...")
-        
-        print("  Sending Turn 4 to LLM1...")
-        llm1_response_4 = call_llm(llm2_prompt_4, model)
-        print("  LLM1 Response 4 received.")
-        
-        session_history[-1]["llm2_critique"] = llm2_prompt_4
-        session_history.append({
-            "turn": 4,
-            "prompt_sent": llm2_prompt_4,
-            "llm1_response": llm1_response_4,
-            "llm2_critique": ""
-        })
-        
-        llm2_chat_history.append({"role": "user", "content": f"LLM1's response to architectural hypothesis:\n{llm1_response_4}"})
-
-        # ==========================================
-        # Turn 5: Final LLM2 Review and Summary
+        # Turn 4: Final LLM2 Review and Summary
         # ==========================================
         print("  Generating final session review via LLM2...")
         llm2_review_prompt = "Provide a final comprehensive review of LLM1's answers based on the SOTA metrics. Summarize key strengths, weaknesses, and a final grade."

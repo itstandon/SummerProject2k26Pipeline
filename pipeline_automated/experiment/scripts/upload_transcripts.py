@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 
 # Load env file containing MongoDB URI
-dotenv_path = os.path.expanduser("~/pipeline/pipeline_automated/experiment/.env")
+dotenv_path = os.path.join(os.path.dirname(__file__), "..", ".env")
 load_dotenv(dotenv_path)
 
 # Fallback directly to user's MongoDB Cluster0 URI if not set in environment
@@ -27,7 +27,7 @@ def upload():
     db = client["back_forth_evaluation"]
     collection = db["sessions"]
     
-    results_dir = os.path.expanduser("~/pipeline/pipeline_automated/experiment/results/back_forth")
+    results_dir = os.path.join(os.path.dirname(__file__), "..", "results", "back_forth")
     files = glob.glob(os.path.join(results_dir, "*.json"))
     
     if not files:
