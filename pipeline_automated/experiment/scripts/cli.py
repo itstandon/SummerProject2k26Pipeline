@@ -1,15 +1,15 @@
 import os
-from export_reqs import export_reqs
-from select_representations import run_select_representations
-from find_dependencies import run_find_dependencies
-from generate_testcases import run_generate_testcases
-from compare_with_expert import run_compare_with_expert
-from coverage_analysis import run_coverage_analysis
-from back_forth import run_back_forth
+from .export_reqs import export_reqs
+from .select_representations import run_select_representations
+from .find_dependencies import run_find_dependencies
+from .generate_testcases import run_generate_testcases
+from .compare_with_expert import run_compare_with_expert
+from .coverage_analysis import run_coverage_analysis
+from .back_forth import run_back_forth
+from .run_metrics import run_evaluate_metrics
 
 
-
-def post_generation_menu(req_text, selected_file):
+def post_generation_menu():
     while True:
         print("\n" + "=" * 50)
         print("What would you like to do next?")
@@ -17,6 +17,7 @@ def post_generation_menu(req_text, selected_file):
         print("1 -> Back and forth")
         print("2 -> Compare representations with expert")
         print("3 -> Coverage analysis")
+        print("4 -> Evaluate metrics (Gate 2 SFV, Gate 3 FSA+Groundedness, Gate 4 SDI)")
         print("q -> Quit menu")
 
         choice = input("\nChoice: ").strip().lower()
@@ -27,6 +28,8 @@ def post_generation_menu(req_text, selected_file):
             run_compare_with_expert()
         elif choice == "3":
             run_coverage_analysis()
+        elif choice == "4":
+            run_evaluate_metrics()
         elif choice == "q":
             break
         else:
@@ -150,7 +153,15 @@ def main():
         print("\nGenerating test cases for selected representations...")
         run_generate_testcases(req_text, selected_file)
         print("\nAll test cases generated in results/test_cases/")
-        post_generation_menu(req_text, selected_file)
+
+        # Step 3: score every generated representation against Gate 2
+        # (SFV), Gate 3 (FSA + Requirement Groundedness) and, for
+        # anything that passes, Gate 4 (Suite Diversity Index).
+        print("\nEvaluating generated test cases against SFV, FSA/Mg and SDI metrics...")
+        run_evaluate_metrics(req_text, selected_file)
+        print("\nMetrics written to results/metrics/")
+
+        post_generation_menu()
 
 
 if __name__ == "__main__":

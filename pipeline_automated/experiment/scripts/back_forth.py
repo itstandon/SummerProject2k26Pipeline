@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 
 # Import LLM1 caller and models list
-from call_llm import call_llm, MODELS
+from .call_llm import call_llm, MODELS
 
 load_dotenv()
 

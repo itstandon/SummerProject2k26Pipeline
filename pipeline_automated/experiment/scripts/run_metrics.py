@@ -2,14 +2,14 @@ import json
 import os
 import sys
 
-from call_llm import call_llm, MODELS
-from token_tracker import log_usage
-
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 EXPERIMENT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
-if EXPERIMENT_DIR not in sys.path:
-    sys.path.insert(0, EXPERIMENT_DIR)
+for _p in (SCRIPT_DIR, EXPERIMENT_DIR):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
+from call_llm import call_llm, MODELS
+from token_tracker import log_usage
 from results.metrics import evaluate_sfv, evaluate_fsa, compute_sdi, split_test_suite
 
 

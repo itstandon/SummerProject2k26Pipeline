@@ -1,8 +1,7 @@
 import json
 import os
 import re
-from call_llm import call_llm, MODELS
-from token_tracker import log_usage
+from .call_llm import call_llm, MODELS
 
 def run_find_dependencies(req_text, req_filename,
                           prompt_path="prompts/find_dependencies.txt",
@@ -18,8 +17,7 @@ def run_find_dependencies(req_text, req_filename,
     for model in MODELS:
         model_name = model.replace(":", "_").replace("/", "_")
         print(f"  Finding dependencies with {model}...")
-        result,usage = call_llm(prompt, model)
-        log_usage("find_dependencies", usage, extra={"req_file": req_filename})
+        result = call_llm(prompt, model)
 
         # Clean and extract JSON from markdown code block if present
         json_str = result.strip()

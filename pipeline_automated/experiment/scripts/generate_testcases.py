@@ -1,16 +1,52 @@
 import json
 import os
 import re
-import sys
-from call_llm import call_llm, MODELS
-from token_tracker import log_usage
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-EXPERIMENT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
-if EXPERIMENT_DIR not in sys.path:
-    sys.path.insert(0, EXPERIMENT_DIR)
+from .call_llm import call_llm, MODELS
 
 from results.metrics import evaluate_rss
+
+
+def _call_llm_text(prompt, model):
+    result = call_llm(prompt, model)
+    if isinstance(result, tuple):
+        return result[0]
+    return result
+
+
+def _parse_selected_representations(raw_text):
+    match = re.search(r'\{[\s\S]*\}', raw_text)
+    if not match:
+        return None
+
+    raw = match.group(0)
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        raw = re.sub(r',\s*([}\]])', r'\1', raw)
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            rep_names = re.findall(r'"representation"\s*:\s*"([^"]+)"', raw)
+            if not rep_names:
+                return None
+            data = {"selected_representations": [{"representation": name} for name in rep_names]}
+
+    return data.get("selected_representations", [])
+
+
+def _reselect_representations(req_text, failed_rep_name, model,
+                              prompt_path="prompts/select_representations.txt"):
+    with open(prompt_path) as f:
+        prompt = f.read()
+
+    prompt = prompt.replace("{REQ}", req_text)
+    prompt += (
+        f"\n\nThe representation \"{failed_rep_name}\" failed the RSS gate. "
+        "Do not select it again. Replace it with a better alternative from the available list and return JSON only."
+    )
+
+    result = _call_llm_text(prompt, model)
+    return _parse_selected_representations(result)
 
 def run_generate_testcases(req_text, req_filename,
                             rep_output_dir="results/representation_selection",
@@ -32,34 +68,20 @@ def run_generate_testcases(req_text, req_filename,
         with open(llm_output_path) as f:
             text = f.read()
 
-        match = re.search(r'\{[\s\S]*\}', text)
-        if not match:
+        representations = _parse_selected_representations(text)
+        if not representations:
             print(f"  Skipping {model} — no valid JSON in output.")
             continue
-
-        # Try to fix common LLM JSON issues before parsing
-        raw = match.group(0)
-        try:
-            data = json.loads(raw)
-        except json.JSONDecodeError:
-            # Remove trailing commas before ] or }
-            raw = re.sub(r',\s*([}\]])', r'\1', raw)
-            try:
-                data = json.loads(raw)
-            except json.JSONDecodeError:
-                print(f"  JSON malformed for {model}, extracting representation names only...")
-                rep_names = re.findall(r'"representation"\s*:\s*"([^"]+)"', raw)
-                if not rep_names:
-                    print(f"  Skipping {model} — couldn't extract anything.")
-                    continue
-                data = {"selected_representations": [{"representation": name} for name in rep_names]}
-        representations = data["selected_representations"]
 
         model_out_dir = os.path.join(output_dir, f"{model_name}_{req_name}")
         os.makedirs(model_out_dir, exist_ok=True)
 
         print(f"\n  Generating test cases with {model}...")
-        for rep in representations:
+        queued_representations = list(representations)
+        seen_representations = set()
+
+        while queued_representations:
+            rep = queued_representations.pop(0)
             if isinstance(rep, dict):
                 rep_name = rep["representation"]
                 excerpt = rep.get("requirement_excerpt", req_text)
@@ -74,6 +96,16 @@ def run_generate_testcases(req_text, req_filename,
                   f"({'PASS' if rss_result['rss_pass'] else 'FAIL'})")
             if not rss_result["rss_pass"]:
                 print(f"    Skipping {rep_name} because it failed Gate 1.")
+                seen_representations.add(rep_name)
+
+                replacement_reps = _reselect_representations(req_text, rep_name, model)
+                if replacement_reps:
+                    for replacement in replacement_reps:
+                        replacement_name = replacement["representation"] if isinstance(replacement, dict) else replacement
+                        if replacement_name not in seen_representations:
+                            queued_representations.append(replacement)
+                            print(f"    Re-selected candidate: {replacement_name}")
+                            break
                 continue
 
             dep_path = os.path.join("results/dependencies", f"{model_name}_{req_name}.json")
@@ -88,13 +120,10 @@ def run_generate_testcases(req_text, req_filename,
             prompt = prompt.replace("{DEPS}", dep_context) 
 
             print(f"    {rep_name}...")
-            result, usage = call_llm(prompt, model)
-            log_usage("generate_testcases", usage, extra={
-                "req_file": req_filename,
-                "representation": rep_name,
-            })
+            result = _call_llm_text(prompt, model)
 
             filename = rep_name.replace(" ", "_")
             with open(os.path.join(model_out_dir, f"{filename}.txt"), "w") as out:
                 out.write(result)
             print(f"    {rep_name} done.")
+            seen_representations.add(rep_name)
