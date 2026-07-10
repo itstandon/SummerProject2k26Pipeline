@@ -2,6 +2,7 @@ import json
 import os
 import re
 from call_llm import call_llm, MODELS
+from token_tracker import log_usage
 
 def run_select_representations(req_text, req_filename,
                                 prompt_path="prompts/select_representations.txt",
@@ -14,7 +15,8 @@ def run_select_representations(req_text, req_filename,
 
     for model in MODELS:
         print(f"  Selecting representations with {model}...")
-        result = call_llm(prompt, model)
+        result, usage = call_llm(prompt, model)
+        log_usage("representation_selection", usage, extra={"req_file": req_filename})
 
         # Clean and extract JSON from markdown code block if present
         json_str = result.strip()

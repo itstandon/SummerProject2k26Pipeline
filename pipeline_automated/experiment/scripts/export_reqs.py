@@ -5,7 +5,11 @@ from collections import defaultdict
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
-load_dotenv()
+ENV_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "..", "..", "..", ".env"
+)
+load_dotenv(dotenv_path=ENV_PATH)
 
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("DB_NAME")

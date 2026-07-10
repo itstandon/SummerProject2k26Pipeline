@@ -1,7 +1,16 @@
 import json
 import os
 import re
+import sys
 from call_llm import call_llm, MODELS
+from token_tracker import log_usage
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+EXPERIMENT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
+if EXPERIMENT_DIR not in sys.path:
+    sys.path.insert(0, EXPERIMENT_DIR)
+
+from results.metrics import evaluate_rss
 
 def run_generate_testcases(req_text, req_filename,
                             rep_output_dir="results/representation_selection",
@@ -60,6 +69,13 @@ def run_generate_testcases(req_text, req_filename,
                 rep_name = rep
                 rep_context = rep
 
+            rss_result = evaluate_rss(req_text=req_text, representation=rep_name)
+            print(f"    Gate 1 (RSS): {rep_name} -> {rss_result['rss_score']} "
+                  f"({'PASS' if rss_result['rss_pass'] else 'FAIL'})")
+            if not rss_result["rss_pass"]:
+                print(f"    Skipping {rep_name} because it failed Gate 1.")
+                continue
+
             dep_path = os.path.join("results/dependencies", f"{model_name}_{req_name}.json")
             dep_context = ""
             if os.path.exists(dep_path):
@@ -72,7 +88,11 @@ def run_generate_testcases(req_text, req_filename,
             prompt = prompt.replace("{DEPS}", dep_context) 
 
             print(f"    {rep_name}...")
-            result = call_llm(prompt, model)
+            result, usage = call_llm(prompt, model)
+            log_usage("generate_testcases", usage, extra={
+                "req_file": req_filename,
+                "representation": rep_name,
+            })
 
             filename = rep_name.replace(" ", "_")
             with open(os.path.join(model_out_dir, f"{filename}.txt"), "w") as out:
