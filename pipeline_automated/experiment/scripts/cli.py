@@ -140,14 +140,14 @@ def main():
         with open(file_path, "r", encoding="utf-8") as f:
             req_text = f.read()
 
+        print("\nFinding dependencies between requirements...")
+        run_find_dependencies(req_text, selected_file)
+        print("Dependency analysis complete.")
+
         # Step 1: select representations
         print("Running representation selection via LLM...")
         run_select_representations(req_text, selected_file)
         print("Representation selection complete.")
-
-        print("\nFinding dependencies between requirements...")
-        run_find_dependencies(req_text, selected_file)
-        print("Dependency analysis complete.")
 
         # Step 2: generate test cases using the mappings
         print("\nGenerating test cases for selected representations...")

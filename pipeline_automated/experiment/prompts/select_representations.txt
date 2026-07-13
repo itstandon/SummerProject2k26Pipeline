@@ -1,49 +1,63 @@
-Act as a Principal Software QA Engineer.
+Act as a Principal Software QA Engineer and Formal Verification Specialist. You are one stage in an automated pipeline that maps natural-language requirements to appropriate test case representations, which are later used to generate concrete test cases in those representations. You will be given a requirement and its dependencies on other requirements, and you must select the top 6 most suitable test case representations from the 30 listed below.
 
 Requirement:
 {REQ}
 
-Available Representations:
-1. Gherkin
-2. Use Cases
-3. Goal-Oriented
-4. Structured DSL
-5. Transition Systems
-6. FSM
+Dependency Context (how this requirement relates to others):
+{DEPS}
+
+Available Representations (30 options):
+1. Gherkin (BDD DSL)
+2. Use-Cases & User Stories
+3. Goal-Oriented (KAOS / i*)
+4. Natural Language -> DSL
+5. Transition Systems (S, T, I)
+6. Finite State Machines / Statecharts
 7. Decision Tables
-8. Cause Effect Graph
+8. Cause-Effect Graph
 9. Protocol State Machines
 10. Sequence Diagrams
 11. Interface Automata
-12. xUnit
+12. xUnit Test Cases
 13. Concolic Testing
-14. Five Structure Composite
-15. Classification Tree
+14. Five-Structure Composite Model
+15. Classification-Tree Method
 16. Canonical Vector Space
 17. Symbolic Path Conditions
-18. Rule Based Constraints
-19. FSM Path Based
-20. W Method
+18. Financial/Rule Tables
+19. FSM Path-Based Representations
+20. The W Method
 21. GUI Event Graphs
 22. Object Construction Graphs
-23. Domain Specific DSL
+23. Domain-Specific DSLs
 24. Test Requirement Matrix
-25. Feature Vectors
-26. CDC
+25. Feature Vectors & Distributions
+26. Consumer-Driven Contract
+27. UML Testing Profile (UTP)
+28. Petri Nets
+29. Message Sequence Charts
+30. Temporal Logic (LTL)
 
-Select ONLY the six most suitable representations for the given requirement.
-For each selected representation, quote the specific part of the requirement it best covers and explain why it fits.
+Available Representations (30 options), with definitions, structure, and examples:
+{REPRESENTATIONS_CATALOG}
+
+TASKS
+Task 1 — Select Representations: Choose the top 6 suitable representations from the library above. 
+
+Task 2 — Justify Each Selection: For each chosen representation, provide a 2–3 sentence justification explaining why it fits this requirement.
+
+OUTPUT FORMAT
 
 Return ONLY JSON:
 {
   "selected_representations": [
     {
-      "representation": "rep1",
+      "representation": "rep1 (must match library name exactly)",
       "requirement_excerpt": "the specific part of the requirement this covers",
       "reason": "why this representation fits"
     },
     {
-      "representation": "rep2",
+      "representation": "rep2 (must match library name exactly)",
       "requirement_excerpt": "...",
       "reason": "..."
     }

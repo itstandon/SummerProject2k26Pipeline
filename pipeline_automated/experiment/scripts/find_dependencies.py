@@ -1,7 +1,9 @@
 import json
 import os
 import re
+from datetime import datetime as _dt, timezone as _tz
 from .call_llm import call_llm, MODELS
+from .mongo_utils import store_to_mongodb
 
 def run_find_dependencies(req_text, req_filename,
                           prompt_path="prompts/find_dependencies.txt",
@@ -39,3 +41,17 @@ def run_find_dependencies(req_text, req_filename,
         with open(out_path, "w") as f:
             f.write(result)
         print(f"  Saved to {out_path}")
+
+        # --- Mongo storage (same output, same connection back_forth.py uses) ---
+        try:
+            content_for_mongo = json.loads(result)
+        except Exception:
+            content_for_mongo = result
+
+        mongo_doc = {
+            "timestamp": _dt.now(_tz.utc).isoformat(),
+            "requirement_file": req_filename,
+            "model": model,
+            "content": content_for_mongo,
+        }
+        store_to_mongodb(mongo_doc, "dependencies")

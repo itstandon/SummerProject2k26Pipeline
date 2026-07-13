@@ -12,5 +12,6 @@ Dependency context (how this requirement relates to others):
 {DEPS}
 
 Generate detailed test cases for requirements which use this representation. 
+Include edge cases and negative cases where the requirement implies them (e.g., failure/contention/rollback paths), not just the happy path.
 
 Return plain text.

@@ -1,7 +1,9 @@
 import json
 import os
 import re
+from datetime import datetime as _dt, timezone as _tz
 from .call_llm import call_llm, MODELS
+from .mongo_utils import store_to_mongodb
 
 from results.metrics import evaluate_rss
 
@@ -122,8 +124,24 @@ def run_generate_testcases(req_text, req_filename,
             print(f"    {rep_name}...")
             result = _call_llm_text(prompt, model)
 
-            filename = rep_name.replace(" ", "_")
-            with open(os.path.join(model_out_dir, f"{filename}.txt"), "w") as out:
-                out.write(result)
+            filename = re.sub(r'[^A-Za-z0-9_\-\.]', '_', rep_name.replace(" ", "_"))
+            try:
+                with open(os.path.join(model_out_dir, f"{filename}.txt"), "w") as out:
+                    out.write(result)
+                print(f"    {rep_name} done.")
+            except OSError as e:
+                print(f"    Failed to save {rep_name}: {e}")
+                continue
             print(f"    {rep_name} done.")
             seen_representations.add(rep_name)
+
+            # --- Mongo storage (same output, same connection back_forth.py uses) ---
+            mongo_doc = {
+                "timestamp": _dt.now(_tz.utc).isoformat(),
+                "requirement_file": req_filename,
+                "model": model,
+                "representation": rep_name,
+                "rss_score": rss_result["rss_score"],
+                "content": result,
+            }
+            store_to_mongodb(mongo_doc, "test_cases")
