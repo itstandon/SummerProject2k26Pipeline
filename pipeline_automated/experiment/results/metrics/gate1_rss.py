@@ -4,6 +4,19 @@ Gate 1: Representation Suitability Score (RSS).
 Heuristic evaluator for the representation-selection phase. It scores
 whether the chosen representation matches the requirement's dominant
 concern, abstraction level, complexity, and generation feasibility.
+
+Metrics m1-m10 correspond directly to the ten Suitability Metrics defined
+in metrics.md, section "Detailed Suitability Metrics (M1 to M10) Explained":
+    m1  Concern Alignment
+    m2  Abstraction Level Alignment
+    m3  Occam's Razor
+    m4  LLM Generation Feasibility
+    m5  Oracle Executability Index
+    m6  Traceability Density
+    m7  Cognitive Auditability
+    m8  Change Fragility
+    m9  Mutation Support
+    m10 Standards & Compliance Fit
 """
 
 import re
@@ -58,6 +71,54 @@ _CONCERN_ALIGNMENT = {
 _ABSTRACTION_LEVEL = {1: 1.00, 2: 0.65, 3: 0.55, 4: 0.80, 5: 0.20, 6: 0.30}
 _REP_COMPLEXITY = {1: 0.25, 2: 0.60, 3: 0.70, 4: 0.50, 5: 0.80, 6: 0.90}
 _LLM_FEASIBILITY = {1: 0.95, 2: 0.75, 3: 0.70, 4: 0.90, 5: 0.85, 6: 0.45}
+
+# ---------------------------------------------------------------------------
+# m5-m10: expanded metrics, one named table per metrics.md definition.
+# Each table is keyed by representation group (1-6, see config.py) and
+# reflects that group's typical characteristics per the doc's own examples
+# (e.g. doc says "xUnit = 1.0 Oracle Executability" -> group 5 = 1.00 here).
+# ---------------------------------------------------------------------------
+
+# M5 - Oracle Executability Index: can a test runner execute the assertions
+# automatically, or does it need adapter code / a human in the loop?
+# Doc: xUnit/API contracts = 1.0, Gherkin (needs step defs) = 0.5,
+#      purely descriptive text (use cases, goal diagrams) = 0.0.
+_ORACLE_EXECUTABILITY = {1: 0.20, 2: 0.45, 3: 0.40, 4: 0.60, 5: 1.00, 6: 0.80}
+
+# M6 - Traceability Density: how directly does each test map back to a
+# specific requirement clause?
+# Doc: direct 1-to-1 linkage (Test Requirement Matrix) = 1.0,
+#      lumped data with no clear linkage (Feature Vectors) = 0.2.
+_TRACEABILITY_DENSITY = {1: 0.80, 2: 0.55, 3: 0.50, 4: 1.00, 5: 0.70, 6: 0.85}
+
+# M7 - Cognitive Auditability: can a human reviewer read the test and tell
+# if it's correct (i.e. catch an LLM hallucination) at a glance?
+# Doc: Gherkin / decision tables = 1.0, symbolic equations / raw matrices = 0.2.
+_COGNITIVE_AUDITABILITY = {1: 0.90, 2: 0.80, 3: 0.70, 4: 0.85, 5: 0.65, 6: 0.40}
+
+# M8 - Change Fragility: does a small requirement tweak require a localized
+# edit, or does it break the whole model?
+# Doc: localized edits (adding a Decision Table row) = 1.0 (robust),
+#      minor changes break the entire structure = 0.2 (fragile).
+_CHANGE_FRAGILITY = {1: 0.85, 2: 0.65, 3: 0.55, 4: 0.80, 5: 0.60, 6: 0.45}
+
+# M9 - Mutation Support: can the representation undergo automated fault
+# injection to prove the test suite actually catches bugs?
+# Doc: supports automatic code mutation (xUnit, DSLs) = 1.0,
+#      plain text or diagrams with no automated execution = 0.0.
+_MUTATION_SUPPORT = {1: 0.30, 2: 0.70, 3: 0.60, 4: 0.40, 5: 0.95, 6: 0.90}
+
+# M10 - Standards & Compliance Fit: is this an officially recognized formal
+# model for the target safety-certification level (ISO 26262, DO-178C)?
+# Doc: officially recognized formal model = 1.0, vague/unapproved = 0.0.
+# This metric is only meaningful when the system is actually safety-critical
+# -- see the cap applied in _score_standards_compliance below.
+_STANDARDS_COMPLIANCE = {1: 0.50, 2: 0.95, 3: 0.90, 4: 0.70, 5: 0.65, 6: 0.85}
+
+# Cap applied to M10 for non-safety-critical systems: standards compliance
+# shouldn't meaningfully reward/penalize a representation choice unless the
+# requirement is actually flagged safety-critical.
+_M10_NON_SAFETY_CAP = 0.65
 
 
 def _hit_count(pattern: re.Pattern, text: str) -> int:
@@ -128,22 +189,69 @@ def _score_abstraction(rep_group: int, abstraction_target: str) -> float:
     return max(0.0, 1.0 - abs(rep_level - target_level))
 
 
-def _score_expanded_metrics(rep_group: int, safety_critical: bool) -> dict:
-    scores = {
-        "m5": {1: 0.20, 2: 0.45, 3: 0.40, 4: 0.60, 5: 1.00, 6: 0.80}.get(rep_group, 0.50),
-        "m6": {1: 0.80, 2: 0.55, 3: 0.50, 4: 1.00, 5: 0.70, 6: 0.85}.get(rep_group, 0.50),
-        "m7": {1: 0.90, 2: 0.80, 3: 0.70, 4: 0.85, 5: 0.65, 6: 0.40}.get(rep_group, 0.60),
-        "m8": {1: 0.85, 2: 0.65, 3: 0.55, 4: 0.80, 5: 0.60, 6: 0.45}.get(rep_group, 0.55),
-        "m9": {1: 0.30, 2: 0.70, 3: 0.60, 4: 0.40, 5: 0.95, 6: 0.90}.get(rep_group, 0.50),
-        "m10": {1: 0.50, 2: 0.95, 3: 0.90, 4: 0.70, 5: 0.65, 6: 0.85}.get(rep_group, 0.50),
-    }
+def _score_oracle_executability(rep_group: int) -> float:
+    """M5: how directly the representation's output can be run by a test
+    runner without a human writing adapter code first."""
+    return _ORACLE_EXECUTABILITY.get(rep_group, 0.50)
+
+
+def _score_traceability_density(rep_group: int) -> float:
+    """M6: how cleanly each generated test maps back to a specific
+    requirement clause."""
+    return _TRACEABILITY_DENSITY.get(rep_group, 0.50)
+
+
+def _score_cognitive_auditability(rep_group: int) -> float:
+    """M7: how easily a human reviewer can read the test and catch an
+    LLM hallucination or mistake."""
+    return _COGNITIVE_AUDITABILITY.get(rep_group, 0.60)
+
+
+def _score_change_fragility(rep_group: int) -> float:
+    """M8: how well the representation absorbs small requirement edits
+    without needing a full model rewrite."""
+    return _CHANGE_FRAGILITY.get(rep_group, 0.55)
+
+
+def _score_mutation_support(rep_group: int) -> float:
+    """M9: whether the representation can undergo automated fault
+    injection (mutation testing) to prove the suite's strength."""
+    return _MUTATION_SUPPORT.get(rep_group, 0.50)
+
+
+def _score_standards_compliance(rep_group: int, safety_critical: bool) -> float:
+    """M10: alignment with formal safety-certification modeling standards
+    (ISO 26262, DO-178C). Only meaningfully rewarded when the requirement
+    is actually flagged safety-critical -- otherwise capped, per metrics.md's
+    guidance that this metric matters specifically for safety-critical systems."""
+    score = _STANDARDS_COMPLIANCE.get(rep_group, 0.55)
     if not safety_critical:
-        scores["m10"] = min(scores["m10"], 0.65)
-    return scores
+        score = min(score, _M10_NON_SAFETY_CAP)
+    return score
+
+
+def _score_expanded_metrics(rep_group: int, safety_critical: bool) -> dict:
+    """Compute m5-m10 as a coherent group, one function per metrics.md
+    definition. Returns keys m5..m10 for direct use in metric_values."""
+    return {
+        "m5": _score_oracle_executability(rep_group),
+        "m6": _score_traceability_density(rep_group),
+        "m7": _score_cognitive_auditability(rep_group),
+        "m8": _score_change_fragility(rep_group),
+        "m9": _score_mutation_support(rep_group),
+        "m10": _score_standards_compliance(rep_group, safety_critical),
+    }
 
 
 def evaluate_rss(req_text: str, representation: str, weights: dict = None, system_type: str = None) -> dict:
-    """Return a heuristic RSS score for a requirement/representation pair."""
+    """Return a heuristic RSS score for a requirement/representation pair.
+
+    metric_values always contains all ten metrics (m1-m10), computed the
+    same way regardless of system_type. Which of them actually influence
+    rss_score depends entirely on the active weight profile (see
+    RSS_WEIGHT_PROFILES in config.py) -- e.g. "standard" zeroes out m5-m10,
+    "safety_critical" spreads weight across all ten per metrics.md.
+    """
     rep_group = get_group(representation)
     profile = _infer_requirement_profile(req_text)
 
@@ -161,14 +269,14 @@ def evaluate_rss(req_text: str, representation: str, weights: dict = None, syste
     if is_sparse_concrete_rep(representation):
         feasibility = min(1.0, feasibility + 0.05)
 
-    # All profiles map m1-m10. We get the scores and filter by system profile weights.
-    extra = _score_expanded_metrics(rep_group, profile["safety_critical"])
+    # All ten metrics computed every time; weight profile decides which count.
+    expanded = _score_expanded_metrics(rep_group, profile["safety_critical"])
     metric_values = {
         "m1": alignment,
         "m2": abstraction,
         "m3": occam,
         "m4": feasibility,
-        **extra,
+        **expanded,
     }
 
     score_weights = dict(RSS_WEIGHT_PROFILES.get(system_type, RSS_WEIGHT_PROFILES["standard"]))
