@@ -16,7 +16,7 @@ def call_llm(prompt, model, timeout=1800):
                 "prompt": prompt,
                 "stream": False,
                 "options": {
-                    "num_ctx": 4096,
+                    "num_ctx": 8192,
                     "num_predict": 2048,
                 }
             },
@@ -30,9 +30,26 @@ def call_llm(prompt, model, timeout=1800):
 def get_mock_response(prompt, model):
     prompt_lower = prompt.lower()
     
-    # TURN 1: Initial Prompt
-    if "part 2: test case representation matrix" in prompt_lower:
-        return f"""### Subject Model ({model}) Response - Turn 1 (Initial Test Case Mapping)
+    # TURN 1: Initial Prompt (Select Representations Catalog)
+    if "available representations (30 options)" in prompt_lower or "select the top 6" in prompt_lower or "select_representations" in prompt_lower:
+        return f"""<think>
+Reasoning Process:
+1. Analyze Requirement {model}:
+   - The requirement covers operations privileges (access control), startup/shutdown stateful transitions, and deadlock-free resource allocation (concurrency).
+2. Map to classification dimensions:
+   - Access control is Behavioral/System level.
+   - Startup/shutdown procedures are Architectural/Integration level.
+   - Deadlock-free resource allocation is Formal/Mathematical level.
+3. Select appropriate representations from the 30 library options:
+   - Gherkin (BDD DSL) for scenario-level startup/shutdown.
+   - FSM / Statecharts for stateful transition paths.
+   - Decision Tables for privilege rules mapping.
+   - Sequence Diagrams for component startup/shutdown communication flows.
+   - Petri Nets for formal deadlock-freedom verification.
+   - xUnit Test Cases for unit-level execution constraints.
+4. Draft concrete test cases for all selections to ensure maximum coverage of the original requirement clauses.
+</think>
+### Subject Model ({model}) Response - Turn 1 (Initial Test Case Mapping)
 
 #### 1. Analysis of Requirements (Dimension A & B Classification)
 *   **REQ_0037 (Operation Privileges)**:
@@ -116,41 +133,39 @@ def test_privilege_login_access():
     assert session.can_read_status() is True
 ```"""
 
-    # TURN 2: Reasoning Inquiry
-    elif "reasoning tokens" in prompt_lower:
-        return f"""### Subject Model ({model}) Response - Turn 2 (Reasoning Explanation)
+    # TURN 2: Metrics Justification
+    elif "justify ur choices against the following framework metrics" in prompt_lower or "representational suitability score" in prompt_lower:
+        return f"""<think>
+Reasoning Process:
+1. Examine chosen representations (Gherkin, FSM, Decision Tables, Sequence Diagrams, Petri Nets, xUnit).
+2. Align each representation with the new metrics.md framework gates:
+   - RSS (Concern Alignment, Abstraction, Occam's Razor, LLM Feasibility).
+   - SFV (adherence to syntax rules and schema standards).
+   - FSA (Clause Coverage, Negative/Error Coverage, Oracle Assertiveness, Boundary Coverage).
+3. Construct detailed justifications for each gate.
+</think>
+### Subject Model ({model}) Response - Turn 2 (Metrics Justification)
 
-To record the reasoning process (or simulated reasoning tokens) utilized to derive the testcase mapping:
-1.  **Semantic Token Mapping**: Analyzed input requirement words (like 'deadlock', 'privileges', 'startup') to extract target concerns.
-2.  **Constraint Solvability Evaluation**:
-    *   *Deadlock-freedom* constraint mapped to Petri Nets due to mathematical reachability analysis.
-    *   *Privilege combination* constraint mapped to Decision Tables due to logic-grid constraints.
-3.  **Syntactic Feasibility Check**: Ensured chosen representations compile into structured formats (e.g. Gherkin text, Python code, Mermaid sequences) rather than unconstrained plain text.
-4.  **Traceability Mapping**: Verified that each requirements clause has a corresponding assertion block in at least one chosen representation."""
+Here is how the generated test cases and selected representations satisfy the 3-Gate metrics.md framework:
 
-    # TURN 3: Metrics Justification
-    elif "justification as to why you choose" in prompt_lower:
-        return f"""### Subject Model ({model}) Response - Turn 3 (Metrics Justification)
-
-Here is how the generated test cases and selected representations satisfy the 5 SOTA QA Metrics:
-
-1.  **Requirements Coverage**: The test cases fully verify all clauses of Section 2.10: privileges (via Decision Table and xUnit), startup/shutdown (via Gherkin and FSM), access allocation (via Decision Table), and deadlock-freedom (via Petri Net).
-2.  **Representation Semantic Fit**: Each concern is mapped to its mathematically optimal representation. Stateful logic is tested via FSM, concurrency via Petri Nets, and logical combinations via Decision Tables.
-3.  **Concurrency Soundness**: The Petri Net models places and transitions for resource locking, proving mathematically that deadlock states are unreachable. The Sequence Diagram asserts timeline non-interference.
-4.  **Traceability Linkage**: The xUnit tests and Gherkin features contain explicit traceability tags (`@REQ_0037`, `@REQ_0038`) mapping directly back to the SRS clauses.
-5.  **Assertion / Oracle Precision**: Assertions in the xUnit code and FSM guard conditions are completely deterministic and logically precise, specifying exact inputs and expected outcomes."""
-
-    # TURN 4: Architectural Hypothesis
-    elif "based on your architecture" in prompt_lower:
-        return f"""### Subject Model ({model}) Response - Turn 4 (Architectural Hypothesis)
-
-Based on the transformer architecture (e.g., Llama/Qwen dense attention mechanism):
-1.  **Attention Head Steering**: Late-layer attention heads (e.g., layers 22-26) likely tracked cross-attention between requirement descriptions ('deadlock-freedom') and the representation matrix description ('Petri Nets').
-2.  **MLP Fact Retrieval**: Feed-forward network (FFN) layers stored weights representing standard QA methods, firing activation patterns that mapped BDD to 'Given-When-Then' and Unit tests to 'assertions'.
-3.  **Context-Length Constraints**: The pre-computed dependency JSON in the context window steered the generation of sequence lifelines by highlighting component relationships.
-*Note: This is an architectural hypothesis based on typical transformer routing; direct activation probing would be required for empirical validation.*"""
+1.  **Representational Suitability Score (RSS)**:
+    - *Concern Alignment*: Mapped state transitions (startup/shutdown) to FSM, concurrent resource locking to Petri Nets, and user privileges/modes to Decision Tables.
+    - *Abstraction Fit*: Matched integration-level telemetry to Sequence Diagrams, and code-level bindings to xUnit.
+    - *Occam's Razor*: Selected minimal Gherkin scenarios for happy paths instead of full state charts.
+    - *LLM Feasibility*: Selected standard formats (xUnit, JSON) that avoid generation hallucinations.
+2.  **Syntactic Form Validity (SFV)**:
+    - Evaluated elements comply with strict grammar checks. For example, Gherkin scenarios use standard Given-When-Then syntax without nested blocks, and the Petri Net defines a valid mathematical graph tuple (P, T, F, M0).
+3.  **Functional Semantic Adequacy (FSA)**:
+    - *Clause Coverage*: Verified all clauses of 2.10 including dynamic login privileges and deadlock avoidance.
+    - *Negative/Error Coverage*: FSM transitions model startup Motor Fault conditions, and Sequence Diagrams check command timeout paths.
+    - *Oracle Assertiveness*: Precise boolean assert conditions are used in the PyTest xUnit test cases.
+    - *Boundary Coverage*: Tested input privilege combinations on decision tables."""
 
     # FALLBACK / DEFAULT
     else:
-        return f"""### Subject Model ({model}) Response - Fallback
+        return f"""<think>
+Reasoning Process:
+1. Fallback matched. Returning standard response.
+</think>
+### Subject Model ({model}) Response - Fallback
 I am ready to proceed. Please provide the requirement and evaluation metrics."""

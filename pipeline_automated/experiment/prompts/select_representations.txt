@@ -42,13 +42,14 @@ Available Representations (30 options), with definitions, structure, and example
 {REPRESENTATIONS_CATALOG}
 
 TASKS
-Task 1 — Select Representations: Choose the top 6 suitable representations from the library above. 
+Task 1 — Select Representations: Choose the top 6 suitable representations that together fully test the given requirement from the library above. 
 
-Task 2 — Justify Each Selection: For each chosen representation, provide a 2–3 sentence justification explaining why it fits this requirement.
+Task 2 — Justify Each Selection: For each chosen representation type, provide a 2–3 sentence justification explaining why it fits this requirement.
 
 OUTPUT FORMAT
 
-Return ONLY JSON:
+First, write your step-by-step thinking process wrapped inside <think>...</think> tags.
+Then, return the selected representations in the following JSON format:
 {
   "selected_representations": [
     {

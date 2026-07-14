@@ -1,9 +1,9 @@
 import os
-from export_reqs import export_reqs
-from select_representations import run_select_representations
-from find_dependencies import run_find_dependencies
-from generate_testcases import run_generate_testcases
-from back_forth import run_back_forth
+from .export_reqs import export_reqs
+from .select_representations import run_select_representations
+from .find_dependencies import run_find_dependencies
+from .generate_testcases import run_generate_testcases
+from .back_forth import run_back_forth
 
 def main():
     print("\n" + "="*50)
