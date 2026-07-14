@@ -10,7 +10,7 @@ for _p in (SCRIPT_DIR, EXPERIMENT_DIR):
 
 from call_llm import call_llm, MODELS
 from token_tracker import log_usage
-from results.metrics import evaluate_sfv, evaluate_fsa, compute_sdi, split_test_suite
+from results.metrics import evaluate_sfv, evaluate_fsa
 
 
 def _model_name(model: str) -> str:
@@ -76,20 +76,15 @@ def run_evaluate_metrics(req_text, req_filename,
                     final_attempt = record["attempts"][-1]
                     sfv_result = final_attempt.get("sfv_result") or {}
                     fsa_result = final_attempt.get("fsa_result") or {}
-                    sdi_result = final_attempt.get("sdi_result") or {}
                 else:
                     sfv_result = record.get("sfv", {})
                     fsa_result = record.get("fsa", {})
-                    sdi_result = record.get("sdi", {})
                 
                 # Print status summary
                 if sfv_result.get("sfv_pass"):
                     print(f"      SFV = {sfv_result.get('sfv_score')} (PASS)")
                     if fsa_result.get("fsa_pass"):
                         print(f"      FSA = {fsa_result.get('fsa_score')} (PASS)")
-                        if sdi_result:
-                            print(f"      SDI = {sdi_result.get('sdi_score')} "
-                                  f"({'PASS' if sdi_result.get('sdi_pass') else 'FLAGGED for near-duplicate regen'})")
                     else:
                         print(f"      FSA = {fsa_result.get('fsa_score', 0.0)} (FAIL) — send back to Gate 2 generation (to add missing scenarios).")
                 else:
@@ -119,12 +114,7 @@ def run_evaluate_metrics(req_text, req_filename,
                     if fsa_result.get("error"):
                         print(f"      Gate 3 evaluation failed: {fsa_result['error']}")
                     elif fsa_result["fsa_pass"]:
-                        print(f"      FSA = {fsa_result['fsa_score']} (PASS) — running Gate 4 (SDI)...")
-                        test_cases = split_test_suite(suite_text, representation)
-                        sdi_result = compute_sdi(test_cases, representation)
-                        record["sdi"] = sdi_result
-                        print(f"      SDI = {sdi_result['sdi_score']} "
-                              f"({'PASS' if sdi_result['sdi_pass'] else 'FLAGGED for near-duplicate regen'})")
+                        print(f"      FSA = {fsa_result['fsa_score']} (PASS)")
                     else:
                         print(f"      FSA = {fsa_result['fsa_score']} (FAIL) — send back to Gate 2 generation (to add missing scenarios).")
                 else:
@@ -142,8 +132,6 @@ def run_evaluate_metrics(req_text, req_filename,
                 "sfv_pass": sfv_result.get("sfv_pass"),
                 "fsa_score": fsa_result.get("fsa_score"),
                 "fsa_pass": fsa_result.get("fsa_pass"),
-                "sdi_score": record.get("sdi", {}).get("sdi_score"),
-                "sdi_pass": record.get("sdi", {}).get("sdi_pass"),
             })
 
     summary_path = os.path.join(output_dir, f"{req_name}_summary.json")

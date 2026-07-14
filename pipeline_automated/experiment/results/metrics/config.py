@@ -72,18 +72,6 @@ REPRESENTATION_GROUPS = {
 # per metrics.md's note on KAOS / User Stories.
 SPARSE_CONCRETE_VALUE_REPS = {"kaos", "goal-oriented", "user stories", "use cases"}
 
-# Gate 4 similarity method per group (metrics.md table).
-GROUP_SIMILARITY_METHOD = {
-    1: "embedding",   # sentence-embedding cosine on scenario text
-    2: "graph",       # path/transition Jaccard or graph edit distance
-    3: "graph",
-    4: "hamming",     # Hamming distance over condition-column vectors
-    5: "ast",         # AST tree-edit distance (normalized)
-    6: "vector",      # native cosine / Euclidean in feature space
-}
-
-DEFAULT_SIMILARITY_METHOD = "embedding"
-
 
 def normalize_rep_name(name: str) -> str:
     return (name or "").strip().lower()
@@ -100,11 +88,6 @@ def get_group(representation: str) -> int:
 def is_sparse_concrete_rep(representation: str) -> bool:
     key = normalize_rep_name(representation)
     return any(p in key for p in SPARSE_CONCRETE_VALUE_REPS)
-
-
-def get_similarity_method(representation: str) -> str:
-    group = get_group(representation)
-    return GROUP_SIMILARITY_METHOD.get(group, DEFAULT_SIMILARITY_METHOD)
 
 
 # ---------------------------------------------------------------------------
@@ -222,16 +205,7 @@ def get_fsa_weights(representation: str, system_type: str = "standard") -> dict:
 
 FSA_THRESHOLD = 0.75
 
-# ---------------------------------------------------------------------------
-# Gate 4: SDI weights and thresholds
-# ---------------------------------------------------------------------------
-DEFAULT_SDI_WEIGHTS = {
-    "wd": 0.5,  # 1 - Redundancy Rate
-    "we": 0.5,  # Coverage Entropy (normalized)
-}
 
-SIMILARITY_TAU = 0.85   # pair similarity above this counts as redundant
-SDI_THRESHOLD = 0.70
 
 REPRESENTATION_SUFFICIENCY_CHECKLISTS = {
     "gherkin": "Every requirements clause maps to a unique scenario. The test set must contain a Scenario Outline with Examples tables containing normal, edge, and invalid values. Then clauses must assert specific system states or variables rather than general descriptions.",

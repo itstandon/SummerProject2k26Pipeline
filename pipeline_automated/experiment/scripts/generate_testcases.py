@@ -5,7 +5,7 @@ from datetime import datetime as _dt, timezone as _tz
 from .call_llm import call_llm, MODELS
 from .mongo_utils import store_to_mongodb
 
-from results.metrics import evaluate_rss, evaluate_sfv, evaluate_fsa, compute_sdi, split_test_suite
+from results.metrics import evaluate_rss, evaluate_sfv, evaluate_fsa
 
 MAX_ATTEMPTS = 3
 EVAL_MODEL = os.getenv("LLM2_MODEL", "gpt-4o")
@@ -174,16 +174,10 @@ def run_generate_testcases(req_text, req_filename,
                     attempt_record["fsa_result"] = fsa_res
 
                     if not fsa_res.get("error") and fsa_res.get("fsa_pass"):
-                        print(f"        FSA = {fsa_res['fsa_score']} (PASS) — running Gate 4 (SDI)...")
-                        test_cases = split_test_suite(response_content, rep_name)
-                        sdi_res = compute_sdi(test_cases, rep_name)
-                        attempt_record["sdi_result"] = sdi_res
-                        
                         passed_all_gates = True
                         final_content = response_content
                         final_sfv_result = sfv_res
                         final_fsa_result = fsa_res
-                        final_sdi_result = sdi_res
                         attempts_history.append(attempt_record)
                         print(f"        All gates PASSED on attempt {attempt_idx + 1}!")
                         break
@@ -223,7 +217,6 @@ def run_generate_testcases(req_text, req_filename,
                 final_content = attempts_history[-1]["response_received"]
                 final_sfv_result = attempts_history[-1]["sfv_result"]
                 final_fsa_result = attempts_history[-1].get("fsa_result")
-                final_sdi_result = attempts_history[-1].get("sdi_result")
 
             # Save the final text output
             filename = re.sub(r'[^A-Za-z0-9_\-\.]', '_', rep_name.replace(" ", "_"))
@@ -261,7 +254,6 @@ def run_generate_testcases(req_text, req_filename,
                 "final_attempt_index": len(attempts_history),
                 "final_sfv_result": final_sfv_result,
                 "final_fsa_result": final_fsa_result,
-                "final_sdi_result": final_sdi_result,
                 "final_content": final_content,
                 "attempts_history": attempts_history
             }
