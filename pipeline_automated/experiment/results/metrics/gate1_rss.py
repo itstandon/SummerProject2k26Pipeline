@@ -184,6 +184,7 @@ def evaluate_rss(req_text: str, representation: str, weights: dict = None, syste
         "weights_used": score_weights,
         "metrics": metric_values,
         "rss_mode": system_type,
+        "system_type": system_type,
         "rss_score": round(rss_score, 4),
         "rss_pass": rss_score >= RSS_THRESHOLD,
         "rss_threshold": RSS_THRESHOLD,
