@@ -11,6 +11,7 @@ for _p in (SCRIPT_DIR, EXPERIMENT_DIR):
 from call_llm import call_llm, MODELS
 from token_tracker import log_usage
 from results.metrics import evaluate_sfv, evaluate_fsa
+from results.metrics import evaluate_sfv, evaluate_fsa
 
 
 def _model_name(model: str) -> str:
@@ -93,7 +94,39 @@ def run_evaluate_metrics(req_text, req_filename,
                 # Fallback: compute metrics freshly if no JSON output exists
                 print(f"    Gate 2 (SFV): {representation}...")
                 sfv_result = evaluate_sfv(test_case_text=suite_text, representation=representation)
+            metric_json_path = os.path.join(model_out_dir, os.path.splitext(filename)[0] + ".json")
+            
+            # Check if metrics were already computed during the closed-loop generation phase
+            if os.path.exists(metric_json_path):
+                print(f"    [Pre-computed] Loading metrics and history for {representation}...")
+                with open(metric_json_path) as mj:
+                    record = json.load(mj)
+                
+                # Extract results from the final attempt in history
+                if record.get("attempts"):
+                    final_attempt = record["attempts"][-1]
+                    sfv_result = final_attempt.get("sfv_result") or {}
+                    fsa_result = final_attempt.get("fsa_result") or {}
+                else:
+                    sfv_result = record.get("sfv", {})
+                    fsa_result = record.get("fsa", {})
+                
+                # Print status summary
+                if sfv_result.get("sfv_pass"):
+                    print(f"      SFV = {sfv_result.get('sfv_score')} (PASS)")
+                    if fsa_result.get("fsa_pass"):
+                        print(f"      FSA = {fsa_result.get('fsa_score')} (PASS)")
+                    else:
+                        print(f"      FSA = {fsa_result.get('fsa_score', 0.0)} (FAIL) — send back to Gate 2 generation (to add missing scenarios).")
+                else:
+                    print(f"      SFV = {sfv_result.get('sfv_score', 0.0)} (FAIL) — send back to Gate 2 generation (to fix syntax errors).")
+            else:
+                # Fallback: compute metrics freshly if no JSON output exists
+                print(f"    Gate 2 (SFV): {representation}...")
+                sfv_result = evaluate_sfv(test_case_text=suite_text, representation=representation)
 
+                record = {"representation": representation, "sfv": sfv_result}
+                fsa_result = {}
                 record = {"representation": representation, "sfv": sfv_result}
                 fsa_result = {}
 
@@ -108,7 +141,19 @@ def run_evaluate_metrics(req_text, req_filename,
                         log_usage_fn=log_usage,
                         extra_log={"req_file": req_filename, "representation": representation, "gate": "3"},
                     )
+                if sfv_result["sfv_pass"]:
+                    print(f"      SFV = {sfv_result['sfv_score']} (PASS) — running Gate 3 (FSA + Mg)...")
+                    fsa_result = evaluate_fsa(
+                        req_text=req_text,
+                        representation=representation,
+                        test_case_text=suite_text,
+                        call_llm_fn=call_llm,
+                        model=eval_model,
+                        log_usage_fn=log_usage,
+                        extra_log={"req_file": req_filename, "representation": representation, "gate": "3"},
+                    )
 
+                    record["fsa"] = fsa_result
                     record["fsa"] = fsa_result
 
                     if fsa_result.get("error"):
@@ -117,9 +162,20 @@ def run_evaluate_metrics(req_text, req_filename,
                         print(f"      FSA = {fsa_result['fsa_score']} (PASS)")
                     else:
                         print(f"      FSA = {fsa_result['fsa_score']} (FAIL) — send back to Gate 2 generation (to add missing scenarios).")
+                    if fsa_result.get("error"):
+                        print(f"      Gate 3 evaluation failed: {fsa_result['error']}")
+                    elif fsa_result["fsa_pass"]:
+                        print(f"      FSA = {fsa_result['fsa_score']} (PASS)")
+                    else:
+                        print(f"      FSA = {fsa_result['fsa_score']} (FAIL) — send back to Gate 2 generation (to add missing scenarios).")
                 else:
                     print(f"      SFV = {sfv_result['sfv_score']} (FAIL) — send back to Gate 2 generation (to fix syntax errors).")
+                    print(f"      SFV = {sfv_result['sfv_score']} (FAIL) — send back to Gate 2 generation (to fix syntax errors).")
 
+                # Save the fallback computation JSON
+                out_name = os.path.splitext(filename)[0] + ".json"
+                with open(os.path.join(model_out_dir, out_name), "w") as out:
+                    json.dump(record, out, indent=2)
                 # Save the fallback computation JSON
                 out_name = os.path.splitext(filename)[0] + ".json"
                 with open(os.path.join(model_out_dir, out_name), "w") as out:
