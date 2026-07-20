@@ -7,7 +7,58 @@ MODELS = [
     "gemma3:4b"
 ]
 
+# The "SOTA" evaluator model used for Gate 3 (FSA) judging, plus its API key.
+# Configure via a .env file or exported shell variables:
+#   LLM2_MODEL=gpt-4o
+#   LLM2_API_KEY=sk-...
+LLM2_MODEL = os.environ.get("LLM2_MODEL", "gpt-4o")
+LLM2_API_KEY = os.environ.get("LLM2_API_KEY")
+
+OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions"
+
+
 def call_llm(prompt, model, timeout=1800):
+    """
+    Routes to the right backend based on `model`:
+      - If `model` matches LLM2_MODEL (e.g. "gpt-4o"), call the OpenAI API.
+      - Otherwise, treat it as a local Ollama model name and call the
+        local Ollama server.
+    Falls back to a mock response if the relevant backend call fails,
+    so the pipeline can still be exercised end-to-end without live
+    services during development/testing.
+    """
+    if model == LLM2_MODEL:
+        return _call_openai(prompt, model, timeout)
+    return _call_ollama(prompt, model, timeout)
+
+
+def _call_openai(prompt, model, timeout=1800):
+    if not LLM2_API_KEY or LLM2_API_KEY == "your_sota_api_key_here":
+        print(f"  [OpenAI call skipped: LLM2_API_KEY is not set]. Using high-quality mock response for {model}.")
+        return get_mock_response(prompt, model)
+
+    try:
+        response = requests.post(
+            OPENAI_CHAT_URL,
+            headers={
+                "Authorization": f"Bearer {LLM2_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": model,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=timeout,
+        )
+        response.raise_for_status()
+        data = response.json()
+        return data["choices"][0]["message"]["content"]
+    except Exception as e:
+        print(f"  [OpenAI call failed: {e}]. Using high-quality mock response for {model}.")
+        return get_mock_response(prompt, model)
+
+
+def _call_ollama(prompt, model, timeout=1800):
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
@@ -22,10 +73,12 @@ def call_llm(prompt, model, timeout=1800):
             },
             timeout=timeout
         )
+        response.raise_for_status()
         return response.json()["response"]
     except Exception as e:
-        print(f"  [Ollama Connection Failed: {e}]. Using high-quality mock response for {model}.")
+        print(f"  [Ollama call failed: {e}]. Using high-quality mock response for {model}.")
         return get_mock_response(prompt, model)
+
 
 def get_mock_response(prompt, model):
     prompt_lower = prompt.lower()

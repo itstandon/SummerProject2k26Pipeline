@@ -2,7 +2,6 @@ import json
 import os
 import re
 from datetime import datetime as _dt, timezone as _tz
-from datetime import datetime as _dt, timezone as _tz
 from .call_llm import call_llm, MODELS
 from .mongo_utils import store_to_mongodb
 
@@ -203,7 +202,6 @@ def run_generate_testcases(req_text, req_filename,
 
         model_out_dir = os.path.join(output_dir, f"{model_name}_{req_name}")
         model_metrics_dir = os.path.join(metrics_output_dir, f"{model_name}_{req_name}")
-        model_metrics_dir = os.path.join(metrics_output_dir, f"{model_name}_{req_name}")
         os.makedirs(model_out_dir, exist_ok=True)
         os.makedirs(model_metrics_dir, exist_ok=True)
 
@@ -266,13 +264,6 @@ def run_generate_testcases(req_text, req_filename,
                     dep_context = f.read()
 
             initial_prompt = template.replace("{REQ}", req_text).replace("{REP}", rep_context).replace("{DEPS}", dep_context)
-            initial_prompt = initial_prompt.replace("{REQ}", req_text)
-            initial_prompt = initial_prompt.replace("{REP}", rep_context)
-            initial_prompt = initial_prompt.replace("{DEPS}", dep_context)
-            initial_prompt = template.replace("{REQ}", req_text).replace("{REP}", rep_context).replace("{DEPS}", dep_context)
-            initial_prompt = initial_prompt.replace("{REQ}", req_text)
-            initial_prompt = initial_prompt.replace("{REP}", rep_context)
-            initial_prompt = initial_prompt.replace("{DEPS}", dep_context)
 
             print(f"    {rep_name}...")
 
