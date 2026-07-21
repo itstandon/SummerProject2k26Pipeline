@@ -1,19 +1,8 @@
 Act as a Principal Software QA Engineer and Formal Verification Specialist. You are one stage in an automated pipeline that maps natural-language requirements to appropriate test case representations, which are later used to generate concrete test cases in those representations. You will be given a requirement and its dependencies on other requirements, and you must select the top 6 most suitable test case representations from the 30 listed below.
-Act as a Principal Software QA Engineer and Formal Verification Specialist. You are one stage in an automated pipeline that maps natural-language requirements to appropriate test case representations, which are later used to generate concrete test cases in those representations. You will be given a requirement and its dependencies on other requirements, and you must select the top 6 most suitable test case representations from the 30 listed below.
 
 Requirement:
 {REQ}
 
-Dependency Context (how this requirement relates to others):
-{DEPS}
-
-Available Representations (30 options):
-1. Gherkin (BDD DSL)
-2. Use-Cases & User Stories
-3. Goal-Oriented (KAOS / i*)
-4. Natural Language -> DSL
-5. Transition Systems (S, T, I)
-6. Finite State Machines / Statecharts
 Dependency Context (how this requirement relates to others):
 {DEPS}
 

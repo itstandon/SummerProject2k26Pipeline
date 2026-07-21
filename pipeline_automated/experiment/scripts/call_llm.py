@@ -3,7 +3,7 @@ import requests
 
 MODELS = [
     "qwen2.5:3b",
-    "llama3.2:3b",
+    #"llama3.2:3b",
     "gemma3:4b"
 ]
 
@@ -27,9 +27,9 @@ def call_llm(prompt, model, timeout=1800):
     so the pipeline can still be exercised end-to-end without live
     services during development/testing.
     """
-    if model == LLM2_MODEL:
-        return _call_openai(prompt, model, timeout)
-    return _call_ollama(prompt, model, timeout)
+    if model in MODELS:
+        return _call_ollama(prompt, model, timeout)
+    return _call_openai(prompt, model, timeout)
 
 
 def _call_openai(prompt, model, timeout=1800):
