@@ -8,6 +8,9 @@ from .coverage_analysis import run_coverage_analysis
 from .back_forth import run_back_forth
 from .run_metrics import run_evaluate_metrics
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def post_generation_menu():
     while True:

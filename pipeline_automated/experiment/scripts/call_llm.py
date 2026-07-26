@@ -11,10 +11,10 @@ MODELS = [
 # Configure via a .env file or exported shell variables:
 #   LLM2_MODEL=gpt-4o
 #   LLM2_API_KEY=sk-...
-LLM2_MODEL = os.environ.get("LLM2_MODEL", "gpt-4o")
+LLM2_MODEL = os.environ.get("LLM2_MODEL")
 LLM2_API_KEY = os.environ.get("LLM2_API_KEY")
 
-OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions"
+OPENAI_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 
 def call_llm(prompt, model, timeout=1800):

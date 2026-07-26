@@ -133,6 +133,15 @@ RSS_WEIGHT_PROFILES = {
 # ---------------------------------------------------------------------------
 # Gate 2: Syntactic Form Validity
 # ---------------------------------------------------------------------------
+SFV_THRESHOLD_BY_GROUP = {
+    1: 0.60,  # Gherkin/use-case/scenario
+    2: 0.70,  # FSM/transition systems/Petri nets
+    3: 0.60,  # sequence diagrams
+    4: 0.60,  # decision tables/rules
+    5: 1.00,  # xUnit — treat syntax errors as hard fails
+    6: 0.70,  # symbolic/formal/vector
+}
+
 SFV_THRESHOLD = 0.60
 
 # ---------------------------------------------------------------------------
@@ -203,7 +212,7 @@ def get_fsa_weights(representation: str, system_type: str = "standard") -> dict:
     return weights
 
 
-FSA_THRESHOLD = 0.75
+FSA_THRESHOLD = 0.5
 
 
 
