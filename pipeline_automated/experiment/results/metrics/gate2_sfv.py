@@ -9,7 +9,7 @@ full parser for every representation family.
 import ast
 import re
 
-from .config import SFV_THRESHOLD, get_group
+from .config import SFV_THRESHOLD, SFV_THRESHOLD_BY_GROUP, get_group
 
 _BALANCED_PAIRS = (("(", ")"), ("[", "]"), ("{", "}"))
 
@@ -182,8 +182,14 @@ def evaluate_sfv(test_case_text: str, representation: str, threshold: float = No
     else:
         result = _generic_sfv(text)
 
+    # fv_score = round(result["score"], 4)
+    # sfv_threshold = SFV_THRESHOLD if threshold is None else threshold
     sfv_score = round(result["score"], 4)
-    sfv_threshold = SFV_THRESHOLD if threshold is None else threshold
+    if threshold is not None:
+        sfv_threshold = threshold
+    else:
+        sfv_threshold = SFV_THRESHOLD_BY_GROUP.get(rep_group, SFV_THRESHOLD)
+
     return {
         "representation": representation,
         "representation_group": rep_group,
