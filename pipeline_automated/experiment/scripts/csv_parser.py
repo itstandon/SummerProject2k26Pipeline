@@ -15,7 +15,7 @@ load_dotenv()
 # CONFIG
 ########################################
 
-EXCEL_FILE = "requirements/GeminiReqs.xlsx"
+EXCEL_FILE = "requirements/GeminiReqs1.csv"
 
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("DB_NAME")
@@ -50,7 +50,8 @@ def get_ancestors(req_num):
 
 print(f"Loading {EXCEL_FILE}...")
 
-df = pd.read_excel(EXCEL_FILE, header=None)
+# df = pd.read_excel(EXCEL_FILE, header=None)
+df = pd.read_csv(EXCEL_FILE, header=None, encoding="utf-8-sig")
 
 ########################################
 # REGEX
@@ -72,6 +73,16 @@ current_section_number = None
 current_section_title = None
 
 for _, row in df.iterrows():
+
+    row = row[:11]
+
+    req_type = str(row[9]).strip() if pd.notna(row[9]) else None
+    relation_raw = str(row[10]).strip() if pd.notna(row[10]) else "NONE"
+
+    dependencies = []
+    if relation_raw and relation_raw != "NONE":
+        for rel_type, target_id in re.findall(r'#(\w+)-(REQ_\d+)', relation_raw):
+            dependencies.append({"relation": rel_type, "target": target_id})
 
     values = [
         str(v).strip()
@@ -128,7 +139,9 @@ for _, row in df.iterrows():
             "depth": len(current_section_number.split(".")) if current_section_number else 0,
             "parent": None,
             "ancestors": [],
-            "children": []
+            "children": [],
+            "type": req_type,
+            "dependencies": dependencies,
         }
 
 ########################################
