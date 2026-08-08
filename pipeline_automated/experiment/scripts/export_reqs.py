@@ -51,12 +51,12 @@ def parse_excel_fallback():
     import pandas as pd
     import re
     
-    excel_file = "requirements/GeminiReqs.xlsx"
+    excel_file = "requirements/GeminiReqs1.csv"
     if not os.path.exists(excel_file):
-        excel_file = "../requirements/GeminiReqs.xlsx"
+        excel_file = "../requirements/GeminiReqs1.csv"
         
     print(f"  [INFO] MongoDB offline. Parsing local Excel file: {excel_file}")
-    df = pd.read_excel(excel_file, header=None)
+    df = pd.read_csv(excel_file, header=None, encoding="utf-8-sig")
     
     req_id_pattern = re.compile(r"REQ_\d+")
     section_pattern = re.compile(r"^(\d+(?:\.\d+)*)\s+(.*)$")
