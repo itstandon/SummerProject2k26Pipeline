@@ -8,144 +8,88 @@ for _p in (SCRIPT_DIR, EXPERIMENT_DIR):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from call_llm import call_llm, MODELS
-from token_tracker import log_usage
-from results.metrics import evaluate_sfv, evaluate_fsa
-
+from call_llm import MODELS
+from results.metrics import evaluate_sfv
+from generate_testcases import PHASES
 
 
 def _model_name(model: str) -> str:
     return model.replace(":", "_").replace("/", "_")
 
 
-def _representation_name_from_filename(filename: str) -> str:
-    # generate_testcases.py wrote files as rep_name.replace(" ", "_") + ".txt"
-    return os.path.splitext(filename)[0].replace("_", " ")
-
-
 def run_evaluate_metrics(req_text, req_filename,
                           test_cases_dir="results/test_cases",
                           output_dir="results/metrics",
-                          eval_model=None):
+                          phases=None):
     """
     Call this right after run_generate_testcases(req_text, req_filename)
-    in cli.py — it walks the same directory structure
-    generate_testcases.py just wrote, scores every generated
-    representation file against Gate 2 (SFV), Gate 3 (FSA + Groundedness),
-    then Gate 4 (SDI) on the same file split into individual test cases.
+    in cli.py.
 
-    Only representations whose FSA passes get an SDI score, matching
-    the "Gate 4 runs after FSA passes" flow in metrics.md.
+    Representation selection is gone, and so are Gate 1 (RSS) and Gate 3
+    (FSA) -- the only automated check left in this pipeline is Gate 2
+    (SFV), rewritten to check the fixed test-case template every phase's
+    prompt asks for (Test Case ID / Title / Preconditions / Steps /
+    Expected Result -- see gate2_sfv.py), rather than a representation's
+    syntax. It's a pure heuristic check, no evaluator LLM call needed.
+
+    The second half of the rubric -- expert ground-truth alignment --
+    is handled separately by compare_with_expert.run_compare_with_expert.
+
+    Both phase1_basic and phase2_metrics_aware are scored, for every
+    model, so they can be compared head-to-head.
     """
+    phases = phases or PHASES
     req_name = os.path.splitext(req_filename)[0]
     os.makedirs(output_dir, exist_ok=True)
 
-    eval_model = eval_model or MODELS[0]
     overall_summary = []
 
-    for model in MODELS:
-        model_name = _model_name(model)
-        suite_dir = os.path.join(test_cases_dir, f"{model_name}_{req_name}")
+    for phase_name in phases:
+        for model in MODELS:
+            model_name = _model_name(model)
+            suite_dir = os.path.join(test_cases_dir, phase_name, f"{model_name}_{req_name}")
+            suite_path = os.path.join(suite_dir, f"{req_name}.txt")
 
-        if not os.path.isdir(suite_dir):
-            continue
-
-        model_out_dir = os.path.join(output_dir, f"{model_name}_{req_name}")
-        os.makedirs(model_out_dir, exist_ok=True)
-
-        print(f"\n  Evaluating metrics for {model}...")
-
-        for filename in sorted(os.listdir(suite_dir)):
-            if not filename.endswith(".txt"):
+            if not os.path.exists(suite_path):
                 continue
 
-            representation = _representation_name_from_filename(filename)
-            file_path = os.path.join(suite_dir, filename)
-            with open(file_path) as f:
+            with open(suite_path) as f:
                 suite_text = f.read()
 
-            metric_json_path = os.path.join(model_out_dir, os.path.splitext(filename)[0] + ".json")
+            model_out_dir = os.path.join(output_dir, phase_name, f"{model_name}_{req_name}")
+            os.makedirs(model_out_dir, exist_ok=True)
+            metric_json_path = os.path.join(model_out_dir, f"{req_name}_sfv.json")
 
-            if os.path.exists(metric_json_path):
-                # Metrics were already computed during the closed-loop generation phase
-                print(f"    [Pre-computed] Loading metrics and history for {representation}...")
-                with open(metric_json_path) as mj:
-                    record = json.load(mj)
+            print(f"\n  [{phase_name}] Gate 2 (SFV): {model} / {req_name}...")
 
-                # Extract results from the final attempt in history
-                if record.get("attempts"):
-                    final_attempt = record["attempts"][-1]
-                    sfv_result = final_attempt.get("sfv_result") or {}
-                    fsa_result = final_attempt.get("fsa_result") or {}
-                else:
-                    sfv_result = record.get("sfv", {})
-                    fsa_result = record.get("fsa", {})
+            sfv_result = evaluate_sfv(test_case_text=suite_text)
+            with open(metric_json_path, "w") as out:
+                json.dump(sfv_result, out, indent=2)
 
-                # Print status summary
-                if sfv_result.get("sfv_pass"):
-                    print(f"      SFV = {sfv_result.get('sfv_score')} (PASS)")
-                    if fsa_result.get("fsa_pass"):
-                        print(f"      FSA = {fsa_result.get('fsa_score')} (PASS)")
-                    else:
-                        print(f"      FSA = {fsa_result.get('fsa_score', 0.0)} (FAIL) — send back to Gate 2 generation (to add missing scenarios).")
-                else:
-                    print(f"      SFV = {sfv_result.get('sfv_score', 0.0)} (FAIL) — send back to Gate 2 generation (to fix syntax errors).")
-
-            else:
-                # Fallback: compute metrics freshly if no JSON output exists
-                print(f"    Gate 2 (SFV): {representation}...")
-                sfv_result = evaluate_sfv(test_case_text=suite_text, representation=representation)
-
-                record = {"representation": representation, "sfv": sfv_result}
-                fsa_result = {}
-
-                if sfv_result["sfv_pass"]:
-                    print(f"      SFV = {sfv_result['sfv_score']} (PASS) — running Gate 3 (FSA + Mg)...")
-                    fsa_result = evaluate_fsa(
-                        req_text=req_text,
-                        representation=representation,
-                        test_case_text=suite_text,
-                        call_llm_fn=call_llm,
-                        model=eval_model,
-                        log_usage_fn=log_usage,
-                        extra_log={"req_file": req_filename, "representation": representation, "gate": "3"},
-                    )
-
-                    record["fsa"] = fsa_result
-
-                    if fsa_result.get("error"):
-                        print(f"      Gate 3 evaluation failed: {fsa_result['error']}")
-                    elif fsa_result["fsa_pass"]:
-                        print(f"      FSA = {fsa_result['fsa_score']} (PASS)")
-                    else:
-                        print(f"      FSA = {fsa_result['fsa_score']} (FAIL) — send back to Gate 2 generation (to add missing scenarios).")
-                else:
-                    print(f"      SFV = {sfv_result['sfv_score']} (FAIL) — send back to Gate 2 generation (to fix syntax errors).")
-
-                # Save the fallback computation JSON
-                out_name = os.path.splitext(filename)[0] + ".json"
-                with open(os.path.join(model_out_dir, out_name), "w") as out:
-                    json.dump(record, out, indent=2)
+            status = "PASS" if sfv_result["sfv_pass"] else "FAIL"
+            print(f"    SFV = {sfv_result['sfv_score']} ({status}) — "
+                  f"{sfv_result['well_formed_count']}/{sfv_result['test_case_count']} test cases well-formed.")
+            if sfv_result["issues"]:
+                for issue in sfv_result["issues"][:5]:
+                    print(f"      - {issue}")
 
             overall_summary.append({
+                "phase": phase_name,
                 "model": model,
-                "representation": representation,
                 "sfv_score": sfv_result.get("sfv_score"),
                 "sfv_pass": sfv_result.get("sfv_pass"),
-                "fsa_score": fsa_result.get("fsa_score"),
-                "fsa_pass": fsa_result.get("fsa_pass"),
+                "test_case_count": sfv_result.get("test_case_count"),
             })
 
-    summary_path = os.path.join(output_dir, f"{req_name}_summary.json")
+    summary_path = os.path.join(output_dir, f"{req_name}_sfv_summary.json")
     with open(summary_path, "w") as f:
         json.dump(overall_summary, f, indent=2)
 
-    print(f"\n  Metrics summary written to {summary_path}")
+    print(f"\n  SFV summary written to {summary_path}")
     return overall_summary
 
 
 if __name__ == "__main__":
-    import sys
     if len(sys.argv) != 2:
         print("Usage: python run_metrics.py <path_to_requirement_txt>")
         sys.exit(1)

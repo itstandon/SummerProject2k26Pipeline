@@ -1,6 +1,5 @@
 import os
 from .export_reqs import export_reqs
-from .select_representations import run_select_representations
 from .find_dependencies import run_find_dependencies
 from .generate_testcases import run_generate_testcases
 from .compare_with_expert import run_compare_with_expert
@@ -20,7 +19,7 @@ def post_generation_menu():
         print("1 -> Back and forth")
         print("2 -> Compare representations with expert")
         print("3 -> Coverage analysis")
-        print("4 -> Evaluate metrics (Gate 2 SFV, Gate 3 FSA+Groundedness, Gate 4 SDI)")
+        print("4 -> Evaluate metrics (Gate 2 SFV)")
         print("q -> Quit menu")
 
         choice = input("\nChoice: ").strip().lower()
@@ -28,11 +27,11 @@ def post_generation_menu():
         if choice == "1":
             run_back_forth(req_text, selected_file)
         elif choice == "2":
-            run_compare_with_expert()
+            run_compare_with_expert(req_text, selected_file)
         elif choice == "3":
             run_coverage_analysis()
         elif choice == "4":
-            run_evaluate_metrics()
+            run_evaluate_metrics(req_text, selected_file)
         elif choice == "q":
             break
         else:
@@ -93,7 +92,6 @@ def main():
                     return
                 elif inp == "h":
                     print_hpc_guide()
-                    # Re-print options so the user knows what to input next
                     print("\nChoose grouping level:\n")
                     print("0 -> X")
                     print("1 -> X.X")
@@ -109,7 +107,7 @@ def main():
                 print("Please enter a level (0-3), 'h' for HPC guide, or 'q' to quit.")
 
         export_reqs(level)
-        
+
         # List generated requirements
         req_dir = "../generated_requirements"
         if not os.path.exists(req_dir):
@@ -117,7 +115,7 @@ def main():
             continue
 
         files = sorted([f for f in os.listdir(req_dir) if os.path.isfile(os.path.join(req_dir, f))])
-        
+
         if not files:
             print(f"No files found in {req_dir}.")
             continue
@@ -128,7 +126,7 @@ def main():
 
         while True:
             try:
-                choice = int(input("\nSelect a file by number for representation selection: "))
+                choice = int(input("\nSelect a file by number: "))
                 if 1 <= choice <= len(files):
                     selected_file = files[choice - 1]
                     break
@@ -138,8 +136,8 @@ def main():
                 print("Please enter a valid integer.")
 
         file_path = os.path.join(req_dir, selected_file)
-        print(f"\nReading {file_path} for representation selection...")
-        
+        print(f"\nReading {file_path}...")
+
         with open(file_path, "r", encoding="utf-8") as f:
             req_text = f.read()
 
@@ -147,22 +145,29 @@ def main():
         run_find_dependencies(req_text, selected_file)
         print("Dependency analysis complete.")
 
-        # Step 1: select representations
-        print("Running representation selection via LLM...")
-        run_select_representations(req_text, selected_file)
-        print("Representation selection complete.")
-
-        # Step 2: generate test cases using the mappings
-        print("\nGenerating test cases for selected representations...")
+        # Step 1 (was: select representations, then generate) -- now a
+        # single step: generate test cases directly from reqs + deps,
+        # in both the basic prompt and the metrics-aware prompt.
+        #   phase1_basic:          {REQ} + {DEPS} only
+        #   phase2_metrics_aware:  {REQ} + {DEPS} + FSA/expert rubric
+        print("\nGenerating test cases directly from requirements + dependencies "
+              "(phase1_basic, phase2_metrics_aware)...")
         run_generate_testcases(req_text, selected_file)
         print("\nAll test cases generated in results/test_cases/")
 
-        # Step 3: score every generated representation against Gate 2
-        # (SFV), Gate 3 (FSA + Requirement Groundedness) and, for
-        # anything that passes, Gate 4 (Suite Diversity Index).
-        print("\nEvaluating generated test cases against SFV, FSA/Mg and SDI metrics...")
+        # Step 2: score every generated suite against Gate 2 (SFV) --
+        # rewritten to check the fixed test-case template rather than a
+        # representation's syntax. No Gate 1 (RSS) or Gate 3 (FSA) any
+        # more, since there's no representation choice to validate and
+        # FSA isn't part of this pipeline's automated metrics.
+        print("\nEvaluating generated test cases against SFV (template conformance)...")
         run_evaluate_metrics(req_text, selected_file)
         print("\nMetrics written to results/metrics/")
+
+        # Step 3: compare both phases against expert ground truth, where
+        # it exists for this requirement file.
+        print("\nComparing against expert ground truth (where available)...")
+        run_compare_with_expert(req_text, selected_file)
 
         post_generation_menu()
 

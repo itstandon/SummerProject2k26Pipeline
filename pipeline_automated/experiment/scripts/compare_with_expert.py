@@ -377,34 +377,34 @@ def run_compare_with_expert(req_text, req_filename,
     os.makedirs(output_dir, exist_ok=True)
     all_results = []
 
-    for model in MODELS:
-        model_name = model.replace(":", "_").replace("/", "_")
-        suite_dir = os.path.join(test_cases_dir, f"{model_name}_{req_name}")
+    from generate_testcases import PHASES  # phase1_basic, phase2_metrics_aware
 
-        if not os.path.isdir(suite_dir):
-            print(f"  Skipping {model} — no generated test cases found at {suite_dir}.")
-            continue
+    for phase_name in PHASES:
+        for model in MODELS:
+            model_name = model.replace(":", "_").replace("/", "_")
+            suite_dir = os.path.join(test_cases_dir, phase_name, f"{model_name}_{req_name}")
+            suite_path = os.path.join(suite_dir, f"{req_name}.txt")
 
-        model_out_dir = os.path.join(output_dir, f"{model_name}_{req_name}")
-        os.makedirs(model_out_dir, exist_ok=True)
-
-        print(f"\n  Comparing {model}'s generated test cases against expert ground truth (evaluator: {eval_model})...")
-
-        for filename in sorted(os.listdir(suite_dir)):
-            if not filename.endswith(".txt"):
+            if not os.path.exists(suite_path):
+                print(f"  Skipping {phase_name}/{model} — no generated test cases found at {suite_path}.")
                 continue
 
-            representation = os.path.splitext(filename)[0].replace("_", " ")
-            with open(os.path.join(suite_dir, filename)) as f:
+            model_out_dir = os.path.join(output_dir, phase_name, f"{model_name}_{req_name}")
+            os.makedirs(model_out_dir, exist_ok=True)
+
+            print(f"\n  [{phase_name}] Comparing {model}'s generated test cases against "
+                  f"expert ground truth (evaluator: {eval_model})...")
+
+            with open(suite_path) as f:
                 generated_text = f.read()
 
             for req_id, gt in relevant_gt.items():
-                print(f"    {representation} vs expert ground truth ({req_id})...")
+                print(f"    {phase_name} vs expert ground truth ({req_id})...")
 
                 prompt = (template
                           .replace("{REQ_ID}", req_id)
                           .replace("{REQ}", gt["content"] or req_text)
-                          .replace("{REP}", representation)
+                          .replace("{REP}", phase_name)   # label the "representation" slot with the phase
                           .replace("{GENERATED}", generated_text)
                           .replace("{GT_PRIMARY}", gt["ground_truth_primary"] or "(none provided)")
                           .replace("{GT_NEGATIVE}", gt["ground_truth_negative"] or "(none provided)")
@@ -414,7 +414,7 @@ def run_compare_with_expert(req_text, req_filename,
                 parsed = _parse_json_loose(raw_response)
 
                 if parsed is None:
-                    print(f"      Warning: could not parse SOTA LLM output for {req_id}/{representation}.")
+                    print(f"      Warning: could not parse SOTA LLM output for {req_id}/{phase_name}.")
                     parsed = {"error": "Could not parse evaluator output.", "raw_output": raw_response}
                 else:
                     print(f"      overall_alignment = {parsed.get('overall_alignment', 'n/a')}")
@@ -423,7 +423,7 @@ def run_compare_with_expert(req_text, req_filename,
                     "requirement_file": req_filename,
                     "model": model,
                     "eval_model": eval_model,
-                    "representation": representation,
+                    "phase": phase_name,
                     "req_id": req_id,
                     "expert_ground_truth": {
                         "primary": gt["ground_truth_primary"],
@@ -434,19 +434,13 @@ def run_compare_with_expert(req_text, req_filename,
                 }
                 all_results.append(record)
 
-                out_filename = re.sub(r'[^A-Za-z0-9_\-\.]', '_', f"{req_id}_{representation}".replace(" ", "_"))
+                out_filename = re.sub(r'[^A-Za-z0-9_\-\.]', '_', f"{req_id}_{phase_name}")
                 with open(os.path.join(model_out_dir, f"{out_filename}.json"), "w") as out:
                     json.dump(record, out, indent=2)
 
-                mongo_doc = {
-                    "timestamp": _dt.now(_tz.utc).isoformat(),
-                    **record,
-                }
+                mongo_doc = {"timestamp": _dt.now(_tz.utc).isoformat(), **record}
                 store_to_mongodb(mongo_doc, "expert_comparison")
 
-                # Small pacing delay between evaluator calls so we don't
-                # trip the provider's rate limit in the first place. Set
-                # EVAL_CALL_DELAY_SECONDS=0 to disable.
                 if EVAL_CALL_DELAY_SECONDS > 0:
                     time.sleep(EVAL_CALL_DELAY_SECONDS)
 
