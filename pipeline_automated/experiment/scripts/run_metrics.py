@@ -10,7 +10,16 @@ for _p in (SCRIPT_DIR, EXPERIMENT_DIR):
 
 from call_llm import MODELS
 from results.metrics import evaluate_sfv
-from generate_testcases import PHASES
+try:
+    # Normal case: run_metrics.py loaded as part of the scripts package
+    # (e.g. via `python -m scripts.cli`, which is how cli.py imports it).
+    # generate_testcases.py itself uses relative imports (.call_llm etc),
+    # so it must be imported the same way, or those break.
+    from .generate_testcases import PHASES
+except ImportError:
+    # Fallback: run_metrics.py executed standalone
+    # (`python scripts/run_metrics.py ...`), with no parent package.
+    from generate_testcases import PHASES
 
 
 def _model_name(model: str) -> str:
@@ -62,14 +71,14 @@ def run_evaluate_metrics(req_text, req_filename,
 
             print(f"\n  [{phase_name}] Gate 2 (SFV): {model} / {req_name}...")
 
-            sfv_result = evaluate_sfv(test_case_text=suite_text)
+            sfv_result = evaluate_sfv(test_case_text=suite_text, representation="Finite State Machine")
             with open(metric_json_path, "w") as out:
                 json.dump(sfv_result, out, indent=2)
 
             status = "PASS" if sfv_result["sfv_pass"] else "FAIL"
             print(f"    SFV = {sfv_result['sfv_score']} ({status}) — "
-                  f"{sfv_result['well_formed_count']}/{sfv_result['test_case_count']} test cases well-formed.")
-            if sfv_result["issues"]:
+                  f"{sfv_result.get('signals_checked', 0)} signal(s) checked.")
+            if sfv_result.get("issues"):
                 for issue in sfv_result["issues"][:5]:
                     print(f"      - {issue}")
 
@@ -78,7 +87,7 @@ def run_evaluate_metrics(req_text, req_filename,
                 "model": model,
                 "sfv_score": sfv_result.get("sfv_score"),
                 "sfv_pass": sfv_result.get("sfv_pass"),
-                "test_case_count": sfv_result.get("test_case_count"),
+                "signals_checked": sfv_result.get("signals_checked"),
             })
 
     summary_path = os.path.join(output_dir, f"{req_name}_sfv_summary.json")

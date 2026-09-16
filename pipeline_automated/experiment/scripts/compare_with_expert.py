@@ -377,7 +377,10 @@ def run_compare_with_expert(req_text, req_filename,
     os.makedirs(output_dir, exist_ok=True)
     all_results = []
 
-    from generate_testcases import PHASES  # phase1_basic, phase2_metrics_aware
+    try:
+        from .generate_testcases import PHASES  # phase1_basic, phase2_metrics_aware
+    except ImportError:
+        from generate_testcases import PHASES
 
     for phase_name in PHASES:
         for model in MODELS:
